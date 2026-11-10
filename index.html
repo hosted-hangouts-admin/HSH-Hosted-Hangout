@@ -4,13 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Hosted Hangouts | Hollywood Schoolhouse</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Fraunces & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -62,7 +59,7 @@
     <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-3">
       
       <!-- School Branding (Left Side) -->
-      <a href="#" onclick="showPublicSite(); return false;" class="flex items-center gap-1.5 sm:gap-3 group text-decoration-none min-w-0 shrink">
+      <a href="#" class="flex items-center gap-1.5 sm:gap-3 group text-decoration-none min-w-0 shrink">
         <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-[#be1e2d] flex items-center justify-center font-brand font-black text-lg sm:text-2xl group-hover:scale-105 transition-transform shadow-sm shrink-0">
           h
         </div>
@@ -104,423 +101,436 @@
           <span>Host</span>
         </button>
 
-        <button id="admin-nav-btn" onclick="toggleAdminView()" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold bg-zinc-950 text-white hover:bg-black transition border border-zinc-700 shadow-sm shrink-0">
+        <!-- Admin Login Button -->
+        <button onclick="handleAdminLoginRedirect()" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold bg-zinc-950 text-white hover:bg-black transition border border-zinc-700 shadow-sm shrink-0">
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span id="admin-nav-text">Admin Login</span>
+          <span>Admin Login</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ==================== VIEW 1: PUBLIC HOMEPAGE ==================== -->
-  <div id="public-site-view">
-    <!-- Hero Section -->
-    <section class="bg-[#18181b] text-white pt-9 sm:pt-12 pb-12 sm:pb-16 px-3.5 sm:px-6 lg:px-8 border-b border-zinc-800">
-      <div class="max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/80 border border-zinc-700 text-red-300 text-xs font-medium">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
-          <span>Community-Powered School Giving</span>
+  <!-- Hero Section -->
+  <section class="bg-[#18181b] text-white pt-9 sm:pt-12 pb-12 sm:pb-16 px-3.5 sm:px-6 lg:px-8 border-b border-zinc-800">
+    <div class="max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/80 border border-zinc-700 text-red-300 text-xs font-medium">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
+        <span>Community-Powered School Giving</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white font-heading">
+        Hosted Hangouts
+      </h1>
+
+      <p class="text-xs sm:text-base lg:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed px-1">
+        A backyard movie night? Cupcake Wars? A parents-versus-kids game show where the grown-ups finally get to prove they know something? We’re looking for HSH families to host our next round of Hosted Hangouts!
+      </p>
+
+      <!-- Clean "Guest" and "Host" Buttons -->
+      <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+        <a href="#catalog-section" onclick="toggleCalendarView(false)" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-zinc-950 font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+          <i data-lucide="compass" class="w-4 h-4 text-[#be1e2d]"></i>
+          <span>Guest</span>
+        </a>
+        <button onclick="openHostModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#be1e2d] hover:bg-[#d63031] text-white font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+          <i data-lucide="party-popper" class="w-4 h-4"></i>
+          <span>Host</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-5 sm:pt-6 text-left max-w-2xl mx-auto">
+        <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
+          <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Funds Raised '26-'27</div>
+          <div class="text-base sm:text-2xl font-bold text-[#f87171] mt-1" id="stat-raised">$600</div>
+        </div>
+        <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
+          <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Spots Claimed</div>
+          <div class="text-base sm:text-2xl font-bold text-white mt-1" id="stat-spots">4 / 15</div>
+        </div>
+        <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
+          <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Active Events</div>
+          <div class="text-base sm:text-2xl font-bold text-white mt-1" id="stat-events">1</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Catalog Section -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full" id="catalog-section">
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5 pb-4 border-b border-zinc-200">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 font-heading">Upcoming</h2>
+        <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Explore upcoming parent-hosted hangouts or view the school-wide calendar. Tap any image to see the full photo!</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <div class="relative inline-block text-left w-full sm:w-auto">
+          <select id="browse-filter-select" onchange="handleBrowseFilter(this.value)" class="w-full sm:w-auto appearance-none bg-white border border-zinc-300 text-zinc-800 py-2 sm:py-2.5 pl-3 pr-8 rounded-lg text-xs sm:text-sm font-medium shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
+            <option value="all">Browse Hangouts: All</option>
+            <option value="parents-only">Parents Only Hangouts</option>
+            <option value="sort-date">Sort by Date</option>
+            <option value="sort-cost">Sort by Cost</option>
+            <option value="view-calendar">View Calendar</option>
+          </select>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-3 pointer-events-none"></i>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white font-heading">
-          Hosted Hangouts
-        </h1>
+        <div class="relative inline-block text-left w-full sm:w-auto">
+          <select id="grade-filter-select" onchange="handleGradeFilter(this.value)" class="w-full sm:w-auto appearance-none bg-white border border-zinc-300 text-zinc-800 py-2 sm:py-2.5 pl-3 pr-8 rounded-lg text-xs sm:text-sm font-medium shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
+            <option value="all">All Grades / Ages</option>
+            <option value="Parents Only">Parents Only (Adults)</option>
+            <option value="Preschool">Preschool / Early Childhood</option>
+            <option value="Kindergarten">Kindergarten</option>
+            <option value="1st Grade">1st Grade</option>
+            <option value="2nd Grade">2nd Grade</option>
+            <option value="3rd Grade">3rd Grade</option>
+            <option value="4th Grade">4th Grade</option>
+            <option value="5th Grade">5th Grade</option>
+            <option value="6th Grade">6th Grade</option>
+          </select>
+          <i data-lucide="filter" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-3 pointer-events-none"></i>
+        </div>
 
-        <p class="text-xs sm:text-base lg:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed px-1">
-          A backyard movie night? Cupcake Wars? A parents-versus-kids game show where the grown-ups finally get to prove they know something? We’re looking for HSH families to host our next round of Hosted Hangouts!
-        </p>
+        <div class="inline-flex rounded-lg border border-zinc-300 bg-white p-1 shadow-sm w-full sm:w-auto justify-center">
+          <button id="view-cards-btn" onclick="toggleCalendarView(false)" class="flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span>Grid</span>
+          </button>
+          <button id="view-cal-btn" onclick="toggleCalendarView(true)" class="flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            <span>Calendar</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
-        <!-- Guest vs Host Decision Buttons -->
-        <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
-          <a href="#catalog-section" onclick="toggleCalendarView(false)" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-zinc-950 font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
-            <i data-lucide="compass" class="w-4 h-4 text-[#be1e2d]"></i>
-            <span>Guest</span>
-          </a>
-          <button onclick="openHostModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#be1e2d] hover:bg-[#d63031] text-white font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
-            <i data-lucide="party-popper" class="w-4 h-4"></i>
-            <span>Host</span>
+    <!-- Category Pill Filters -->
+    <div id="category-pills-bar" class="flex items-center gap-2 overflow-x-auto custom-scrollbar py-3 w-full">
+      <button onclick="setCategoryFilter('all')" data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#be1e2d] text-white transition whitespace-nowrap shadow-sm">All</button>
+      <button onclick="setCategoryFilter('Creative Arts')" data-cat="Creative Arts" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Creative Arts</button>
+      <button onclick="setCategoryFilter('Parent Socials')" data-cat="Parent Socials" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Parent Socials</button>
+      <button onclick="setCategoryFilter('Fitness & Sports')" data-cat="Fitness & Sports" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Fitness & Sports</button>
+      <button onclick="setCategoryFilter('Kids Activities')" data-cat="Kids Activities" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Kids Activities</button>
+      <button onclick="setCategoryFilter('Food & Drink')" data-cat="Food & Drink" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Food & Drink</button>
+    </div>
+
+    <!-- Grid Container for Upcoming Cards -->
+    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pt-2">
+      <!-- Direct HTML fallback guarantees "Living Centerpieces" renders even before JS starts -->
+      <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+        <div class="relative h-52 bg-zinc-100 overflow-hidden cursor-pointer group/img" onclick="openImagePreview('Living%20Centerpieces%20HH%20Inviteb.jpeg', 'Living Centerpieces: An Evening in Flowers')" title="Click to view full image">
+          <img src="Living%20Centerpieces%20HH%20Inviteb.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80';" alt="Living Centerpieces" class="w-full h-full object-cover group-hover/img:scale-105 transition duration-300">
+          <div class="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+            <span class="px-3 py-1.5 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-md flex items-center gap-1.5">
+              <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-[#be1e2d]"></i> Click to view full image
+            </span>
+          </div>
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-zinc-900/85 text-white backdrop-blur-sm">Creative Arts</span>
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#9e1422]/90 text-white backdrop-blur-sm">Parents Only</span>
+          </div>
+          <div class="absolute bottom-3 right-3 bg-white/95 px-3 py-1 rounded-full text-xs font-bold text-zinc-900 shadow pointer-events-none">
+            $150 / person
+          </div>
+        </div>
+        <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3.5">
+          <div>
+            <div class="flex items-center gap-2 text-xs text-[#be1e2d] font-semibold mb-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+              <span>Fri, Nov 13 • 5:30 - 8:00 PM (Starts 6 PM)</span>
+            </div>
+            <h3 class="font-bold text-zinc-900 text-base sm:text-lg leading-snug font-heading">Living Centerpieces: An Evening in Flowers</h3>
+            <p class="text-xs text-zinc-500 mt-1">Hosted by <span class="font-medium text-zinc-700">Daisy Hutton, Brianne Watson & Alicia Quinonez</span></p>
+            <p class="text-xs text-[#9e1422] font-semibold">✨ With Brooke Wetzel of The Plum Dahlia</p>
+            <p class="text-xs text-zinc-500 mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 inline mr-1 text-zinc-400"></i>Daisy Hutton’s House • 6301 Arrowhead Pl, LA 90068</p>
+            <p class="text-xs text-zinc-600 mt-2 line-clamp-2 leading-relaxed">Join Brooke Wetzel (30+ years in botanical art and sustainable floral design) to craft your very own living botanical centerpiece! An intimate evening with drinks, flowers, and community in the Hollywood Hills.</p>
+          </div>
+          <div class="pt-3 border-t border-zinc-100 space-y-3">
+            <div class="flex items-center justify-between">
+              <button onclick="viewAttendees(201)" class="text-xs font-semibold text-zinc-600 hover:text-[#be1e2d] flex items-center gap-1.5 transition">
+                <i data-lucide="users" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
+                <span id="card-spots-joined">4 joined</span>
+                <span class="text-zinc-400" id="card-spots-left">(11 left)</span>
+              </button>
+              <button onclick="viewAttendees(201)" class="text-[11px] font-bold text-[#be1e2d] hover:underline">Who's going?</button>
+            </div>
+            <button onclick="openBooking(201)" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-[#be1e2d] hover:bg-[#d63031] text-white shadow-sm">
+              Sign Up • $150
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar View -->
+    <div id="calendar-container" class="hidden space-y-5 pt-4">
+      <div class="bg-red-50 border border-red-200 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-red-950">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#be1e2d]/10 text-[#be1e2d] flex items-center justify-center shrink-0">
+            <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
+          </div>
+          <div class="text-xs sm:text-sm">
+            <span class="font-bold">Hollywood Schoolhouse Schedule Integrated:</span> Showing hosted hangouts alongside official school calendar events.
+          </div>
+        </div>
+        <a href="https://www.hshla.org/calendar" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#be1e2d] hover:text-[#9e1422] underline shrink-0">
+          <span>Official HSH Calendar Link</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-xl border border-zinc-200 shadow-sm">
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div class="inline-flex rounded-lg border border-zinc-200 bg-zinc-50 p-0.5 shadow-sm">
+            <button onclick="prevMonth()" class="p-1.5 sm:p-2 rounded-md hover:bg-white text-zinc-700 hover:text-zinc-950 transition">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button onclick="nextMonth()" class="p-1.5 sm:p-2 rounded-md hover:bg-white text-zinc-700 hover:text-zinc-950 transition">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <h3 class="font-bold text-base sm:text-xl text-zinc-900 font-heading min-w-[130px] sm:min-w-[170px]" id="calendar-month-label">
+            November 2026
+          </h3>
+
+          <div class="relative inline-block text-left">
+            <select id="calendar-select-month" onchange="onSelectMonthDropdown(this.value)" class="appearance-none bg-zinc-50 border border-zinc-300 text-zinc-800 text-[11px] sm:text-xs font-semibold py-1.5 sm:py-2 pl-2.5 pr-7 rounded-lg shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
+              <option value="2026-10">October 2026</option>
+              <option value="2026-11" selected>November 2026 (Current)</option>
+              <option value="2026-12">December 2026</option>
+              <option value="2027-01">January 2027</option>
+              <option value="2027-02">February 2027</option>
+              <option value="2027-03">March 2027</option>
+              <option value="2027-04">April 2027</option>
+              <option value="2027-05">May 2027</option>
+              <option value="2027-06">June 2027</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-500 absolute right-2 top-2 pointer-events-none"></i>
+          </div>
+
+          <button onclick="jumpToCurrentMonth()" class="text-[11px] sm:text-xs font-semibold px-2 py-1.5 rounded-md border border-zinc-200 text-zinc-600 hover:bg-zinc-100 transition">
+            Today
           </button>
         </div>
 
-        <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-5 sm:pt-6 text-left max-w-2xl mx-auto">
-          <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
-            <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Funds Raised '26-'27</div>
-            <div class="text-base sm:text-2xl font-bold text-[#f87171] mt-1" id="stat-raised">$0</div>
+        <div class="flex items-center gap-3 sm:gap-4 text-xs font-semibold pt-1 sm:pt-0">
+          <span class="flex items-center gap-1.5 text-zinc-700">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#be1e2d]"></span> Hosted Hangout
+          </span>
+          <span class="flex items-center gap-1.5 text-zinc-700">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Official HSH Event
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-x-auto">
+        <div class="min-w-[600px]">
+          <div class="grid grid-cols-7 border-b border-zinc-200 bg-zinc-50 text-center text-xs font-bold text-zinc-500 py-2.5 uppercase tracking-wider">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
           </div>
-          <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
-            <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Spots Claimed</div>
-            <div class="text-base sm:text-2xl font-bold text-white mt-1" id="stat-spots">0 / 0</div>
+          <div class="grid grid-cols-7 gap-px bg-zinc-200" id="calendar-days-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Hangouts Showcase (Hardcoded for Guaranteed Instant Loading) -->
+    <section class="mt-14 pt-8 border-t border-zinc-200">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5">
+        <div>
+          <div class="text-xs uppercase font-bold tracking-widest text-[#be1e2d]">Memories & Inspiration</div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-zinc-900 mt-1 font-heading">Past Hangouts Showcase</h3>
+          <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Click any hangout below to explore photo galleries from past events!</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="past-showcase-grid">
+        <!-- 1. Shelby Jazz Class -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('shelby')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="HOSTED_HANGOUT_SHELBY.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80';" alt="Feel Good Jazz Class" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Dance & Fitness</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
+            </span>
           </div>
-          <div class="p-2.5 sm:p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between">
-            <div class="text-[9px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold leading-tight">Active Events</div>
-            <div class="text-base sm:text-2xl font-bold text-white mt-1" id="stat-events">0</div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Feel Good Jazz Class</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Shelby Rabara Shum</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$50 / person</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Presidents Karaoke -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('karaoke')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="karoke%20HH.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=700&q=80';" alt="Presidents Karaoke Night" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Parent Social</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> Flyer
+            </span>
+          </div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Presidents' Karaoke Night</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Christy, Michelle, Daisy, Alicia & Brianne</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$100 / person</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Sound Bath -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('soundbath')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="HOSTED_HANGOUT_SOUND_BATH.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=700&q=80';" alt="Sunset Sound Bath" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Wellness & Sound</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> Flyer
+            </span>
+          </div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Sunset Sound Bath</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Elizabeth Sbardellati</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$75 / person</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Ice Skating -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('iceskating')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="HOSTED_HANGOUT_ICE_SKATING.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=700&q=80';" alt="Community Ice Skating" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">All-School Family</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> 4 Photos
+            </span>
+          </div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Community Ice Skating</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Jean, Brandee, Janet, Dawn & Julie</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$40 / person</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. ECE Dance Class -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('ecedance')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="HOSTED_HANGOUT_ECE_DANCE.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=700&q=80';" alt="ECE Dance Class" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Early Childhood</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
+            </span>
+          </div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Grown-Ups & Kiddos Dance Class</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Caroline Keichian • Led by Savanna Stone</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$35 / family</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Distillery Tour -->
+        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('distillery')">
+          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+            <img src="HOSTED_HANGOUT_DISTLLERY.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80';" alt="Distillery Tour" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
+                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
+                <span>Click for gallery</span>
+              </span>
+            </div>
+            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Parent Social</span>
+            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
+              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
+            </span>
+          </div>
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Hollywood Distillery Tasting & Tour</h4>
+              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Carrie Clifford, Kay Lee & Lauren Delp</p>
+            </div>
+            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
+              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$65 / person</span>
+              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                <span>View Gallery</span>
+                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Upcoming Catalog Section -->
-    <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full" id="catalog-section">
-
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5 pb-4 border-b border-zinc-200">
-        <div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 font-heading">Upcoming</h2>
-          <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Explore upcoming parent-hosted hangouts or view the school-wide calendar. Tap any image to see the full photo!</p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-          <div class="relative inline-block text-left w-full sm:w-auto">
-            <select id="browse-filter-select" onchange="handleBrowseFilter(this.value)" class="w-full sm:w-auto appearance-none bg-white border border-zinc-300 text-zinc-800 py-2 sm:py-2.5 pl-3 pr-8 rounded-lg text-xs sm:text-sm font-medium shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
-              <option value="all">Browse Hangouts: All</option>
-              <option value="parents-only">Parents Only Hangouts</option>
-              <option value="sort-date">Sort by Date</option>
-              <option value="sort-cost">Sort by Cost</option>
-              <option value="view-calendar">View Calendar</option>
-            </select>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-3 pointer-events-none"></i>
-          </div>
-
-          <div class="relative inline-block text-left w-full sm:w-auto">
-            <select id="grade-filter-select" onchange="handleGradeFilter(this.value)" class="w-full sm:w-auto appearance-none bg-white border border-zinc-300 text-zinc-800 py-2 sm:py-2.5 pl-3 pr-8 rounded-lg text-xs sm:text-sm font-medium shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
-              <option value="all">All Grades / Ages</option>
-              <option value="Parents Only">Parents Only (Adults)</option>
-              <option value="Preschool">Preschool / Early Childhood</option>
-              <option value="Kindergarten">Kindergarten</option>
-              <option value="1st Grade">1st Grade</option>
-              <option value="2nd Grade">2nd Grade</option>
-              <option value="3rd Grade">3rd Grade</option>
-              <option value="4th Grade">4th Grade</option>
-              <option value="5th Grade">5th Grade</option>
-              <option value="6th Grade">6th Grade</option>
-            </select>
-            <i data-lucide="filter" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-3 pointer-events-none"></i>
-          </div>
-
-          <div class="inline-flex rounded-lg border border-zinc-300 bg-white p-1 shadow-sm w-full sm:w-auto justify-center">
-            <button id="view-cards-btn" onclick="toggleCalendarView(false)" class="flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition">
-              <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-              <span>Grid</span>
-            </button>
-            <button id="view-cal-btn" onclick="toggleCalendarView(true)" class="flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition">
-              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-              <span>Calendar</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Category Pill Filters -->
-      <div id="category-pills-bar" class="flex items-center gap-2 overflow-x-auto custom-scrollbar py-3 w-full">
-        <button onclick="setCategoryFilter('all')" data-cat="all" class="cat-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-[#be1e2d] text-white transition whitespace-nowrap shadow-sm">All</button>
-        <button onclick="setCategoryFilter('Creative Arts')" data-cat="Creative Arts" class="cat-pill px-3 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Creative Arts</button>
-        <button onclick="setCategoryFilter('Parent Socials')" data-cat="Parent Socials" class="cat-pill px-3 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Parent Socials</button>
-        <button onclick="setCategoryFilter('Fitness & Sports')" data-cat="Fitness & Sports" class="cat-pill px-3 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Fitness & Sports</button>
-        <button onclick="setCategoryFilter('Kids Activities')" data-cat="Kids Activities" class="cat-pill px-3 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Kids Activities</button>
-        <button onclick="setCategoryFilter('Food & Drink')" data-cat="Food & Drink" class="cat-pill px-3 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap">Food & Drink</button>
-      </div>
-
-      <!-- Grid Container for Upcoming Cards -->
-      <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pt-2"></div>
-
-      <!-- Calendar View -->
-      <div id="calendar-container" class="hidden space-y-5 pt-4">
-        <div class="bg-red-50 border border-red-200 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-red-950">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-[#be1e2d]/10 text-[#be1e2d] flex items-center justify-center shrink-0">
-              <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
-            </div>
-            <div class="text-xs sm:text-sm">
-              <span class="font-bold">Hollywood Schoolhouse Schedule Integrated:</span> Showing hosted hangouts alongside official school calendar events.
-            </div>
-          </div>
-          <a href="https://www.hshla.org/calendar" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#be1e2d] hover:text-[#9e1422] underline shrink-0">
-            <span>Official HSH Calendar Link</span>
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-          </a>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-xl border border-zinc-200 shadow-sm">
-          <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-            <div class="inline-flex rounded-lg border border-zinc-200 bg-zinc-50 p-0.5 shadow-sm">
-              <button onclick="prevMonth()" class="p-1.5 sm:p-2 rounded-md hover:bg-white text-zinc-700 hover:text-zinc-950 transition">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextMonth()" class="p-1.5 sm:p-2 rounded-md hover:bg-white text-zinc-700 hover:text-zinc-950 transition">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-            </div>
-
-            <h3 class="font-bold text-base sm:text-xl text-zinc-900 font-heading min-w-[130px] sm:min-w-[170px]" id="calendar-month-label">
-              November 2026
-            </h3>
-
-            <div class="relative inline-block text-left">
-              <select id="calendar-select-month" onchange="onSelectMonthDropdown(this.value)" class="appearance-none bg-zinc-50 border border-zinc-300 text-zinc-800 text-[11px] sm:text-xs font-semibold py-1.5 sm:py-2 pl-2.5 pr-7 rounded-lg shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
-                <option value="2026-10">October 2026</option>
-                <option value="2026-11" selected>November 2026 (Current)</option>
-                <option value="2026-12">December 2026</option>
-                <option value="2027-01">January 2027</option>
-                <option value="2027-02">February 2027</option>
-                <option value="2027-03">March 2027</option>
-                <option value="2027-04">April 2027</option>
-                <option value="2027-05">May 2027</option>
-                <option value="2027-06">June 2027</option>
-              </select>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-500 absolute right-2 top-2 pointer-events-none"></i>
-            </div>
-
-            <button onclick="jumpToCurrentMonth()" class="text-[11px] sm:text-xs font-semibold px-2 py-1.5 rounded-md border border-zinc-200 text-zinc-600 hover:bg-zinc-100 transition">
-              Today
-            </button>
-          </div>
-
-          <div class="flex items-center gap-3 sm:gap-4 text-xs font-semibold pt-1 sm:pt-0">
-            <span class="flex items-center gap-1.5 text-zinc-700">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#be1e2d]"></span> Hosted Hangout
-            </span>
-            <span class="flex items-center gap-1.5 text-zinc-700">
-              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Official HSH Event
-            </span>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-x-auto">
-          <div class="min-w-[600px]">
-            <div class="grid grid-cols-7 border-b border-zinc-200 bg-zinc-50 text-center text-xs font-bold text-zinc-500 py-2.5 uppercase tracking-wider">
-              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-            </div>
-            <div class="grid grid-cols-7 gap-px bg-zinc-200" id="calendar-days-grid"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Past Hangouts Showcase -->
-      <section class="mt-14 pt-8 border-t border-zinc-200">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5">
-          <div>
-            <div class="text-xs uppercase font-bold tracking-widest text-[#be1e2d]">Memories & Inspiration</div>
-            <h3 class="text-2xl sm:text-3xl font-bold text-zinc-900 mt-1 font-heading">Past Hangouts Showcase</h3>
-            <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Click any hangout below to explore photo galleries from past events!</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="past-showcase-grid"></div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ==================== VIEW 2: CUSTOM BUILT-IN ADMIN OPERATIONS DASHBOARD ==================== -->
-  <div id="admin-page-view" class="hidden flex-1 w-full bg-[#fbf9f5]">
-    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-8 space-y-6">
-      
-      <!-- Top Action Strip -->
-      <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full bg-red-100 text-[#be1e2d] text-xs font-bold">HSH Administration</span>
-            <span class="text-xs text-zinc-500 font-medium">Host Coordination, Payments & Scheduling Hub</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 font-heading mt-1">Event Operations & Roster Command</h2>
-        </div>
-
-        <div class="flex items-center gap-2.5 flex-wrap">
-          <button onclick="openAddEventModal()" class="px-3.5 py-2 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white text-xs font-bold transition flex items-center gap-1.5 shadow">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>Add New Hangout</span>
-          </button>
-          <button onclick="exportGuestManifestCSV()" class="px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-200">
-            <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-700"></i>
-            <span>Export Roster CSV</span>
-          </button>
-          <button onclick="showPublicSite()" class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold transition flex items-center gap-1.5 shadow">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-            <span>Back to Public Site</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Executive Metrics -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Total Confirmed Raised</div>
-          <div class="text-2xl font-bold text-emerald-600 mt-1" id="admin-kpi-revenue">$0</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">100% to Tuition Assistance</div>
-        </div>
-        <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Total Bookings</div>
-          <div class="text-2xl font-bold text-zinc-900 mt-1" id="admin-kpi-spots">0</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">Across active hangouts</div>
-        </div>
-        <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Active Hangouts</div>
-          <div class="text-2xl font-bold text-zinc-900 mt-1" id="admin-kpi-events">0</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">Available for parent signup</div>
-        </div>
-        <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Average Donation</div>
-          <div class="text-2xl font-bold text-[#be1e2d] mt-1" id="admin-kpi-avg">$0.00</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">Per registered attendee</div>
-        </div>
-      </div>
-
-      <!-- Section 1: Hangout Scheduling, Host Contacts & Capacity Management -->
-      <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-3">
-          <div>
-            <h3 class="text-lg font-bold text-zinc-900 font-heading">Schedule, Pricing & Host Controls</h3>
-            <p class="text-xs text-zinc-500">Add/delete upcoming events, edit costs, change capacities, and manage guest lists.</p>
-          </div>
-          <button onclick="openAddEventModal()" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 text-[#be1e2d] border border-red-200 hover:bg-red-100 transition w-fit">
-            + New Event
-          </button>
-        </div>
-
-        <div class="overflow-x-auto border border-zinc-200 rounded-xl">
-          <table class="w-full text-left text-xs text-zinc-700 min-w-[700px]">
-            <thead class="bg-zinc-100 text-zinc-900 uppercase font-bold text-[10px] tracking-wider">
-              <tr>
-                <th class="py-2.5 px-3.5">Hangout Title</th>
-                <th class="py-2.5 px-3">Date & Time</th>
-                <th class="py-2.5 px-3">Price</th>
-                <th class="py-2.5 px-3">Capacity</th>
-                <th class="py-2.5 px-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="admin-schedule-tbody" class="divide-y divide-zinc-200"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Section 2: Financial Reconciliation & Guest Check-In Roster -->
-      <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-3">
-          <div>
-            <h3 class="text-lg font-bold text-zinc-900 font-heading">Guest Roster, Check-In & Payment Verification</h3>
-            <p class="text-xs text-zinc-500">Search attendees, toggle day-of check-ins, record manual registrations, or delete sign-ups.</p>
-          </div>
-          <div class="relative w-full sm:w-72">
-            <i data-lucide="search" class="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-2.5 pointer-events-none"></i>
-            <input type="text" id="admin-guest-search" oninput="filterAdminGuestRoster()" placeholder="Search guest, grade, or event..." class="w-full pl-8 pr-3 py-1.5 rounded-lg border border-zinc-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#be1e2d]">
-          </div>
-        </div>
-
-        <div class="overflow-x-auto border border-zinc-200 rounded-xl">
-          <table class="w-full text-left text-xs text-zinc-700 min-w-[720px]">
-            <thead class="bg-zinc-100 text-zinc-900 uppercase font-bold text-[10px] tracking-wider">
-              <tr>
-                <th class="py-2.5 px-3.5">Guest Name</th>
-                <th class="py-2.5 px-3">Event</th>
-                <th class="py-2.5 px-3">Child's Grade</th>
-                <th class="py-2.5 px-3">Amount & Method</th>
-                <th class="py-2.5 px-3">Check-In Status</th>
-                <th class="py-2.5 px-3">Manage</th>
-              </tr>
-            </thead>
-            <tbody id="admin-guests-tbody" class="divide-y divide-zinc-200"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  </main>
 
   <!-- ==================== MODALS ==================== -->
-
-  <!-- Admin: Create New Event Modal -->
-  <div id="admin-add-event-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('admin-add-event-modal')">
-    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
-      <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
-        <div>
-          <h3 class="font-bold text-base sm:text-lg font-heading">Add New Hangout</h3>
-          <p class="text-xs text-red-100">Publish a new event to the live catalogue</p>
-        </div>
-        <button onclick="closeModal('admin-add-event-modal')" class="text-white/80 hover:text-white p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <form onsubmit="handleAdminCreateEvent(event)" class="p-5 sm:p-6 space-y-3.5 overflow-y-auto custom-scrollbar flex-1">
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Hangout Title</label>
-          <input type="text" id="admin-new-title" required placeholder="e.g., Backyard Paella & Spanish Wine Night" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Host Name(s)</label>
-          <input type="text" id="admin-new-host" required placeholder="e.g., The Miller & Henderson Families" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Category</label>
-            <select id="admin-new-cat" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-              <option value="Creative Arts">Creative Arts</option>
-              <option value="Parent Socials">Parent Socials</option>
-              <option value="Kids Activities">Kids Activities</option>
-              <option value="Fitness & Sports">Fitness & Sports</option>
-              <option value="Food & Drink">Food & Drink</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Target Grade</label>
-            <select id="admin-new-grade" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-              <option value="Parents Only">Parents Only (Adults)</option>
-              <option value="All Grades">All Grades</option>
-              <option value="Kindergarten">Kindergarten</option>
-              <option value="1st Grade">1st Grade</option>
-              <option value="2nd Grade">2nd Grade</option>
-              <option value="3rd Grade">3rd Grade</option>
-              <option value="4th Grade">4th Grade</option>
-              <option value="5th Grade">5th Grade</option>
-              <option value="6th Grade">6th Grade</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Cost Per Spot ($)</label>
-            <input type="number" id="admin-new-cost" required min="1" placeholder="100" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Max Spots Available</label>
-            <input type="number" id="admin-new-spots" required min="1" placeholder="20" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Calendar Date (YYYY-MM-DD)</label>
-            <input type="date" id="admin-new-date" required class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Display Date/Time</label>
-            <input type="text" id="admin-new-display-date" required placeholder="Sat, Dec 12 • 6:00 PM" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Location</label>
-          <input type="text" id="admin-new-loc" required placeholder="Host Home • 1234 Hollywood Hills" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Image Filename or URL</label>
-          <input type="text" id="admin-new-img" placeholder="my_image.jpg (or web URL)" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Description</label>
-          <textarea id="admin-new-desc" required rows="3" placeholder="Describe the party, activities, food, and details..." class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none"></textarea>
-        </div>
-
-        <button type="submit" class="w-full py-3 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-sm shadow transition">
-          Create & Publish Event
-        </button>
-      </form>
-    </div>
-  </div>
 
   <!-- Single Image Lightbox Modal -->
   <div id="image-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('image-preview-modal')">
@@ -610,6 +620,7 @@
           </div>
         </div>
 
+        <!-- Pricing Tier / Pay What You Can Switcher -->
         <div class="pt-1">
           <div class="flex items-center justify-between mb-1.5">
             <label class="block text-xs font-bold text-zinc-700 uppercase">Contribution Amount</label>
@@ -639,14 +650,15 @@
           </div>
         </div>
 
+        <!-- Payment Method Options -->
         <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Select How You'd Like to Pay</label>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Select Payment Method</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-[#be1e2d] has-[:checked]:border-[#be1e2d] has-[:checked]:bg-red-50/40 transition">
               <input type="radio" name="pay-method" value="card" checked class="text-[#be1e2d] focus:ring-[#be1e2d] mt-0.5">
               <div>
                 <span class="text-xs font-bold text-zinc-900 block leading-tight">Credit Card / Apple Pay</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Instant online payment (No app required)</span>
+                <span class="text-[10px] text-zinc-500 block mt-0.5">Instant online payment</span>
               </div>
             </label>
 
@@ -654,7 +666,7 @@
               <input type="radio" name="pay-method" value="p2p" class="text-blue-600 focus:ring-blue-500 mt-0.5">
               <div>
                 <span class="text-xs font-bold text-zinc-900 block leading-tight">Venmo, Zelle or PayPal</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Pay to school handle with event note</span>
+                <span class="text-[10px] text-zinc-500 block mt-0.5">Pay to school account handle</span>
               </div>
             </label>
 
@@ -662,7 +674,7 @@
               <input type="radio" name="pay-method" value="student_account" class="text-purple-600 focus:ring-purple-500 mt-0.5">
               <div>
                 <span class="text-xs font-bold text-zinc-900 block leading-tight">Bill to HSH Account</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Added to your monthly FACTS/school invoice</span>
+                <span class="text-[10px] text-zinc-500 block mt-0.5">Added to FACTS billing</span>
               </div>
             </label>
 
@@ -670,10 +682,15 @@
               <input type="radio" name="pay-method" value="check_cash" class="text-amber-600 focus:ring-amber-500 mt-0.5">
               <div>
                 <span class="text-xs font-bold text-zinc-900 block leading-tight">Check or Cash</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Drop off payment at the school front desk</span>
+                <span class="text-[10px] text-zinc-500 block mt-0.5">Deliver to Front Desk</span>
               </div>
             </label>
           </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Notes / Guest Names (Optional)</label>
+          <input type="text" id="book-notes" placeholder="e.g. Dietary preferences, co-attendee names" class="w-full px-3.5 py-2 rounded-lg border border-zinc-300 text-xs focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
         </div>
 
         <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-between">
@@ -989,8 +1006,21 @@
 
   <!-- ==================== JAVASCRIPT ENGINE ==================== -->
   <script>
-    // 1. STATE & PERSISTENT STORAGE
-    const defaultHangouts = [
+    // 0. SERVER CONFIGURATION
+    // Enter your deployed Node server URL here (e.g. 'https://my-hsh-app.onrender.com')
+    // Leaving this empty runs in zero-error standalone mode with fallback data.
+    const API_BASE_URL = '';
+
+    function handleAdminLoginRedirect() {
+      if (API_BASE_URL && API_BASE_URL.trim() !== '') {
+        window.location.href = `${API_BASE_URL.replace(/\/$/, '')}/admin/`;
+      } else {
+        alert("The backend Node server is not connected yet.\n\nOnce server.mjs is deployed, set API_BASE_URL at the top of index.html script to enable the live /admin/ dashboard.");
+      }
+    }
+
+    // 1. DATA DEFINITIONS & FALLBACKS
+    let hangouts = [
       {
         id: 201,
         title: "Living Centerpieces: An Evening in Flowers",
@@ -998,6 +1028,7 @@
         specialGuest: "Brooke Wetzel of The Plum Dahlia",
         category: "Creative Arts",
         grade: "Parents Only",
+        status: "Open",
         date: "2026-11-13",
         displayDate: "Fri, Nov 13 • 5:30 - 8:00 PM (Starts 6 PM)",
         location: "Daisy Hutton’s House • 6301 Arrowhead Pl, LA 90068",
@@ -1007,21 +1038,12 @@
         fallbackImage: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80",
         description: "Join Brooke Wetzel (30+ years in botanical art and sustainable floral design) to craft your very own living botanical centerpiece! An intimate evening with drinks, flowers, and community in the Hollywood Hills.",
         attendees: [
-          { id: 1, name: "Alma Kawczynski", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
-          { id: 2, name: "Claire Foster", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
-          { id: 3, name: "Sarah B.", grade: "Parents Only", paid: 150, method: "p2p", checkedIn: false },
-          { id: 4, name: "Elena Ross", grade: "Parents Only", paid: 150, method: "card", checkedIn: true }
+          { name: "Alma Kawczynski", grade: "Parents Only" },
+          { name: "Claire Foster", grade: "Parents Only" },
+          { name: "Sarah B.", grade: "Parents Only" },
+          { name: "Elena Ross", grade: "Parents Only" }
         ]
       }
-    ];
-
-    const defaultPastShowcase = [
-      { id: "shelby", title: "Feel Good Jazz Class", host: "Hosted by Shelby Rabara Shum", price: "$50 / person", category: "Dance & Fitness", cover: "HOSTED_HANGOUT_SHELBY.jpeg", count: "2 Photos" },
-      { id: "karaoke", title: "Presidents' Karaoke Night", host: "Hosted by Christy, Michelle, Daisy, Alicia & Brianne", price: "$100 / person", category: "Parent Social", cover: "karoke%20HH.jpg", count: "Flyer" },
-      { id: "soundbath", title: "Sunset Sound Bath", host: "Hosted by Elizabeth Sbardellati", price: "$75 / person", category: "Wellness & Sound", cover: "HOSTED_HANGOUT_SOUND_BATH.jpg", count: "Flyer" },
-      { id: "iceskating", title: "Community Ice Skating", host: "Hosted by Jean, Brandee, Janet, Dawn & Julie", price: "$40 / person", category: "All-School Family", cover: "HOSTED_HANGOUT_ICE_SKATING.jpg", count: "4 Photos" },
-      { id: "ecedance", title: "Grown-Ups & Kiddos Dance Class", host: "Hosted by Caroline Keichian • Led by Savanna Stone", price: "$35 / family", category: "Early Childhood", cover: "HOSTED_HANGOUT_ECE_DANCE.jpg", count: "2 Photos" },
-      { id: "distillery", title: "Hollywood Distillery Tasting & Tour", host: "Hosted by Carrie Clifford, Kay Lee & Lauren Delp", price: "$65 / person", category: "Parent Social", cover: "HOSTED_HANGOUT_DISTLLERY.jpg", count: "2 Photos" }
     ];
 
     const pastGalleries = {
@@ -1177,21 +1199,6 @@
       { id: 65, title: "Backyard Cinema Club", ages: "5–11", minAge: 5, maxAge: 11, category: "Movies & Media", setting: "Backyard", desc: "Outdoor projector, lounge seating, warm blankets, artisan pizza, and a family-favorite film." }
     ];
 
-    // Read state from localStorage or initialize with defaults
-    let hangouts = JSON.parse(localStorage.getItem('hsh_upcoming_hangouts')) || defaultHangouts;
-    let pastShowcaseItems = JSON.parse(localStorage.getItem('hsh_past_hangouts')) || defaultPastShowcase;
-
-    function saveAllData() {
-      localStorage.setItem('hsh_upcoming_hangouts', JSON.stringify(hangouts));
-      localStorage.setItem('hsh_past_hangouts', JSON.stringify(pastShowcaseItems));
-      renderCards();
-      renderPastShowcase();
-      renderAdminDashboard();
-      renderCalendar();
-      updateImpactStats();
-    }
-
-    // 2. STATE VARIABLES
     let currentCategory = 'all';
     let currentGrade = 'all';
     let currentSort = 'default';
@@ -1204,326 +1211,24 @@
     let activePhotoIndex = 0;
     let activeBookingHangout = null;
     let activePricingTier = 'standard';
-    let currentAdminPageActive = false;
 
-    // 3. ADMIN CRUD OPERATIONS
-    function adminDeleteUpcoming(eventId) {
-      const target = hangouts.find(h => h.id === eventId);
-      if (!target) return;
-      if (confirm(`Are you sure you want to delete "${target.title}"? This cannot be undone.`)) {
-        hangouts = hangouts.filter(h => h.id !== eventId);
-        saveAllData();
-      }
-    }
-
-    function adminDeletePast(pastId) {
-      const target = pastShowcaseItems.find(p => p.id === pastId);
-      if (!target) return;
-      if (confirm(`Remove "${target.title}" from the Past Showcase?`)) {
-        pastShowcaseItems = pastShowcaseItems.filter(p => p.id !== pastId);
-        saveAllData();
-      }
-    }
-
-    function adminEditPriceAndSpots(eventId) {
-      const event = hangouts.find(h => h.id === eventId);
-      if (!event) return;
-
-      const newPrice = prompt(`Set ticket price ($) for "${event.title}":`, event.price);
-      if (newPrice !== null && !isNaN(newPrice) && newPrice.trim() !== "") {
-        event.price = parseFloat(newPrice);
-      }
-
-      const newSpots = prompt(`Set total capacity (max spots) for "${event.title}":`, event.totalSpots);
-      if (newSpots !== null && !isNaN(newSpots) && newSpots.trim() !== "") {
-        event.totalSpots = parseInt(newSpots, 10);
-      }
-
-      saveAllData();
-    }
-
-    function adminAddAttendee(eventId) {
-      const event = hangouts.find(h => h.id === eventId);
-      if (!event) return;
-
-      const guestName = prompt(`Enter Guest / Parent Name for "${event.title}":`);
-      if (!guestName || !guestName.trim()) return;
-
-      const grade = prompt("Enter Child's Grade (or 'Parents Only'):", "Parents Only") || "Parents Only";
-      const amountPaid = prompt("Recorded payment amount ($):", event.price) || event.price;
-      const payMethod = prompt("Payment method (card, p2p, student_account, check_cash):", "card") || "card";
-
-      if (!event.attendees) event.attendees = [];
-      event.attendees.push({
-        id: Date.now(),
-        name: guestName.trim(),
-        grade: grade.trim(),
-        paid: parseFloat(amountPaid),
-        method: payMethod,
-        checkedIn: false
-      });
-
-      saveAllData();
-    }
-
-    function adminRemoveAttendee(eventId, attendeeId) {
-      const event = hangouts.find(h => h.id === eventId);
-      if (!event) return;
-
-      if (confirm("Remove this attendee and release their spot?")) {
-        event.attendees = event.attendees.filter(a => a.id !== attendeeId);
-        saveAllData();
-      }
-    }
-
-    function openAddEventModal() {
-      openModal('admin-add-event-modal');
-    }
-
-    function handleAdminCreateEvent(e) {
-      e.preventDefault();
-      const title = document.getElementById('admin-new-title').value.trim();
-      const host = document.getElementById('admin-new-host').value.trim();
-      const cat = document.getElementById('admin-new-cat').value;
-      const grade = document.getElementById('admin-new-grade').value;
-      const cost = parseFloat(document.getElementById('admin-new-cost').value);
-      const spots = parseInt(document.getElementById('admin-new-spots').value, 10);
-      const calDate = document.getElementById('admin-new-date').value;
-      const displayDate = document.getElementById('admin-new-display-date').value.trim();
-      const loc = document.getElementById('admin-new-loc').value.trim();
-      let img = document.getElementById('admin-new-img').value.trim();
-      const desc = document.getElementById('admin-new-desc').value.trim();
-
-      if (!img) {
-        img = "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80";
-      }
-
-      const newEvent = {
-        id: Date.now(),
-        title: title,
-        host: host,
-        category: cat,
-        grade: grade,
-        date: calDate,
-        displayDate: displayDate,
-        location: loc,
-        price: cost,
-        totalSpots: spots,
-        image: img,
-        fallbackImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80",
-        description: desc,
-        attendees: []
-      };
-
-      hangouts.unshift(newEvent);
-      closeModal('admin-add-event-modal');
-      e.target.reset();
-      saveAllData();
-      alert(`🎉 "${title}" has been added and published!`);
-    }
-
-    // 4. ADMIN VIEW SWITCHER
-    function toggleAdminView() {
-      if (currentAdminPageActive) {
-        showPublicSite();
-      } else {
-        showAdminPage();
-      }
-    }
-
-    function showAdminPage() {
-      currentAdminPageActive = true;
-      document.getElementById('public-site-view').classList.add('hidden');
-      document.getElementById('admin-page-view').classList.remove('hidden');
-      
-      const adminNavBtn = document.getElementById('admin-nav-btn');
-      const adminNavText = document.getElementById('admin-nav-text');
-      adminNavBtn.className = "flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold bg-white text-[#be1e2d] hover:bg-zinc-100 transition border border-white shadow-sm shrink-0";
-      adminNavText.textContent = "Exit Admin";
-
-      renderAdminDashboard();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      safeLucide();
-    }
-
-    function showPublicSite() {
-      currentAdminPageActive = false;
-      document.getElementById('public-site-view').classList.remove('hidden');
-      document.getElementById('admin-page-view').classList.add('hidden');
-      
-      const adminNavBtn = document.getElementById('admin-nav-btn');
-      const adminNavText = document.getElementById('admin-nav-text');
-      adminNavBtn.className = "flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold bg-zinc-950 text-white hover:bg-black transition border border-zinc-700 shadow-sm shrink-0";
-      adminNavText.textContent = "Admin Login";
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      safeLucide();
-    }
-
-    function renderAdminDashboard() {
-      let totalRaised = 0;
-      let totalSpots = 0;
-      let allGuests = [];
-
-      hangouts.forEach(h => {
-        if (h.attendees) {
-          h.attendees.forEach(a => {
-            totalRaised += (a.paid || h.price);
-            totalSpots += 1;
-            allGuests.push({
-              id: a.id || Math.random(),
-              name: a.name,
-              grade: a.grade,
-              event: h.title,
-              paid: (a.paid || h.price),
-              method: a.method || "card",
-              checkedIn: a.checkedIn || false,
-              eventId: h.id
-            });
-          });
+    // Fetch dynamic catalog from server if connected
+    async function initCatalogFromServer() {
+      if (!API_BASE_URL) return;
+      try {
+        const res = await fetch(`${API_BASE_URL.replace(/\/$/, '')}/api/catalog`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            hangouts = data;
+            renderCards();
+          }
         }
-      });
-
-      document.getElementById('admin-kpi-revenue').textContent = `$${totalRaised.toLocaleString()}`;
-      document.getElementById('admin-kpi-spots').textContent = totalSpots;
-      document.getElementById('admin-kpi-events').textContent = hangouts.length;
-      document.getElementById('admin-kpi-avg').textContent = totalSpots > 0 ? `$${(totalRaised / totalSpots).toFixed(2)}` : '$0.00';
-
-      const schedTbody = document.getElementById('admin-schedule-tbody');
-      if (schedTbody) {
-        schedTbody.innerHTML = '';
-        if (hangouts.length === 0) {
-          schedTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-zinc-400 italic">No upcoming hangouts configured. Click "+ New Event" to add one.</td></tr>`;
-        } else {
-          hangouts.forEach(h => {
-            const spotsLeft = h.totalSpots - (h.attendees ? h.attendees.length : 0);
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-zinc-50 transition border-b border-zinc-100";
-            tr.innerHTML = `
-              <td class="py-2.5 px-3.5 font-bold text-zinc-900">${h.title}</td>
-              <td class="py-2.5 px-3 text-zinc-700">${h.displayDate}</td>
-              <td class="py-2.5 px-3 font-semibold text-emerald-700">$${h.price}</td>
-              <td class="py-2.5 px-3">
-                <span class="px-2 py-0.5 rounded-full ${spotsLeft <= 0 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'} font-bold text-[10px]">
-                  ${h.attendees ? h.attendees.length : 0} / ${h.totalSpots} (${spotsLeft} left)
-                </span>
-              </td>
-              <td class="py-2.5 px-3">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <button onclick="adminEditPriceAndSpots(${h.id})" class="px-2 py-1 rounded bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-[10px]" title="Edit ticket cost and total spots">
-                    Cost & Spots
-                  </button>
-                  <button onclick="adminAddAttendee(${h.id})" class="px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-[10px]">
-                    + Guest
-                  </button>
-                  <button onclick="adminDeleteUpcoming(${h.id})" class="px-2 py-1 rounded bg-red-50 hover:bg-red-100 text-[#be1e2d] border border-red-200 font-bold text-[10px]">
-                    Delete
-                  </button>
-                </div>
-              </td>
-            `;
-            schedTbody.appendChild(tr);
-          });
-        }
-      }
-
-      renderAdminGuestsRows(allGuests);
-      safeLucide();
-    }
-
-    function renderAdminGuestsRows(guests) {
-      const tbody = document.getElementById('admin-guests-tbody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      if (guests.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-zinc-400 italic">No registrations recorded yet.</td></tr>`;
-        return;
-      }
-
-      const methodLabels = {
-        'card': 'Credit Card',
-        'p2p': 'Venmo/Zelle/PayPal',
-        'student_account': 'HSH Student Account',
-        'check_cash': 'Check/Cash Front Desk'
-      };
-
-      guests.forEach(g => {
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-zinc-50 transition border-b border-zinc-100";
-        tr.innerHTML = `
-          <td class="py-2.5 px-3.5 font-bold text-zinc-900">${g.name}</td>
-          <td class="py-2.5 px-3 text-zinc-700">${g.event}</td>
-          <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded-full bg-zinc-100 text-[10px] font-semibold text-zinc-700">${g.grade}</span></td>
-          <td class="py-2.5 px-3 font-semibold text-emerald-700">$${g.paid} <span class="text-[10px] text-zinc-500 font-normal">(${methodLabels[g.method] || g.method})</span></td>
-          <td class="py-2.5 px-3">
-            <button onclick="toggleGuestCheckIn(${g.eventId}, '${g.name.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold ${g.checkedIn ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-zinc-100 text-zinc-600 border border-zinc-200'}">
-              ${g.checkedIn ? '✓ Checked In' : 'Not Checked In'}
-            </button>
-          </td>
-          <td class="py-2.5 px-3">
-            <button onclick="adminRemoveAttendee(${g.eventId}, ${g.id})" class="text-xs text-red-600 hover:text-red-800 font-semibold underline">
-              Remove
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function filterAdminGuestRoster() {
-      const q = document.getElementById('admin-guest-search').value.toLowerCase().trim();
-      let allGuests = [];
-      hangouts.forEach(h => {
-        if (h.attendees) {
-          h.attendees.forEach(a => {
-            if (!q || a.name.toLowerCase().includes(q) || h.title.toLowerCase().includes(q) || a.grade.toLowerCase().includes(q)) {
-              allGuests.push({
-                id: a.id || Math.random(),
-                name: a.name,
-                grade: a.grade,
-                event: h.title,
-                paid: (a.paid || h.price),
-                method: a.method || "card",
-                checkedIn: a.checkedIn || false,
-                eventId: h.id
-              });
-            }
-          });
-        }
-      });
-      renderAdminGuestsRows(allGuests);
-    }
-
-    function toggleGuestCheckIn(eventId, guestName) {
-      const h = hangouts.find(x => x.id === eventId);
-      if (!h || !h.attendees) return;
-      const att = h.attendees.find(a => a.name === guestName);
-      if (att) {
-        att.checkedIn = !att.checkedIn;
-        saveAllData();
+      } catch (err) {
+        console.warn("Could not reach API server, using embedded fallback data:", err);
       }
     }
 
-    function exportGuestManifestCSV() {
-      let csvContent = "data:text/csv;charset=utf-8,Guest Name,Grade,Event,Amount Paid,Payment Method,Checked In\n";
-      hangouts.forEach(h => {
-        if (h.attendees) {
-          h.attendees.forEach(a => {
-            csvContent += `"${a.name}","${a.grade}","${h.title}","${a.paid || h.price}","${a.method || 'card'}","${a.checkedIn ? 'Yes' : 'No'}"\n`;
-          });
-        }
-      });
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `HSH_Hangouts_Guest_Manifest_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // 5. PUBLIC CATALOG & PAST SHOWCASE RENDERING
     function renderCards() {
       try {
         const container = document.getElementById('cards-container');
@@ -1544,8 +1249,8 @@
           container.innerHTML = `
             <div class="col-span-full py-16 text-center bg-white rounded-2xl border border-dashed border-zinc-300 p-8">
               <i data-lucide="calendar-x" class="w-12 h-12 text-zinc-400 mx-auto mb-3"></i>
-              <h3 class="font-bold text-zinc-800 text-lg font-heading">No upcoming hangouts scheduled</h3>
-              <p class="text-sm text-zinc-500 max-w-sm mx-auto mt-1">Use the Admin Command Center to publish a new event, or pitch one below!</p>
+              <h3 class="font-bold text-zinc-800 text-lg font-heading">No hangouts match this filter</h3>
+              <p class="text-sm text-zinc-500 max-w-sm mx-auto mt-1">Try selecting a different grade or category, or pitch your idea!</p>
               <button onclick="openHostModal()" class="mt-4 px-4 py-2 bg-[#be1e2d] text-white font-bold text-xs uppercase rounded-lg">Pitch A Hangout</button>
             </div>
           `;
@@ -1555,9 +1260,10 @@
 
         container.innerHTML = '';
         filtered.forEach(h => {
-          const spotsCount = h.attendees ? h.attendees.length : 0;
-          const spotsLeft = h.totalSpots - spotsCount;
+          const spotsCount = h.spotsTaken !== undefined ? h.spotsTaken : (h.attendees ? h.attendees.length : 4);
+          const spotsLeft = h.spotsRemaining !== undefined ? h.spotsRemaining : (h.totalSpots - spotsCount);
           const isFull = spotsLeft <= 0;
+
           const card = document.createElement('div');
           card.className = "bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col";
           const fallbackAttr = h.fallbackImage ? `onerror="this.onerror=null; this.src='${h.fallbackImage}';"` : '';
@@ -1614,64 +1320,7 @@
       safeLucide();
     }
 
-    function renderPastShowcase() {
-      try {
-        const container = document.getElementById('past-showcase-grid');
-        if (!container) return;
-        container.innerHTML = '';
-
-        if (pastShowcaseItems.length === 0) {
-          container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-zinc-400 italic">No past showcase items.</div>`;
-          return;
-        }
-
-        pastShowcaseItems.forEach(item => {
-          const card = document.createElement('div');
-          card.className = "bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer";
-          card.onclick = () => openShowcaseGallery(item.id);
-
-          card.innerHTML = `
-            <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-              <img src="${item.cover}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80';" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-                <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                  <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                  <span>Click for gallery</span>
-                </span>
-              </div>
-              <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">${item.category}</span>
-              <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-                <i data-lucide="image" class="w-3 h-3"></i> ${item.count}
-              </span>
-            </div>
-            <div class="p-3.5 flex-1 flex flex-col justify-between">
-              <div>
-                <h4 class="font-bold text-zinc-900 text-sm leading-snug">${item.title}</h4>
-                <p class="text-xs text-zinc-500 mt-0.5">${item.host}</p>
-              </div>
-              <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-                <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">${item.price}</span>
-                <div class="flex items-center gap-2">
-                  <button onclick="event.stopPropagation(); adminDeletePast('${item.id}')" class="text-[10px] text-red-600 hover:text-red-800 underline font-semibold">
-                    Delete
-                  </button>
-                  <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                    <span>View</span>
-                    <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      } catch (err) {
-        console.error("Error in renderPastShowcase:", err);
-      }
-      safeLucide();
-    }
-
-    // 6. GALLERY LIGHTBOX VIEWER
+    // Gallery Lightbox Viewer
     function openShowcaseGallery(key) {
       activeGalleryKey = key;
       activePhotoIndex = 0;
@@ -1765,7 +1414,7 @@
       if (el) el.classList.add('hidden');
     }
 
-    // 7. CALENDAR ENGINE
+    // Calendar Engine
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function prevMonth() {
@@ -1872,7 +1521,7 @@
       safeLucide();
     }
 
-    // 8. BOOKING & PUBLIC FILTERS
+    // Booking Flow
     function openBooking(hangoutId) {
       activeBookingHangout = hangouts.find(h => h.id === hangoutId);
       if (!activeBookingHangout) return;
@@ -1931,12 +1580,13 @@
       if (totalDisplay) totalDisplay.textContent = `$${total.toLocaleString()}`;
     }
 
-    function handleBookingSubmit(e) {
+    async function handleBookingSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('book-name').value.trim();
       const grade = document.getElementById('book-grade').value;
       const spots = parseInt(document.getElementById('book-spots').value, 10);
       const payMethod = document.querySelector('input[name="pay-method"]:checked').value;
+      const notes = document.getElementById('book-notes').value.trim();
 
       if (!activeBookingHangout || !name) return;
 
@@ -1944,16 +1594,42 @@
         ? (parseFloat(document.getElementById('custom-donation-amount').value) || 0)
         : (spots * activeBookingHangout.price);
 
-      if (!activeBookingHangout.attendees) activeBookingHangout.attendees = [];
-      for (let i = 0; i < spots; i++) {
+      // If backend server is active, submit live to database
+      if (API_BASE_URL) {
+        try {
+          const res = await fetch(`${API_BASE_URL.replace(/\/$/, '')}/api/signup`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              eventId: activeBookingHangout.id,
+              name: name,
+              grade: grade,
+              spots: spots,
+              paid: finalDonation,
+              method: payMethod,
+              notes: notes
+            })
+          });
+          if (res.ok) {
+            initCatalogFromServer();
+          }
+        } catch (err) {
+          console.warn("Could not reach API server on signup, proceeding with local fallback:", err);
+        }
+      } else {
+        // Local state update
+        if (!activeBookingHangout.attendees) activeBookingHangout.attendees = [];
         activeBookingHangout.attendees.push({
-          id: Date.now() + i,
-          name: i === 0 ? name : `${name} (+${i})`,
+          id: Date.now(),
+          name: name,
           grade: grade,
-          paid: finalDonation / spots,
+          quantity: spots,
+          paid: finalDonation,
           method: payMethod,
+          notes: notes,
           checkedIn: false
         });
+        renderCards();
       }
 
       closeModal('booking-modal');
@@ -1966,7 +1642,6 @@
       };
 
       alert(confirmationMessages[payMethod] || confirmationMessages['card']);
-      saveAllData();
       e.target.reset();
     }
 
@@ -1974,7 +1649,7 @@
       const h = hangouts.find(item => item.id === hangoutId);
       if (!h) return;
 
-      const spotsCount = h.attendees ? h.attendees.length : 0;
+      const spotsCount = h.spotsTaken !== undefined ? h.spotsTaken : (h.attendees ? h.attendees.length : 4);
       document.getElementById('modal-attendees-title').textContent = h.title;
       document.getElementById('modal-attendees-sub').textContent = `Hosted by ${h.host} • ${spotsCount} Signed Up (${h.totalSpots - spotsCount} spots remaining)`;
 
@@ -2121,6 +1796,7 @@
         host: host,
         category: cat,
         grade: grade,
+        status: "Open",
         date: "2026-12-19",
         displayDate: datetime,
         location: "Host Residence / Campus",
@@ -2135,7 +1811,7 @@
       closeModal('host-modal');
       e.target.reset();
 
-      saveAllData();
+      renderCards();
       safeLucide();
     }
 
@@ -2308,47 +1984,21 @@
       document.getElementById('pitch-title').focus();
     }
 
-    function updateImpactStats() {
-      let totalSpotsClaimed = 0;
-      let totalSpotsCapacity = 0;
-      let totalRaised = 0;
-
-      hangouts.forEach(h => {
-        const count = h.attendees ? h.attendees.length : 0;
-        totalSpotsClaimed += count;
-        totalSpotsCapacity += h.totalSpots;
-        if (h.attendees) {
-          h.attendees.forEach(a => {
-            totalRaised += (a.paid || h.price);
-          });
-        }
-      });
-
-      const statRaised = document.getElementById('stat-raised');
-      const statSpots = document.getElementById('stat-spots');
-      const statEvents = document.getElementById('stat-events');
-
-      if (statRaised) statRaised.textContent = `$${totalRaised.toLocaleString()}`;
-      if (statSpots) statSpots.textContent = `${totalSpotsClaimed} / ${totalSpotsCapacity}`;
-      if (statEvents) statEvents.textContent = hangouts.length;
-    }
-
     function safeLucide() {
       if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
       }
     }
 
-    // 8. INITIAL BOOTSTRAP
+    // Initialize all components
     function initAll() {
       renderCards();
-      renderPastShowcase();
       renderCalendar();
       renderTrackerList();
       populateHostInspoDrawer();
       renderIdeasGuideGrid();
-      updateImpactStats();
       safeLucide();
+      initCatalogFromServer();
     }
 
     document.addEventListener("DOMContentLoaded", initAll);
