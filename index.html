@@ -130,7 +130,7 @@
           A backyard movie night? Cupcake Wars? A parents-versus-kids game show where the grown-ups finally get to prove they know something? We’re looking for HSH families to host our next round of Hosted Hangouts!
         </p>
 
-        <!-- Guest vs Host Decision Buttons (Updated to simple "Guest" and "Host") -->
+        <!-- Guest vs Host Decision Buttons -->
         <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
           <a href="#catalog-section" onclick="toggleCalendarView(false)" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-zinc-950 font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
             <i data-lucide="compass" class="w-4 h-4 text-[#be1e2d]"></i>
@@ -325,6 +325,10 @@
         </div>
 
         <div class="flex items-center gap-2.5 flex-wrap">
+          <button onclick="openAddEventModal()" class="px-3.5 py-2 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white text-xs font-bold transition flex items-center gap-1.5 shadow">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add New Hangout</span>
+          </button>
           <button onclick="exportGuestManifestCSV()" class="px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-200">
             <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-700"></i>
             <span>Export Roster CSV</span>
@@ -346,16 +350,16 @@
         <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
           <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Total Bookings</div>
           <div class="text-2xl font-bold text-zinc-900 mt-1" id="admin-kpi-spots">0</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">Across all upcoming hangouts</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">Across active hangouts</div>
         </div>
         <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
           <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Active Hangouts</div>
-          <div class="text-2xl font-bold text-zinc-900 mt-1" id="admin-kpi-events">8</div>
+          <div class="text-2xl font-bold text-zinc-900 mt-1" id="admin-kpi-events">0</div>
           <div class="text-[11px] text-zinc-500 mt-0.5">Available for parent signup</div>
         </div>
         <div class="bg-white p-4 rounded-xl border border-zinc-200 shadow-xs">
           <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Average Donation</div>
-          <div class="text-2xl font-bold text-[#be1e2d] mt-1" id="admin-kpi-avg">$62.50</div>
+          <div class="text-2xl font-bold text-[#be1e2d] mt-1" id="admin-kpi-avg">$0.00</div>
           <div class="text-[11px] text-zinc-500 mt-0.5">Per registered attendee</div>
         </div>
       </div>
@@ -364,12 +368,12 @@
       <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-3">
           <div>
-            <h3 class="text-lg font-bold text-zinc-900 font-heading">Schedule & Host Contact Management</h3>
-            <p class="text-xs text-zinc-500">Reschedule dates, adjust capacities, and contact parent hosts directly.</p>
+            <h3 class="text-lg font-bold text-zinc-900 font-heading">Schedule, Pricing & Host Controls</h3>
+            <p class="text-xs text-zinc-500">Add/delete upcoming events, edit costs, change capacities, and manage guest lists.</p>
           </div>
-          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 text-[#be1e2d] border border-red-200 w-fit">
-            8 Live Events
-          </span>
+          <button onclick="openAddEventModal()" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 text-[#be1e2d] border border-red-200 hover:bg-red-100 transition w-fit">
+            + New Event
+          </button>
         </div>
 
         <div class="overflow-x-auto border border-zinc-200 rounded-xl">
@@ -378,7 +382,7 @@
               <tr>
                 <th class="py-2.5 px-3.5">Hangout Title</th>
                 <th class="py-2.5 px-3">Date & Time</th>
-                <th class="py-2.5 px-3">Host Lead</th>
+                <th class="py-2.5 px-3">Price</th>
                 <th class="py-2.5 px-3">Capacity</th>
                 <th class="py-2.5 px-3">Actions</th>
               </tr>
@@ -393,7 +397,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-3">
           <div>
             <h3 class="text-lg font-bold text-zinc-900 font-heading">Guest Roster, Check-In & Payment Verification</h3>
-            <p class="text-xs text-zinc-500">Search attendees, toggle day-of check-ins, and verify card, peer-to-peer, student billing, or check/cash contributions.</p>
+            <p class="text-xs text-zinc-500">Search attendees, toggle day-of check-ins, record manual registrations, or delete sign-ups.</p>
           </div>
           <div class="relative w-full sm:w-72">
             <i data-lucide="search" class="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-2.5 pointer-events-none"></i>
@@ -410,6 +414,7 @@
                 <th class="py-2.5 px-3">Child's Grade</th>
                 <th class="py-2.5 px-3">Amount & Method</th>
                 <th class="py-2.5 px-3">Check-In Status</th>
+                <th class="py-2.5 px-3">Manage</th>
               </tr>
             </thead>
             <tbody id="admin-guests-tbody" class="divide-y divide-zinc-200"></tbody>
@@ -421,6 +426,101 @@
   </div>
 
   <!-- ==================== MODALS ==================== -->
+
+  <!-- Admin: Create New Event Modal -->
+  <div id="admin-add-event-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('admin-add-event-modal')">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
+      <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
+        <div>
+          <h3 class="font-bold text-base sm:text-lg font-heading">Add New Hangout</h3>
+          <p class="text-xs text-red-100">Publish a new event to the live catalogue</p>
+        </div>
+        <button onclick="closeModal('admin-add-event-modal')" class="text-white/80 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleAdminCreateEvent(event)" class="p-5 sm:p-6 space-y-3.5 overflow-y-auto custom-scrollbar flex-1">
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Hangout Title</label>
+          <input type="text" id="admin-new-title" required placeholder="e.g., Backyard Paella & Spanish Wine Night" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Host Name(s)</label>
+          <input type="text" id="admin-new-host" required placeholder="e.g., The Miller & Henderson Families" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Category</label>
+            <select id="admin-new-cat" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+              <option value="Creative Arts">Creative Arts</option>
+              <option value="Parent Socials">Parent Socials</option>
+              <option value="Kids Activities">Kids Activities</option>
+              <option value="Fitness & Sports">Fitness & Sports</option>
+              <option value="Food & Drink">Food & Drink</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Target Grade</label>
+            <select id="admin-new-grade" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+              <option value="Parents Only">Parents Only (Adults)</option>
+              <option value="All Grades">All Grades</option>
+              <option value="Kindergarten">Kindergarten</option>
+              <option value="1st Grade">1st Grade</option>
+              <option value="2nd Grade">2nd Grade</option>
+              <option value="3rd Grade">3rd Grade</option>
+              <option value="4th Grade">4th Grade</option>
+              <option value="5th Grade">5th Grade</option>
+              <option value="6th Grade">6th Grade</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Cost Per Spot ($)</label>
+            <input type="number" id="admin-new-cost" required min="1" placeholder="100" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Max Spots Available</label>
+            <input type="number" id="admin-new-spots" required min="1" placeholder="20" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Calendar Date (YYYY-MM-DD)</label>
+            <input type="date" id="admin-new-date" required class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Display Date/Time</label>
+            <input type="text" id="admin-new-display-date" required placeholder="Sat, Dec 12 • 6:00 PM" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Location</label>
+          <input type="text" id="admin-new-loc" required placeholder="Host Home • 1234 Hollywood Hills" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Image Filename or URL</label>
+          <input type="text" id="admin-new-img" placeholder="my_image.jpg (or web URL)" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Description</label>
+          <textarea id="admin-new-desc" required rows="3" placeholder="Describe the party, activities, food, and details..." class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-sm shadow transition">
+          Create & Publish Event
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Single Image Lightbox Modal -->
   <div id="image-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('image-preview-modal')">
@@ -464,7 +564,7 @@
     </div>
   </div>
 
-  <!-- Booking Modal (With Comprehensive Payment Methods for All Families) -->
+  <!-- Booking Modal -->
   <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('booking-modal')">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between">
@@ -510,7 +610,6 @@
           </div>
         </div>
 
-        <!-- Pricing Tier / Pay What You Can Switcher -->
         <div class="pt-1">
           <div class="flex items-center justify-between mb-1.5">
             <label class="block text-xs font-bold text-zinc-700 uppercase">Contribution Amount</label>
@@ -540,12 +639,9 @@
           </div>
         </div>
 
-        <!-- Comprehensive Payment Method Selector -->
         <div>
           <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Select How You'd Like to Pay</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            
-            <!-- Option 1: Credit Card / Apple Pay -->
             <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-[#be1e2d] has-[:checked]:border-[#be1e2d] has-[:checked]:bg-red-50/40 transition">
               <input type="radio" name="pay-method" value="card" checked class="text-[#be1e2d] focus:ring-[#be1e2d] mt-0.5">
               <div>
@@ -554,7 +650,6 @@
               </div>
             </label>
 
-            <!-- Option 2: Venmo / Zelle / PayPal -->
             <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-blue-500 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40 transition">
               <input type="radio" name="pay-method" value="p2p" class="text-blue-600 focus:ring-blue-500 mt-0.5">
               <div>
@@ -563,7 +658,6 @@
               </div>
             </label>
 
-            <!-- Option 3: Bill to HSH Student Account -->
             <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-purple-500 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50/40 transition">
               <input type="radio" name="pay-method" value="student_account" class="text-purple-600 focus:ring-purple-500 mt-0.5">
               <div>
@@ -572,7 +666,6 @@
               </div>
             </label>
 
-            <!-- Option 4: Check / Cash at Front Desk -->
             <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50/40 transition">
               <input type="radio" name="pay-method" value="check_cash" class="text-amber-600 focus:ring-amber-500 mt-0.5">
               <div>
@@ -580,7 +673,6 @@
                 <span class="text-[10px] text-zinc-500 block mt-0.5">Drop off payment at the school front desk</span>
               </div>
             </label>
-
           </div>
         </div>
 
@@ -732,7 +824,7 @@
           </div>
           <div>
             <h3 class="font-bold text-base sm:text-lg font-heading leading-tight">HSH Complete Hosted Hangout Idea Guide</h3>
-            <p class="text-xs text-red-100">65 creative event concepts ready for any HSH family to host[cite: 1]</p>
+            <p class="text-xs text-red-100">65 creative event concepts ready for any HSH family to host</p>
           </div>
         </div>
         <button onclick="closeModal('ideas-modal')" class="text-white/80 hover:text-white p-1 rounded-md hover:bg-white/10 transition">
@@ -895,10 +987,10 @@
     </div>
   </div>
 
-  <!-- Unified Main JavaScript -->
+  <!-- ==================== JAVASCRIPT ENGINE ==================== -->
   <script>
-    // 1. DATA DEFINITIONS (Top of Script for Rock-Solid Execution)
-    const hangouts = [
+    // 1. STATE & PERSISTENT STORAGE
+    const defaultHangouts = [
       {
         id: 201,
         title: "Living Centerpieces: An Evening in Flowers",
@@ -915,151 +1007,21 @@
         fallbackImage: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80",
         description: "Join Brooke Wetzel (30+ years in botanical art and sustainable floral design) to craft your very own living botanical centerpiece! An intimate evening with drinks, flowers, and community in the Hollywood Hills.",
         attendees: [
-          { name: "Alma Kawczynski", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
-          { name: "Claire Foster", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
-          { name: "Sarah B.", grade: "Parents Only", paid: 150, method: "p2p", checkedIn: false },
-          { name: "Elena Ross", grade: "Parents Only", paid: 150, method: "card", checkedIn: true }
-        ]
-      },
-      {
-        id: 101,
-        title: "Community Volleyball Jam",
-        host: "Eric Etebari (Kindergarten Parent) & Coach Andres",
-        category: "Fitness & Sports",
-        grade: "All Grades",
-        date: "2026-12-13",
-        displayDate: "Sun, Dec 13 • 8:00 AM - 12:00 PM",
-        location: "Pan Pacific Gym (Beverly Blvd)",
-        price: 35,
-        totalSpots: 100,
-        image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=700&q=80",
-        description: "A fun Sunday morning indoor hangout for the HSH community! Full gym access, nets, balls, and equipment provided. Includes healthy snacks and lots of spirited volleyball play for kids and parents.",
-        attendees: [
-          { name: "Eric Etebari", grade: "Kindergarten", paid: 35, method: "card", checkedIn: true },
-          { name: "Coach Andres", grade: "Faculty", paid: 35, method: "card", checkedIn: true },
-          { name: "Matt K.", grade: "2nd Grade", paid: 35, method: "card", checkedIn: false },
-          { name: "Ava K.", grade: "2nd Grade", paid: 35, method: "card", checkedIn: false },
-          { name: "Leo Miller", grade: "2nd Grade", paid: 35, method: "student_account", checkedIn: false },
-          { name: "Jessica Taylor", grade: "4th Grade", paid: 35, method: "card", checkedIn: false },
-          { name: "Ben Foster", grade: "5th Grade", paid: 35, method: "card", checkedIn: false },
-          { name: "Marcus Brody", grade: "1st Grade", paid: 35, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 1,
-        title: "Sunset Rooftop Wine Tasting & Vinyl DJ",
-        host: "The Henderson Family",
-        category: "Parent Socials",
-        grade: "Parents Only",
-        date: "2026-12-05",
-        displayDate: "Sat, Dec 5 • 6:30 PM",
-        location: "Hollywood Hills Residence",
-        price: 85,
-        totalSpots: 20,
-        image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80",
-        description: "An evening for grown-ups! Savor curated natural wines paired with artisan cheeses, featuring a live vinyl DJ set as the sun sets over LA.",
-        attendees: [
-          { name: "Matt & Alma K.", grade: "2nd Grade", paid: 170, method: "card", checkedIn: false },
-          { name: "Dave Robertson", grade: "Kindergarten", paid: 85, method: "check_cash", checkedIn: false },
-          { name: "Jessica Taylor", grade: "4th Grade", paid: 85, method: "card", checkedIn: false },
-          { name: "Marcus Brody", grade: "1st Grade", paid: 85, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 2,
-        title: "Saturday Soccer Skills & Scrimmage Clinic",
-        host: "Coach Marcus (3rd Grade Dad)",
-        category: "Fitness & Sports",
-        grade: "2nd Grade",
-        date: "2026-12-12",
-        displayDate: "Sat, Dec 12 • 10:00 AM",
-        location: "Pan Pacific Park Field 2",
-        price: 45,
-        totalSpots: 14,
-        image: "https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=700&q=80",
-        description: "Fun drills, agility games, and a full friendly scrimmage for 2nd and 3rd graders. Refreshing orange slices and popsicles included!",
-        attendees: [
-          { name: "Leo Miller", grade: "2nd Grade", paid: 45, method: "card", checkedIn: false },
-          { name: "Ava Kawczynski", grade: "2nd Grade", paid: 45, method: "card", checkedIn: false },
-          { name: "Samir Chen", grade: "3rd Grade", paid: 45, method: "student_account", checkedIn: false },
-          { name: "Lucas Vance", grade: "2nd Grade", paid: 45, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 3,
-        title: "Handmade Pasta & Gnocchi Workshop",
-        host: "Chef Isabella & Elena",
-        category: "Food & Drink",
-        grade: "Parents Only",
-        date: "2026-12-18",
-        displayDate: "Fri, Dec 18 • 6:00 PM",
-        location: "Larchmont Village Kitchen",
-        price: 110,
-        totalSpots: 10,
-        image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=700&q=80",
-        description: "Master the art of authentic rolling-pin pasta and pillow-soft ricotta gnocchi. Savor your creations paired with Italian wines.",
-        attendees: [
-          { name: "Rachel Adams", grade: "Kindergarten", paid: 110, method: "card", checkedIn: false },
-          { name: "Alma K.", grade: "2nd Grade", paid: 110, method: "card", checkedIn: false },
-          { name: "Ben & Claire Foster", grade: "5th Grade", paid: 220, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 4,
-        title: "Holiday Clay & Pottery Crafting Circle",
-        host: "Maya Lin (Ceramics Parent)",
-        category: "Creative Arts",
-        grade: "Kindergarten",
-        date: "2026-12-09",
-        displayDate: "Wed, Dec 9 • 3:45 PM",
-        location: "HSH Art Studio Annex",
-        price: 40,
-        totalSpots: 12,
-        image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=700&q=80",
-        description: "Kids sculpt and hand-paint custom ceramic holiday pinch pots and tree ornaments, glazed and kiln-fired in time for the holidays.",
-        attendees: [
-          { name: "Oliver Scott", grade: "Kindergarten", paid: 40, method: "card", checkedIn: false },
-          { name: "Zoe Martinez", grade: "Kindergarten", paid: 40, method: "check_cash", checkedIn: false },
-          { name: "Noah Campbell", grade: "1st Grade", paid: 40, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 5,
-        title: "Parents vs Kids Mega Trivia & Game Show Night",
-        host: "The Evans Family",
-        category: "Kids Activities",
-        grade: "4th Grade",
-        date: "2026-12-14",
-        displayDate: "Mon, Dec 14 • 5:30 PM",
-        location: "Hollywood Schoolhouse Auditorium",
-        price: 35,
-        totalSpots: 25,
-        image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=700&q=80",
-        description: "Can the grown-ups prove they know something? Buzzer rounds, silly trivia, karaoke face-offs, and pizza boxes galore!",
-        attendees: [
-          { name: "The Jenkins", grade: "4th Grade", paid: 70, method: "card", checkedIn: false },
-          { name: "The Paulsons", grade: "3rd Grade", paid: 70, method: "card", checkedIn: false },
-          { name: "The K's", grade: "2nd Grade", paid: 70, method: "card", checkedIn: false }
-        ]
-      },
-      {
-        id: 6,
-        title: "Sunday Morning Sound Bath & Rooftop Vinyasa",
-        host: "Chloe St. Claire",
-        category: "Fitness & Sports",
-        grade: "Parents Only",
-        date: "2026-12-20",
-        displayDate: "Sun, Dec 20 • 9:30 AM",
-        location: "Pause Studio Rooftop (West Hollywood)",
-        price: 55,
-        totalSpots: 15,
-        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=700&q=80",
-        description: "Restore your mind with gentle yoga followed by an immersive 45-minute singing bowl meditation and matcha lattes.",
-        attendees: [
-          { name: "Sarah B.", grade: "1st Grade", paid: 55, method: "card", checkedIn: false },
-          { name: "Elena Ross", grade: "5th Grade", paid: 55, method: "card", checkedIn: false }
+          { id: 1, name: "Alma Kawczynski", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
+          { id: 2, name: "Claire Foster", grade: "Parents Only", paid: 150, method: "card", checkedIn: true },
+          { id: 3, name: "Sarah B.", grade: "Parents Only", paid: 150, method: "p2p", checkedIn: false },
+          { id: 4, name: "Elena Ross", grade: "Parents Only", paid: 150, method: "card", checkedIn: true }
         ]
       }
+    ];
+
+    const defaultPastShowcase = [
+      { id: "shelby", title: "Feel Good Jazz Class", host: "Hosted by Shelby Rabara Shum", price: "$50 / person", category: "Dance & Fitness", cover: "HOSTED_HANGOUT_SHELBY.jpeg", count: "2 Photos" },
+      { id: "karaoke", title: "Presidents' Karaoke Night", host: "Hosted by Christy, Michelle, Daisy, Alicia & Brianne", price: "$100 / person", category: "Parent Social", cover: "karoke%20HH.jpg", count: "Flyer" },
+      { id: "soundbath", title: "Sunset Sound Bath", host: "Hosted by Elizabeth Sbardellati", price: "$75 / person", category: "Wellness & Sound", cover: "HOSTED_HANGOUT_SOUND_BATH.jpg", count: "Flyer" },
+      { id: "iceskating", title: "Community Ice Skating", host: "Hosted by Jean, Brandee, Janet, Dawn & Julie", price: "$40 / person", category: "All-School Family", cover: "HOSTED_HANGOUT_ICE_SKATING.jpg", count: "4 Photos" },
+      { id: "ecedance", title: "Grown-Ups & Kiddos Dance Class", host: "Hosted by Caroline Keichian • Led by Savanna Stone", price: "$35 / family", category: "Early Childhood", cover: "HOSTED_HANGOUT_ECE_DANCE.jpg", count: "2 Photos" },
+      { id: "distillery", title: "Hollywood Distillery Tasting & Tour", host: "Hosted by Carrie Clifford, Kay Lee & Lauren Delp", price: "$65 / person", category: "Parent Social", cover: "HOSTED_HANGOUT_DISTLLERY.jpg", count: "2 Photos" }
     ];
 
     const pastGalleries = {
@@ -1215,6 +1177,20 @@
       { id: 65, title: "Backyard Cinema Club", ages: "5–11", minAge: 5, maxAge: 11, category: "Movies & Media", setting: "Backyard", desc: "Outdoor projector, lounge seating, warm blankets, artisan pizza, and a family-favorite film." }
     ];
 
+    // Read state from localStorage or initialize with defaults
+    let hangouts = JSON.parse(localStorage.getItem('hsh_upcoming_hangouts')) || defaultHangouts;
+    let pastShowcaseItems = JSON.parse(localStorage.getItem('hsh_past_hangouts')) || defaultPastShowcase;
+
+    function saveAllData() {
+      localStorage.setItem('hsh_upcoming_hangouts', JSON.stringify(hangouts));
+      localStorage.setItem('hsh_past_hangouts', JSON.stringify(pastShowcaseItems));
+      renderCards();
+      renderPastShowcase();
+      renderAdminDashboard();
+      renderCalendar();
+      updateImpactStats();
+    }
+
     // 2. STATE VARIABLES
     let currentCategory = 'all';
     let currentGrade = 'all';
@@ -1230,7 +1206,123 @@
     let activePricingTier = 'standard';
     let currentAdminPageActive = false;
 
-    // 3. ADMIN PORTAL TOGGLES
+    // 3. ADMIN CRUD OPERATIONS
+    function adminDeleteUpcoming(eventId) {
+      const target = hangouts.find(h => h.id === eventId);
+      if (!target) return;
+      if (confirm(`Are you sure you want to delete "${target.title}"? This cannot be undone.`)) {
+        hangouts = hangouts.filter(h => h.id !== eventId);
+        saveAllData();
+      }
+    }
+
+    function adminDeletePast(pastId) {
+      const target = pastShowcaseItems.find(p => p.id === pastId);
+      if (!target) return;
+      if (confirm(`Remove "${target.title}" from the Past Showcase?`)) {
+        pastShowcaseItems = pastShowcaseItems.filter(p => p.id !== pastId);
+        saveAllData();
+      }
+    }
+
+    function adminEditPriceAndSpots(eventId) {
+      const event = hangouts.find(h => h.id === eventId);
+      if (!event) return;
+
+      const newPrice = prompt(`Set ticket price ($) for "${event.title}":`, event.price);
+      if (newPrice !== null && !isNaN(newPrice) && newPrice.trim() !== "") {
+        event.price = parseFloat(newPrice);
+      }
+
+      const newSpots = prompt(`Set total capacity (max spots) for "${event.title}":`, event.totalSpots);
+      if (newSpots !== null && !isNaN(newSpots) && newSpots.trim() !== "") {
+        event.totalSpots = parseInt(newSpots, 10);
+      }
+
+      saveAllData();
+    }
+
+    function adminAddAttendee(eventId) {
+      const event = hangouts.find(h => h.id === eventId);
+      if (!event) return;
+
+      const guestName = prompt(`Enter Guest / Parent Name for "${event.title}":`);
+      if (!guestName || !guestName.trim()) return;
+
+      const grade = prompt("Enter Child's Grade (or 'Parents Only'):", "Parents Only") || "Parents Only";
+      const amountPaid = prompt("Recorded payment amount ($):", event.price) || event.price;
+      const payMethod = prompt("Payment method (card, p2p, student_account, check_cash):", "card") || "card";
+
+      if (!event.attendees) event.attendees = [];
+      event.attendees.push({
+        id: Date.now(),
+        name: guestName.trim(),
+        grade: grade.trim(),
+        paid: parseFloat(amountPaid),
+        method: payMethod,
+        checkedIn: false
+      });
+
+      saveAllData();
+    }
+
+    function adminRemoveAttendee(eventId, attendeeId) {
+      const event = hangouts.find(h => h.id === eventId);
+      if (!event) return;
+
+      if (confirm("Remove this attendee and release their spot?")) {
+        event.attendees = event.attendees.filter(a => a.id !== attendeeId);
+        saveAllData();
+      }
+    }
+
+    function openAddEventModal() {
+      openModal('admin-add-event-modal');
+    }
+
+    function handleAdminCreateEvent(e) {
+      e.preventDefault();
+      const title = document.getElementById('admin-new-title').value.trim();
+      const host = document.getElementById('admin-new-host').value.trim();
+      const cat = document.getElementById('admin-new-cat').value;
+      const grade = document.getElementById('admin-new-grade').value;
+      const cost = parseFloat(document.getElementById('admin-new-cost').value);
+      const spots = parseInt(document.getElementById('admin-new-spots').value, 10);
+      const calDate = document.getElementById('admin-new-date').value;
+      const displayDate = document.getElementById('admin-new-display-date').value.trim();
+      const loc = document.getElementById('admin-new-loc').value.trim();
+      let img = document.getElementById('admin-new-img').value.trim();
+      const desc = document.getElementById('admin-new-desc').value.trim();
+
+      if (!img) {
+        img = "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80";
+      }
+
+      const newEvent = {
+        id: Date.now(),
+        title: title,
+        host: host,
+        category: cat,
+        grade: grade,
+        date: calDate,
+        displayDate: displayDate,
+        location: loc,
+        price: cost,
+        totalSpots: spots,
+        image: img,
+        fallbackImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80",
+        description: desc,
+        attendees: []
+      };
+
+      hangouts.unshift(newEvent);
+      closeModal('admin-add-event-modal');
+      e.target.reset();
+      saveAllData();
+      alert(`🎉 "${title}" has been added and published!`);
+    }
+
+    // 4. ADMIN VIEW SWITCHER
     function toggleAdminView() {
       if (currentAdminPageActive) {
         showPublicSite();
@@ -1251,7 +1343,7 @@
 
       renderAdminDashboard();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      lucide.createIcons();
+      safeLucide();
     }
 
     function showPublicSite() {
@@ -1265,7 +1357,7 @@
       adminNavText.textContent = "Admin Login";
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      lucide.createIcons();
+      safeLucide();
     }
 
     function renderAdminDashboard() {
@@ -1274,59 +1366,69 @@
       let allGuests = [];
 
       hangouts.forEach(h => {
-        h.attendees.forEach(a => {
-          totalRaised += (a.paid || h.price);
-          totalSpots += 1;
-          allGuests.push({
-            name: a.name,
-            grade: a.grade,
-            event: h.title,
-            paid: (a.paid || h.price),
-            method: a.method || "card",
-            checkedIn: a.checkedIn || false,
-            eventId: h.id
+        if (h.attendees) {
+          h.attendees.forEach(a => {
+            totalRaised += (a.paid || h.price);
+            totalSpots += 1;
+            allGuests.push({
+              id: a.id || Math.random(),
+              name: a.name,
+              grade: a.grade,
+              event: h.title,
+              paid: (a.paid || h.price),
+              method: a.method || "card",
+              checkedIn: a.checkedIn || false,
+              eventId: h.id
+            });
           });
-        });
+        }
       });
 
       document.getElementById('admin-kpi-revenue').textContent = `$${totalRaised.toLocaleString()}`;
       document.getElementById('admin-kpi-spots').textContent = totalSpots;
       document.getElementById('admin-kpi-events').textContent = hangouts.length;
-      document.getElementById('admin-kpi-avg').textContent = totalSpots > 0 ? `$${Math.round(totalRaised / totalSpots)}` : '$0';
+      document.getElementById('admin-kpi-avg').textContent = totalSpots > 0 ? `$${(totalRaised / totalSpots).toFixed(2)}` : '$0.00';
 
       const schedTbody = document.getElementById('admin-schedule-tbody');
       if (schedTbody) {
         schedTbody.innerHTML = '';
-        hangouts.forEach(h => {
-          const spotsLeft = h.totalSpots - h.attendees.length;
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-zinc-50 transition";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3.5 font-bold text-zinc-900">${h.title}</td>
-            <td class="py-2.5 px-3 text-zinc-700">${h.displayDate}</td>
-            <td class="py-2.5 px-3 text-zinc-600 truncate max-w-[180px]" title="${h.host}">${h.host}</td>
-            <td class="py-2.5 px-3">
-              <span class="px-2 py-0.5 rounded-full ${spotsLeft <= 0 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'} font-bold text-[10px]">
-                ${h.attendees.length} / ${h.totalSpots} (${spotsLeft} left)
-              </span>
-            </td>
-            <td class="py-2.5 px-3">
-              <div class="flex items-center gap-1.5">
-                <button onclick="promptEditDate(${h.id})" class="px-2 py-1 rounded bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-[10px]">
-                  Reschedule
-                </button>
-                <a href="mailto:hangouts@hshla.org?subject=HSH Hangout Coordination: ${encodeURIComponent(h.title)}" class="px-2 py-1 rounded bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-[10px]">
-                  Email Host
-                </a>
-              </div>
-            </td>
-          `;
-          schedTbody.appendChild(tr);
-        });
+        if (hangouts.length === 0) {
+          schedTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-zinc-400 italic">No upcoming hangouts configured. Click "+ New Event" to add one.</td></tr>`;
+        } else {
+          hangouts.forEach(h => {
+            const spotsLeft = h.totalSpots - (h.attendees ? h.attendees.length : 0);
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-zinc-50 transition border-b border-zinc-100";
+            tr.innerHTML = `
+              <td class="py-2.5 px-3.5 font-bold text-zinc-900">${h.title}</td>
+              <td class="py-2.5 px-3 text-zinc-700">${h.displayDate}</td>
+              <td class="py-2.5 px-3 font-semibold text-emerald-700">$${h.price}</td>
+              <td class="py-2.5 px-3">
+                <span class="px-2 py-0.5 rounded-full ${spotsLeft <= 0 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'} font-bold text-[10px]">
+                  ${h.attendees ? h.attendees.length : 0} / ${h.totalSpots} (${spotsLeft} left)
+                </span>
+              </td>
+              <td class="py-2.5 px-3">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <button onclick="adminEditPriceAndSpots(${h.id})" class="px-2 py-1 rounded bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-[10px]" title="Edit ticket cost and total spots">
+                    Cost & Spots
+                  </button>
+                  <button onclick="adminAddAttendee(${h.id})" class="px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-[10px]">
+                    + Guest
+                  </button>
+                  <button onclick="adminDeleteUpcoming(${h.id})" class="px-2 py-1 rounded bg-red-50 hover:bg-red-100 text-[#be1e2d] border border-red-200 font-bold text-[10px]">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            `;
+            schedTbody.appendChild(tr);
+          });
+        }
       }
 
       renderAdminGuestsRows(allGuests);
-      lucide.createIcons();
+      safeLucide();
     }
 
     function renderAdminGuestsRows(guests) {
@@ -1335,7 +1437,7 @@
       tbody.innerHTML = '';
 
       if (guests.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-zinc-400 italic">No registrations matching criteria.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-zinc-400 italic">No registrations recorded yet.</td></tr>`;
         return;
       }
 
@@ -1348,7 +1450,7 @@
 
       guests.forEach(g => {
         const tr = document.createElement('tr');
-        tr.className = "hover:bg-zinc-50 transition";
+        tr.className = "hover:bg-zinc-50 transition border-b border-zinc-100";
         tr.innerHTML = `
           <td class="py-2.5 px-3.5 font-bold text-zinc-900">${g.name}</td>
           <td class="py-2.5 px-3 text-zinc-700">${g.event}</td>
@@ -1357,6 +1459,11 @@
           <td class="py-2.5 px-3">
             <button onclick="toggleGuestCheckIn(${g.eventId}, '${g.name.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold ${g.checkedIn ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-zinc-100 text-zinc-600 border border-zinc-200'}">
               ${g.checkedIn ? '✓ Checked In' : 'Not Checked In'}
+            </button>
+          </td>
+          <td class="py-2.5 px-3">
+            <button onclick="adminRemoveAttendee(${g.eventId}, ${g.id})" class="text-xs text-red-600 hover:text-red-800 font-semibold underline">
+              Remove
             </button>
           </td>
         `;
@@ -1368,51 +1475,44 @@
       const q = document.getElementById('admin-guest-search').value.toLowerCase().trim();
       let allGuests = [];
       hangouts.forEach(h => {
-        h.attendees.forEach(a => {
-          if (!q || a.name.toLowerCase().includes(q) || h.title.toLowerCase().includes(q) || a.grade.toLowerCase().includes(q)) {
-            allGuests.push({
-              name: a.name,
-              grade: a.grade,
-              event: h.title,
-              paid: (a.paid || h.price),
-              method: a.method || "card",
-              checkedIn: a.checkedIn || false,
-              eventId: h.id
-            });
-          }
-        });
+        if (h.attendees) {
+          h.attendees.forEach(a => {
+            if (!q || a.name.toLowerCase().includes(q) || h.title.toLowerCase().includes(q) || a.grade.toLowerCase().includes(q)) {
+              allGuests.push({
+                id: a.id || Math.random(),
+                name: a.name,
+                grade: a.grade,
+                event: h.title,
+                paid: (a.paid || h.price),
+                method: a.method || "card",
+                checkedIn: a.checkedIn || false,
+                eventId: h.id
+              });
+            }
+          });
+        }
       });
       renderAdminGuestsRows(allGuests);
     }
 
     function toggleGuestCheckIn(eventId, guestName) {
       const h = hangouts.find(x => x.id === eventId);
-      if (!h) return;
+      if (!h || !h.attendees) return;
       const att = h.attendees.find(a => a.name === guestName);
       if (att) {
         att.checkedIn = !att.checkedIn;
-        renderAdminDashboard();
-      }
-    }
-
-    function promptEditDate(eventId) {
-      const h = hangouts.find(x => x.id === eventId);
-      if (!h) return;
-      const newDate = prompt(`Enter new date and time for "${h.title}":`, h.displayDate);
-      if (newDate && newDate.trim()) {
-        h.displayDate = newDate.trim();
-        renderAdminDashboard();
-        renderCards();
-        alert("Date updated successfully!");
+        saveAllData();
       }
     }
 
     function exportGuestManifestCSV() {
       let csvContent = "data:text/csv;charset=utf-8,Guest Name,Grade,Event,Amount Paid,Payment Method,Checked In\n";
       hangouts.forEach(h => {
-        h.attendees.forEach(a => {
-          csvContent += `"${a.name}","${a.grade}","${h.title}","${a.paid || h.price}","${a.method || 'card'}","${a.checkedIn ? 'Yes' : 'No'}"\n`;
-        });
+        if (h.attendees) {
+          h.attendees.forEach(a => {
+            csvContent += `"${a.name}","${a.grade}","${h.title}","${a.paid || h.price}","${a.method || 'card'}","${a.checkedIn ? 'Yes' : 'No'}"\n`;
+          });
+        }
       });
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
@@ -1423,12 +1523,11 @@
       document.body.removeChild(link);
     }
 
-    // 4. CORE PUBLIC CATALOG RENDERING
+    // 5. PUBLIC CATALOG & PAST SHOWCASE RENDERING
     function renderCards() {
       try {
         const container = document.getElementById('cards-container');
         if (!container) return;
-        container.innerHTML = '';
 
         let filtered = hangouts.filter(h => {
           const matchesCategory = (currentCategory === 'all' || h.category === currentCategory);
@@ -1441,27 +1540,23 @@
           return matchesCategory && matchesGrade;
         });
 
-        if (currentSort === 'date') {
-          filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
-        } else if (currentSort === 'cost') {
-          filtered.sort((a, b) => a.price - b.price);
-        }
-
         if (filtered.length === 0) {
           container.innerHTML = `
             <div class="col-span-full py-16 text-center bg-white rounded-2xl border border-dashed border-zinc-300 p-8">
               <i data-lucide="calendar-x" class="w-12 h-12 text-zinc-400 mx-auto mb-3"></i>
-              <h3 class="font-bold text-zinc-800 text-lg font-heading">No hangouts match this filter</h3>
-              <p class="text-sm text-zinc-500 max-w-sm mx-auto mt-1">Try selecting a different grade or category, or be the first parent to pitch one!</p>
-              <button onclick="openHostModal()" class="mt-4 px-4 py-2 bg-[#be1e2d] text-white font-bold text-xs uppercase rounded-lg">Pitch This Hangout</button>
+              <h3 class="font-bold text-zinc-800 text-lg font-heading">No upcoming hangouts scheduled</h3>
+              <p class="text-sm text-zinc-500 max-w-sm mx-auto mt-1">Use the Admin Command Center to publish a new event, or pitch one below!</p>
+              <button onclick="openHostModal()" class="mt-4 px-4 py-2 bg-[#be1e2d] text-white font-bold text-xs uppercase rounded-lg">Pitch A Hangout</button>
             </div>
           `;
-          lucide.createIcons();
+          safeLucide();
           return;
         }
 
+        container.innerHTML = '';
         filtered.forEach(h => {
-          const spotsLeft = h.totalSpots - h.attendees.length;
+          const spotsCount = h.attendees ? h.attendees.length : 0;
+          const spotsLeft = h.totalSpots - spotsCount;
           const isFull = spotsLeft <= 0;
           const card = document.createElement('div');
           card.className = "bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col";
@@ -1500,7 +1595,7 @@
                 <div class="flex items-center justify-between">
                   <button onclick="viewAttendees(${h.id})" class="text-xs font-semibold text-zinc-600 hover:text-[#be1e2d] flex items-center gap-1.5 transition">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
-                    <span>${h.attendees.length} joined</span>
+                    <span>${spotsCount} joined</span>
                     <span class="text-zinc-400">(${spotsLeft} left)</span>
                   </button>
                   <button onclick="viewAttendees(${h.id})" class="text-[11px] font-bold text-[#be1e2d] hover:underline">Who's going?</button>
@@ -1516,29 +1611,24 @@
       } catch (err) {
         console.error("Error in renderCards:", err);
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
-    // 5. PAST SHOWCASE WITH MULTI-PHOTO GALLERIES
     function renderPastShowcase() {
       try {
         const container = document.getElementById('past-showcase-grid');
         if (!container) return;
         container.innerHTML = '';
 
-        const showcaseItems = [
-          { key: 'shelby', title: "Feel Good Jazz Class", host: "Hosted by Shelby Rabara Shum", price: "$50 / person", category: "Dance & Fitness", cover: "HOSTED_HANGOUT_SHELBY.jpeg", count: "2 Photos" },
-          { key: 'karaoke', title: "Presidents' Karaoke Night", host: "Hosted by Christy, Michelle, Daisy, Alicia & Brianne", price: "$100 / person", category: "Parent Social", cover: "karoke%20HH.jpg", count: "Flyer" },
-          { key: 'soundbath', title: "Sunset Sound Bath", host: "Hosted by Elizabeth Sbardellati", price: "$75 / person", category: "Wellness & Sound", cover: "HOSTED_HANGOUT_SOUND_BATH.jpg", count: "Flyer" },
-          { key: 'iceskating', title: "Community Ice Skating", host: "Hosted by Jean, Brandee, Janet, Dawn & Julie", price: "$40 / person", category: "All-School Family", cover: "HOSTED_HANGOUT_ICE_SKATING.jpg", count: "4 Photos" },
-          { key: 'ecedance', title: "Grown-Ups & Kiddos Dance Class", host: "Hosted by Caroline Keichian • Led by Savanna Stone", price: "$35 / family", category: "Early Childhood", cover: "HOSTED_HANGOUT_ECE_DANCE.jpg", count: "2 Photos" },
-          { key: 'distillery', title: "Hollywood Distillery Tasting & Tour", host: "Hosted by Carrie Clifford, Kay Lee & Lauren Delp", price: "$65 / person", category: "Parent Social", cover: "HOSTED_HANGOUT_DISTLLERY.jpg", count: "2 Photos" }
-        ];
+        if (pastShowcaseItems.length === 0) {
+          container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-zinc-400 italic">No past showcase items.</div>`;
+          return;
+        }
 
-        showcaseItems.forEach(item => {
+        pastShowcaseItems.forEach(item => {
           const card = document.createElement('div');
           card.className = "bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer";
-          card.onclick = () => openShowcaseGallery(item.key);
+          card.onclick = () => openShowcaseGallery(item.id);
 
           card.innerHTML = `
             <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
@@ -1561,10 +1651,15 @@
               </div>
               <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
                 <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">${item.price}</span>
-                <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                  <span>View Gallery</span>
-                  <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-                </span>
+                <div class="flex items-center gap-2">
+                  <button onclick="event.stopPropagation(); adminDeletePast('${item.id}')" class="text-[10px] text-red-600 hover:text-red-800 underline font-semibold">
+                    Delete
+                  </button>
+                  <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
+                    <span>View</span>
+                    <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                  </span>
+                </div>
               </div>
             </div>
           `;
@@ -1573,9 +1668,10 @@
       } catch (err) {
         console.error("Error in renderPastShowcase:", err);
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
+    // 6. GALLERY LIGHTBOX VIEWER
     function openShowcaseGallery(key) {
       activeGalleryKey = key;
       activePhotoIndex = 0;
@@ -1632,7 +1728,7 @@
           });
         }
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
     function prevGalleryPhoto() {
@@ -1649,7 +1745,6 @@
       renderActiveGalleryPhoto();
     }
 
-    // 6. MODAL & PREVIEW PROCEDURES
     function openImagePreview(imgSrc, title) {
       const modal = document.getElementById('image-preview-modal');
       const img = document.getElementById('image-preview-img');
@@ -1774,10 +1869,10 @@
       } catch (err) {
         console.error("Error in renderCalendar:", err);
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
-    // 8. BOOKING & FILTER PROCEDURES
+    // 8. BOOKING & PUBLIC FILTERS
     function openBooking(hangoutId) {
       activeBookingHangout = hangouts.find(h => h.id === hangoutId);
       if (!activeBookingHangout) return;
@@ -1817,7 +1912,7 @@
         }
       }
       updateBookingTotal();
-      lucide.createIcons();
+      safeLucide();
     }
 
     function updateBookingTotal() {
@@ -1849,8 +1944,10 @@
         ? (parseFloat(document.getElementById('custom-donation-amount').value) || 0)
         : (spots * activeBookingHangout.price);
 
+      if (!activeBookingHangout.attendees) activeBookingHangout.attendees = [];
       for (let i = 0; i < spots; i++) {
         activeBookingHangout.attendees.push({
+          id: Date.now() + i,
           name: i === 0 ? name : `${name} (+${i})`,
           grade: grade,
           paid: finalDonation / spots,
@@ -1869,9 +1966,7 @@
       };
 
       alert(confirmationMessages[payMethod] || confirmationMessages['card']);
-      renderCards();
-      renderCalendar();
-      updateImpactStats();
+      saveAllData();
       e.target.reset();
     }
 
@@ -1879,13 +1974,14 @@
       const h = hangouts.find(item => item.id === hangoutId);
       if (!h) return;
 
+      const spotsCount = h.attendees ? h.attendees.length : 0;
       document.getElementById('modal-attendees-title').textContent = h.title;
-      document.getElementById('modal-attendees-sub').textContent = `Hosted by ${h.host} • ${h.attendees.length} Signed Up (${h.totalSpots - h.attendees.length} spots remaining)`;
+      document.getElementById('modal-attendees-sub').textContent = `Hosted by ${h.host} • ${spotsCount} Signed Up (${h.totalSpots - spotsCount} spots remaining)`;
 
       const listContainer = document.getElementById('modal-attendees-list');
       listContainer.innerHTML = '';
 
-      if (h.attendees.length === 0) {
+      if (!h.attendees || h.attendees.length === 0) {
         listContainer.innerHTML = `<p class="text-sm text-zinc-500 italic text-center py-4">No one has registered yet. Be the first to join!</p>`;
       } else {
         h.attendees.forEach(a => {
@@ -1905,7 +2001,7 @@
         });
       }
       openModal('attendees-modal');
-      lucide.createIcons();
+      safeLucide();
     }
 
     function setCategoryFilter(cat) {
@@ -1969,7 +2065,7 @@
         if (cardsBtn) cardsBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition";
         if (calBtn) calBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition";
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
     function openHostModal() { openModal('host-modal'); }
@@ -2039,10 +2135,8 @@
       closeModal('host-modal');
       e.target.reset();
 
-      renderCards();
-      renderCalendar();
-      updateImpactStats();
-      lucide.createIcons();
+      saveAllData();
+      safeLucide();
     }
 
     function filterTrackerList() {
@@ -2124,7 +2218,7 @@
           pastContainer.appendChild(chip);
         });
       }
-      lucide.createIcons();
+      safeLucide();
     }
 
     function filterIdeasGuide() {
@@ -2198,7 +2292,7 @@
         `;
         grid.appendChild(card);
       });
-      lucide.createIcons();
+      safeLucide();
     }
 
     function selectIdeaToPitch(title, category) {
@@ -2217,22 +2311,35 @@
     function updateImpactStats() {
       let totalSpotsClaimed = 0;
       let totalSpotsCapacity = 0;
+      let totalRaised = 0;
 
       hangouts.forEach(h => {
-        totalSpotsClaimed += h.attendees.length;
+        const count = h.attendees ? h.attendees.length : 0;
+        totalSpotsClaimed += count;
         totalSpotsCapacity += h.totalSpots;
+        if (h.attendees) {
+          h.attendees.forEach(a => {
+            totalRaised += (a.paid || h.price);
+          });
+        }
       });
 
       const statRaised = document.getElementById('stat-raised');
       const statSpots = document.getElementById('stat-spots');
       const statEvents = document.getElementById('stat-events');
 
-      if (statRaised) statRaised.textContent = `$0`;
+      if (statRaised) statRaised.textContent = `$${totalRaised.toLocaleString()}`;
       if (statSpots) statSpots.textContent = `${totalSpotsClaimed} / ${totalSpotsCapacity}`;
       if (statEvents) statEvents.textContent = hangouts.length;
     }
 
-    // 9. INIT BOOTSTRAPPER
+    function safeLucide() {
+      if (window.lucide && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+    }
+
+    // 8. INITIAL BOOTSTRAP
     function initAll() {
       renderCards();
       renderPastShowcase();
@@ -2241,7 +2348,7 @@
       populateHostInspoDrawer();
       renderIdeasGuideGrid();
       updateImpactStats();
-      lucide.createIcons();
+      safeLucide();
     }
 
     document.addEventListener("DOMContentLoaded", initAll);
