@@ -45,6 +45,17 @@
       background-color: rgba(18, 18, 18, 0.88);
       backdrop-filter: blur(6px);
     }
+    /* Scrapbook polaroid effect for past showcase */
+    .polaroid-card {
+      background: #ffffff;
+      padding: 10px 10px 18px 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .polaroid-card:hover {
+      transform: translateY(-3px) rotate(-0.5deg);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased overflow-x-hidden w-full">
@@ -101,7 +112,6 @@
           <span>Host</span>
         </button>
 
-        <!-- Admin Login Button -->
         <button onclick="handleAdminLoginRedirect()" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold bg-zinc-950 text-white hover:bg-black transition border border-zinc-700 shadow-sm shrink-0">
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Admin Login</span>
@@ -154,13 +164,38 @@
     </div>
   </section>
 
+  <!-- Curated Community Wishlist Strip -->
+  <section class="bg-amber-50/80 border-b border-amber-200/80 py-4 px-3.5 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center font-bold text-sm shrink-0">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </span>
+        <div class="text-xs sm:text-sm text-amber-950">
+          <strong class="font-bold">Looking for a Host:</strong> Have a yard or kitchen? Pair up with a friend to bring one of these highly-requested hangouts to life!
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap shrink-0">
+        <button onclick="claimIdeaFromWishlist('Backyard Paella & Sangria Mixer', 'Food & Drink')" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-950 hover:bg-amber-100 font-bold text-xs transition">
+          🥘 Paella Night
+        </button>
+        <button onclick="claimIdeaFromWishlist('Family Glow Capture the Flag', 'Fitness & Sports')" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-950 hover:bg-amber-100 font-bold text-xs transition">
+          🔦 Glow Flag Relay
+        </button>
+        <button onclick="openIdeasGuideModal()" class="px-3 py-1.5 rounded-lg bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-xs transition">
+          Browse 65+ Ideas
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Upcoming Catalog Section -->
   <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full" id="catalog-section">
 
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5 pb-4 border-b border-zinc-200">
       <div>
         <h2 class="text-2xl sm:text-3xl font-bold text-zinc-900 font-heading">Upcoming</h2>
-        <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Explore upcoming parent-hosted hangouts or view the school-wide calendar. Tap any image to see the full photo!</p>
+        <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Explore upcoming parent-hosted hangouts or view the school calendar. Tap any photo to see the full invitation!</p>
       </div>
 
       <div class="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -216,6 +251,7 @@
 
     <!-- Grid Container for Upcoming Cards -->
     <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pt-2">
+      <!-- Fallback card guarantees zero-delay rendering -->
       <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
         <div class="relative h-52 bg-zinc-100 overflow-hidden cursor-pointer group/img" onclick="openImagePreview('Living%20Centerpieces%20HH%20Inviteb.jpeg', 'Living Centerpieces: An Evening in Flowers')" title="Click to view full image">
           <img src="Living%20Centerpieces%20HH%20Inviteb.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80';" alt="Living Centerpieces" class="w-full h-full object-cover group-hover/img:scale-105 transition duration-300">
@@ -333,197 +369,19 @@
       </div>
     </div>
 
-    <!-- Past Hangouts Showcase -->
-    <section class="mt-14 pt-8 border-t border-zinc-200">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5">
+    <!-- Past Hangouts Showcase: Distinct Scrapbook/Polaroid Visual Layout -->
+    <section class="mt-16 pt-10 border-t border-zinc-200">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6">
         <div>
-          <div class="text-xs uppercase font-bold tracking-widest text-[#be1e2d]">Memories & Inspiration</div>
-          <h3 class="text-2xl sm:text-3xl font-bold text-zinc-900 mt-1 font-heading">Past Hangouts Showcase</h3>
-          <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Click any hangout below to explore photo galleries from past events!</p>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-100/70 text-[#be1e2d] text-[10px] font-bold uppercase tracking-wider mb-1">
+            <i data-lucide="camera" class="w-3 h-3"></i> Community Memories
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-zinc-900 font-heading">Past Hangouts Showcase</h3>
+          <p class="text-xs sm:text-sm text-zinc-500 mt-0.5">Browse photo galleries and event formats hosted by fellow parents for inspiration!</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="past-showcase-grid">
-        <!-- 1. Shelby Jazz Class -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('shelby')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="HOSTED_HANGOUT_SHELBY.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80';" alt="Feel Good Jazz Class" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Dance & Fitness</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Feel Good Jazz Class</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Shelby Rabara Shum</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$50 / person</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Presidents Karaoke -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('karaoke')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="karoke%20HH.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=700&q=80';" alt="Presidents Karaoke Night" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Parent Social</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> Flyer
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Presidents' Karaoke Night</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Christy, Michelle, Daisy, Alicia & Brianne</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$100 / person</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Sound Bath -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('soundbath')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="HOSTED_HANGOUT_SOUND_BATH.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=700&q=80';" alt="Sunset Sound Bath" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Wellness & Sound</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> Flyer
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Sunset Sound Bath</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Elizabeth Sbardellati</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$75 / person</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Ice Skating -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('iceskating')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="HOSTED_HANGOUT_ICE_SKATING.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=700&q=80';" alt="Community Ice Skating" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">All-School Family</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> 4 Photos
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Community Ice Skating</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Jean, Brandee, Janet, Dawn & Julie</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$40 / person</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. ECE Dance Class -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('ecedance')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="HOSTED_HANGOUT_ECE_DANCE.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=700&q=80';" alt="ECE Dance Class" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Early Childhood</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Grown-Ups & Kiddos Dance Class</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Caroline Keichian • Led by Savanna Stone</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$35 / family</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Distillery Tour -->
-        <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group cursor-pointer" onclick="openShowcaseGallery('distillery')">
-          <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
-            <img src="HOSTED_HANGOUT_DISTLLERY.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80';" alt="Distillery Tour" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-              <span class="px-3.5 py-2 rounded-full bg-white text-zinc-950 font-bold text-xs shadow-xl flex items-center gap-1.5 border border-zinc-200">
-                <i data-lucide="images" class="w-4 h-4 text-[#be1e2d]"></i>
-                <span>Click for gallery</span>
-              </span>
-            </div>
-            <span class="absolute top-2.5 left-2.5 bg-black/75 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">Parent Social</span>
-            <span class="absolute bottom-2.5 right-2.5 bg-zinc-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-xs">
-              <i data-lucide="image" class="w-3 h-3"></i> 2 Photos
-            </span>
-          </div>
-          <div class="p-3.5 flex-1 flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-zinc-900 text-sm leading-snug">Hollywood Distillery Tasting & Tour</h4>
-              <p class="text-xs text-zinc-500 mt-0.5">Hosted by Carrie Clifford, Kay Lee & Lauren Delp</p>
-            </div>
-            <div class="pt-2.5 mt-2 border-t border-zinc-100 flex items-center justify-between">
-              <span class="text-xs font-bold text-[#be1e2d] bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">$65 / person</span>
-              <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1 group-hover:text-[#be1e2d] transition">
-                <span>View Gallery</span>
-                <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="past-showcase-grid"></div>
     </section>
 
   </main>
@@ -572,194 +430,243 @@
     </div>
   </div>
 
-  <!-- Booking Modal with Dynamic Interactive Payment Panels -->
+  <!-- PROGRESSIVE 2-STEP BOOKING MODAL -->
   <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('booking-modal')">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden">
+      
+      <!-- Modal Header with Progress Breadcrumb -->
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between">
         <div>
+          <div class="flex items-center gap-2 text-xs text-red-100 font-semibold mb-0.5">
+            <span id="step-badge-1" class="px-2 py-0.5 rounded-full bg-white/20 text-white font-bold">Step 1 of 2: Details</span>
+            <span id="step-badge-2" class="hidden px-2 py-0.5 rounded-full bg-white/20 text-white font-bold">Step 2 of 2: Payment</span>
+          </div>
           <h3 class="font-bold text-base sm:text-lg font-heading" id="booking-event-title">Reserve Spot</h3>
-          <p class="text-xs text-red-100" id="booking-event-price">$0 per spot</p>
         </div>
         <button onclick="closeModal('booking-modal')" class="text-white/80 hover:text-white p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="p-5 sm:p-6 space-y-3.5 max-h-[85vh] overflow-y-auto custom-scrollbar">
+      <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="p-5 sm:p-6 space-y-4 max-h-[85vh] overflow-y-auto custom-scrollbar">
         <input type="hidden" id="booking-event-id">
 
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Your Full Name</label>
-          <input type="text" id="book-name" required placeholder="e.g., Sarah Jenkins" oninput="updateP2PMemoPreview()" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
+        <!-- STEP 1 CONTAINER: Contact & Quantity -->
+        <div id="booking-step-1" class="space-y-3.5">
           <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">HSH Child's Grade</label>
-            <select id="book-grade" required class="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-              <option value="Parents Only">Parents Only (Adults)</option>
-              <option value="Preschool">Preschool / Early Childhood</option>
-              <option value="Kindergarten">Kindergarten</option>
-              <option value="1st Grade">1st Grade</option>
-              <option value="2nd Grade">2nd Grade</option>
-              <option value="3rd Grade">3rd Grade</option>
-              <option value="4th Grade">4th Grade</option>
-              <option value="5th Grade">5th Grade</option>
-              <option value="6th Grade">6th Grade</option>
-            </select>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Your Full Name <span class="text-red-500">*</span></label>
+            <input type="text" id="book-name" required placeholder="e.g., Sarah Jenkins" oninput="updateP2PMemoPreview()" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
           </div>
+
           <div>
-            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Number of Spots</label>
-            <select id="book-spots" onchange="updateBookingTotal()" class="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-              <option value="1">1 spot</option>
-              <option value="2">2 spots</option>
-              <option value="3">3 spots</option>
-              <option value="4">4 spots</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Pricing Tier / Pay What You Can Switcher -->
-        <div class="pt-1">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="block text-xs font-bold text-zinc-700 uppercase">Contribution Amount</label>
-            <span class="text-[11px] text-zinc-500 font-medium">100% to Tuition Assistance</span>
-          </div>
-          
-          <div class="grid grid-cols-2 gap-2 mb-2">
-            <button type="button" id="tier-standard-btn" onclick="setPricingTier('standard')" class="py-2 px-3 rounded-lg border border-[#be1e2d] bg-red-50 text-[#be1e2d] font-bold text-xs flex items-center justify-center gap-1.5 transition">
-              <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-              <span id="tier-standard-label">Standard ($0)</span>
-            </button>
-            <button type="button" id="tier-custom-btn" onclick="setPricingTier('custom')" class="py-2 px-3 rounded-lg border border-zinc-300 bg-white hover:border-[#be1e2d] text-zinc-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
-              <i data-lucide="heart" class="w-3.5 h-3.5 text-zinc-400"></i>
-              <span>Pay What You Can</span>
-            </button>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Email Address (for calendar invite & confirmation) <span class="text-red-500">*</span></label>
+            <input type="email" id="book-email" required placeholder="e.g., sarah@example.com" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
           </div>
 
-          <div id="custom-donation-wrap" class="hidden p-3 bg-red-50/40 border border-red-200 rounded-lg space-y-1.5">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-zinc-900">Custom Giving Amount ($):</span>
-              <span class="text-[10px] text-zinc-500 italic">Enter what feels right for your family</span>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Child's Grade</label>
+              <select id="book-grade" required class="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+                <option value="Parents Only">Parents Only (Adults)</option>
+                <option value="Preschool">Preschool / Early Childhood</option>
+                <option value="Kindergarten">Kindergarten</option>
+                <option value="1st Grade">1st Grade</option>
+                <option value="2nd Grade">2nd Grade</option>
+                <option value="3rd Grade">3rd Grade</option>
+                <option value="4th Grade">4th Grade</option>
+                <option value="5th Grade">5th Grade</option>
+                <option value="6th Grade">6th Grade</option>
+              </select>
             </div>
-            <div class="relative">
-              <span class="absolute left-3 top-2 font-bold text-sm text-zinc-500">$</span>
-              <input type="number" id="custom-donation-amount" oninput="updateBookingTotal()" min="1" placeholder="Enter amount" class="w-full pl-7 pr-3 py-1.5 rounded-md border border-zinc-300 text-sm font-bold text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] bg-white">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Spots to Claim</label>
+              <select id="book-spots" onchange="updateBookingTotal()" class="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none"></select>
             </div>
           </div>
+
+          <button type="button" onclick="goToStep2()" class="w-full py-3 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-sm shadow transition flex items-center justify-center gap-1.5 mt-2">
+            <span>Continue to Payment</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
         </div>
 
-        <!-- Payment Method Options -->
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Select Payment Method</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-[#be1e2d] has-[:checked]:border-[#be1e2d] has-[:checked]:bg-red-50/40 transition">
-              <input type="radio" name="pay-method" value="card" checked onchange="togglePaymentPanels('card')" class="text-[#be1e2d] focus:ring-[#be1e2d] mt-0.5">
-              <div>
-                <span class="text-xs font-bold text-zinc-900 block leading-tight">Credit Card / Apple Pay</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Instant online payment</span>
-              </div>
-            </label>
+        <!-- STEP 2 CONTAINER: Contribution, Payment & Confirmation -->
+        <div id="booking-step-2" class="hidden space-y-4">
+          <!-- Pricing Tier Selector -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-bold text-zinc-700 uppercase">Contribution Amount</label>
+              <span class="text-[11px] text-zinc-500 font-medium">100% to Tuition Fund</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mb-2">
+              <button type="button" id="tier-standard-btn" onclick="setPricingTier('standard')" class="py-2 px-3 rounded-lg border border-[#be1e2d] bg-red-50 text-[#be1e2d] font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                <span id="tier-standard-label">Standard ($0)</span>
+              </button>
+              <button type="button" id="tier-custom-btn" onclick="setPricingTier('custom')" class="py-2 px-3 rounded-lg border border-zinc-300 bg-white hover:border-[#be1e2d] text-zinc-700 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                <i data-lucide="heart" class="w-3.5 h-3.5 text-zinc-400"></i>
+                <span>Pay What You Can</span>
+              </button>
+            </div>
 
-            <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-blue-500 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40 transition">
-              <input type="radio" name="pay-method" value="p2p" onchange="togglePaymentPanels('p2p')" class="text-blue-600 focus:ring-blue-500 mt-0.5">
-              <div>
-                <span class="text-xs font-bold text-zinc-900 block leading-tight">Venmo, Zelle or PayPal</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Pay to school account handle</span>
+            <div id="custom-donation-wrap" class="hidden p-3 bg-red-50/40 border border-red-200 rounded-lg space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-zinc-900">Custom Amount ($):</span>
+                <span class="text-[10px] text-zinc-500 italic">Enter what feels right for your family</span>
               </div>
-            </label>
-
-            <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-purple-500 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50/40 transition">
-              <input type="radio" name="pay-method" value="student_account" onchange="togglePaymentPanels('student_account')" class="text-purple-600 focus:ring-purple-500 mt-0.5">
-              <div>
-                <span class="text-xs font-bold text-zinc-900 block leading-tight">Bill to HSH Account</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Added to FACTS billing</span>
+              <div class="relative">
+                <span class="absolute left-3 top-2 font-bold text-sm text-zinc-500">$</span>
+                <input type="number" id="custom-donation-amount" oninput="updateBookingTotal()" min="1" placeholder="Enter amount" class="w-full pl-7 pr-3 py-1.5 rounded-md border border-zinc-300 text-sm font-bold text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] bg-white">
               </div>
-            </label>
-
-            <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50/40 transition">
-              <input type="radio" name="pay-method" value="check_cash" onchange="togglePaymentPanels('check_cash')" class="text-amber-600 focus:ring-amber-500 mt-0.5">
-              <div>
-                <span class="text-xs font-bold text-zinc-900 block leading-tight">Check or Cash</span>
-                <span class="text-[10px] text-zinc-500 block mt-0.5">Deliver to Front Desk</span>
-              </div>
-            </label>
+            </div>
           </div>
 
-          <!-- Dynamic Panel: Credit Card 2.9% Fee Coverage -->
-          <div id="panel-card" class="mt-3 p-3 bg-zinc-50 border border-zinc-200 rounded-xl flex items-center justify-between text-xs">
-            <label class="flex items-center gap-2 cursor-pointer select-none">
-              <input type="checkbox" id="cover-processing-fee" onchange="updateBookingTotal()" class="rounded text-[#be1e2d] focus:ring-[#be1e2d]">
-              <span class="text-zinc-700">Cover 2.9% transaction fee so 100% supports the Tuition Fund</span>
-            </label>
-            <span class="font-bold text-zinc-900 ml-2 whitespace-nowrap" id="fee-amount-label">+$4.35</span>
-          </div>
+          <!-- Payment Options -->
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Choose Payment Method</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-[#be1e2d] has-[:checked]:border-[#be1e2d] has-[:checked]:bg-red-50/40 transition">
+                <input type="radio" name="pay-method" value="card" checked onchange="togglePaymentPanels('card')" class="text-[#be1e2d] focus:ring-[#be1e2d] mt-0.5">
+                <div>
+                  <span class="text-xs font-bold text-zinc-900 block leading-tight">Credit Card / Apple Pay</span>
+                  <span class="text-[10px] text-zinc-500 block mt-0.5">Instant online checkout</span>
+                </div>
+              </label>
 
-          <!-- Dynamic Panel: P2P Instructions, QR Code, Handle & 1-Tap Copy Note -->
-          <div id="panel-p2p" class="hidden mt-3 p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-3 text-xs">
-            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3.5">
-              <!-- Live scannable QR Code -->
-              <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-xs shrink-0 text-center">
-                <img id="p2p-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://venmo.com/u/HollywoodSchoolhouse-Hangouts" alt="Payment QR Code" class="w-20 h-20 mx-auto rounded">
-                <span class="text-[9px] text-zinc-500 font-bold uppercase mt-1 block">Scan in App</span>
-              </div>
-              
-              <div class="flex-1 w-full space-y-2 text-left">
-                <div class="flex items-center justify-between flex-wrap gap-1.5">
-                  <div>
-                    <span class="text-blue-950 font-bold block">School Handle:</span>
-                    <code class="bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-mono font-bold text-xs" id="p2p-handle-text">@HollywoodSchoolhouse-Hangouts</code>
+              <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-blue-500 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40 transition">
+                <input type="radio" name="pay-method" value="p2p" onchange="togglePaymentPanels('p2p')" class="text-blue-600 focus:ring-blue-500 mt-0.5">
+                <div>
+                  <span class="text-xs font-bold text-zinc-900 block leading-tight">Venmo, Zelle or PayPal</span>
+                  <span class="text-[10px] text-zinc-500 block mt-0.5">Scan QR or deep-link</span>
+                </div>
+              </label>
+
+              <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-purple-500 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50/40 transition">
+                <input type="radio" name="pay-method" value="student_account" onchange="togglePaymentPanels('student_account')" class="text-purple-600 focus:ring-purple-500 mt-0.5">
+                <div>
+                  <span class="text-xs font-bold text-zinc-900 block leading-tight">Bill to HSH Account</span>
+                  <span class="text-[10px] text-zinc-500 block mt-0.5">Invoiced through FACTS</span>
+                </div>
+              </label>
+
+              <label class="border border-zinc-300 rounded-xl p-2.5 flex items-start gap-2.5 cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-50/40 transition">
+                <input type="radio" name="pay-method" value="check_cash" onchange="togglePaymentPanels('check_cash')" class="text-amber-600 focus:ring-amber-500 mt-0.5">
+                <div>
+                  <span class="text-xs font-bold text-zinc-900 block leading-tight">Check or Cash</span>
+                  <span class="text-[10px] text-zinc-500 block mt-0.5">Deliver to Front Desk</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- Dynamic Credit Card Fee Coverage Panel -->
+            <div id="panel-card" class="mt-3 p-3 bg-zinc-50 border border-zinc-200 rounded-xl flex items-center justify-between text-xs">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="cover-processing-fee" onchange="updateBookingTotal()" class="rounded text-[#be1e2d] focus:ring-[#be1e2d]">
+                <span class="text-zinc-700">Cover 2.9% transaction fee so 100% supports the Tuition Fund</span>
+              </label>
+              <span class="font-bold text-zinc-900 ml-2 whitespace-nowrap" id="fee-amount-label">+$4.35</span>
+            </div>
+
+            <!-- Dynamic P2P Instructions: Live QR Code & Venmo Deep Link -->
+            <div id="panel-p2p" class="hidden mt-3 p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-3 text-xs">
+              <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3.5">
+                <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-xs shrink-0 text-center">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=95x95&data=https://venmo.com/u/HollywoodSchoolhouse-Hangouts" alt="Payment QR Code" class="w-20 h-20 mx-auto rounded">
+                  <span class="text-[9px] text-zinc-500 font-bold uppercase mt-1 block">Scan in App</span>
+                </div>
+                
+                <div class="flex-1 w-full space-y-2 text-left">
+                  <div class="flex items-center justify-between flex-wrap gap-1.5">
+                    <div>
+                      <span class="text-blue-950 font-bold block">School Handle:</span>
+                      <code class="bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-mono font-bold text-xs">@HollywoodSchoolhouse-Hangouts</code>
+                    </div>
+                    <button type="button" onclick="copyP2PHandle()" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] shadow-xs transition flex items-center gap-1">
+                      <i data-lucide="copy" class="w-3 h-3"></i>
+                      <span id="copy-handle-btn-text">Copy Handle</span>
+                    </button>
                   </div>
-                  <button type="button" onclick="copyP2PHandle()" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] shadow-xs transition flex items-center gap-1">
-                    <i data-lucide="copy" class="w-3 h-3"></i>
-                    <span id="copy-handle-btn-text">Copy Handle</span>
+                  <a href="https://venmo.com/u/HollywoodSchoolhouse-Hangouts" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-bold text-blue-700 hover:underline">
+                    <span>Open Venmo App directly</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="p-2.5 bg-white rounded-lg border border-blue-200">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-blue-950 text-[11px]">Required Note / Memo:</span>
+                  <button type="button" onclick="copyP2PMemo()" class="text-[10px] font-bold text-blue-700 hover:underline flex items-center gap-1">
+                    <i data-lucide="copy" class="w-2.5 h-2.5"></i>
+                    <span id="copy-memo-btn-text">Copy Note</span>
                   </button>
                 </div>
-                <p class="text-[11px] text-blue-900/80 leading-snug">Works directly in Venmo, Zelle, or PayPal searching for the handle above.</p>
+                <p class="font-mono text-zinc-800 bg-zinc-50 p-1.5 rounded border border-zinc-200 text-xs font-semibold" id="p2p-memo-preview">Living Centerpieces - [Your Name]</p>
               </div>
             </div>
 
-            <div class="p-2.5 bg-white rounded-lg border border-blue-200">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-bold text-blue-950 text-[11px]">Required Transfer Note / Memo:</span>
-                <button type="button" onclick="copyP2PMemo()" class="text-[10px] font-bold text-blue-700 hover:underline flex items-center gap-1">
-                  <i data-lucide="copy" class="w-2.5 h-2.5"></i>
-                  <span id="copy-memo-btn-text">Copy Note</span>
-                </button>
-              </div>
-              <p class="font-mono text-zinc-800 bg-zinc-50 p-1.5 rounded border border-zinc-200 text-xs font-semibold" id="p2p-memo-preview">Living Centerpieces - [Your Name]</p>
-              <p class="text-[10px] text-zinc-500 mt-1">Please paste this note into your payment transfer so the PA co-chairs can match your sign-up!</p>
+            <!-- Dynamic FACTS Student Legal Name Panel -->
+            <div id="panel-student-account" class="hidden mt-3 p-3.5 bg-purple-50/70 border border-purple-200 rounded-xl space-y-2 text-xs">
+              <label class="block font-bold text-purple-950">Child's Full Legal Name (for FACTS Billing): <span class="text-red-500">*</span></label>
+              <input type="text" id="billing-student-name" placeholder="e.g., Maya Lin" class="w-full px-3 py-2 rounded-lg border border-purple-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <p class="text-[10px] text-purple-800">Your donation will be added to your family's next monthly school billing invoice.</p>
+            </div>
+
+            <!-- Dynamic Check/Cash Instructions -->
+            <div id="panel-check-cash" class="hidden mt-3 p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1 text-xs text-amber-950">
+              <p class="font-bold">Front Desk Instructions:</p>
+              <p class="text-[11px] leading-relaxed">Make checks payable to <strong>Hollywood Schoolhouse</strong> (Memo: <em>Hosted Hangouts</em>) or bring cash in a labeled envelope to the Front Desk within 3 school days.</p>
             </div>
           </div>
 
-          <!-- Dynamic Panel: Student Account Billing -->
-          <div id="panel-student-account" class="hidden mt-3 p-3.5 bg-purple-50/70 border border-purple-200 rounded-xl space-y-2 text-xs">
-            <label class="block font-bold text-purple-950">Child's Full Legal Name (for FACTS Tuition Billing): <span class="text-red-500">*</span></label>
-            <input type="text" id="billing-student-name" placeholder="e.g., Maya Lin" class="w-full px-3 py-2 rounded-lg border border-purple-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <p class="text-[10px] text-purple-800">The total donation will be invoiced to your family's student billing profile on the next monthly cycle.</p>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Special Notes or Co-Attendee Names (Optional)</label>
+            <input type="text" id="book-notes" placeholder="Dietary restrictions or additional guest names" class="w-full px-3.5 py-2 rounded-lg border border-zinc-300 text-xs focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
           </div>
 
-          <!-- Dynamic Panel: Front Desk Check/Cash -->
-          <div id="panel-check-cash" class="hidden mt-3 p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1 text-xs text-amber-950">
-            <p class="font-bold">Front Desk Payment Instructions:</p>
-            <p class="text-[11px] leading-relaxed">Please make checks payable to <strong>Hollywood Schoolhouse</strong> with memo: <em>Hosted Hangouts — <span id="check-memo-title">Living Centerpieces</span></em>. Cash or check should be delivered in a labeled envelope to the Front Desk within 3 school days.</p>
+          <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-between">
+            <span class="text-xs font-medium text-zinc-600">Total Tax-Deductible Donation:</span>
+            <span class="text-base sm:text-lg font-bold text-zinc-900" id="booking-total-display">$0</span>
+          </div>
+
+          <div class="flex items-center gap-2 pt-1">
+            <button type="button" onclick="goToStep1()" class="py-3 px-4 rounded-xl border border-zinc-300 text-zinc-700 hover:bg-zinc-100 font-bold text-xs transition">
+              Back
+            </button>
+            <button type="submit" class="flex-1 py-3 rounded-xl bg-[#be1e2d] hover:bg-[#d63031] text-white font-bold text-xs sm:text-sm shadow transition">
+              Confirm Sign-Up & Support HSH
+            </button>
           </div>
         </div>
-
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Notes / Guest Names (Optional)</label>
-          <input type="text" id="book-notes" placeholder="e.g. Dietary preferences, co-attendee names" class="w-full px-3.5 py-2 rounded-lg border border-zinc-300 text-xs focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
-        </div>
-
-        <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-between">
-          <span class="text-xs font-medium text-zinc-600">Total Tax-Deductible Donation:</span>
-          <span class="text-base sm:text-lg font-bold text-zinc-900" id="booking-total-display">$0</span>
-        </div>
-
-        <button type="submit" class="w-full py-3 rounded-xl bg-[#be1e2d] hover:bg-[#d63031] text-white font-bold text-xs sm:text-sm shadow transition">
-          Confirm Sign-Up & Support HSH
-        </button>
       </form>
+    </div>
+  </div>
+
+  <!-- In-Page Confirmation Screen Modal with .ICS Calendar Download -->
+  <div id="confirmation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('confirmation-modal')">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden text-center p-6 space-y-4">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+        <i data-lucide="check-circle" class="w-10 h-10"></i>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-zinc-900 font-heading">You're In!</h3>
+        <p class="text-xs sm:text-sm text-zinc-600 mt-1" id="confirm-modal-body">Thank you for supporting the Hollywood Schoolhouse Tuition Assistance Fund.</p>
+      </div>
+      <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-left text-xs space-y-1">
+        <div class="font-bold text-zinc-900 text-sm" id="confirm-modal-event">Living Centerpieces</div>
+        <div class="text-zinc-500" id="confirm-modal-date">Fri, Nov 13 • 5:30 PM</div>
+        <div class="text-zinc-500" id="confirm-modal-loc">Daisy Hutton's House • Hollywood Hills</div>
+      </div>
+      <div class="space-y-2 pt-1">
+        <button onclick="downloadCalendarICS()" class="w-full py-2.5 rounded-xl bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-xs shadow flex items-center justify-center gap-2 transition">
+          <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+          <span>Add to Apple / Google Calendar</span>
+        </button>
+        <button onclick="closeModal('confirmation-modal')" class="w-full py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-xs transition">
+          Close Window
+        </button>
+      </div>
     </div>
   </div>
 
@@ -784,13 +691,13 @@
     </div>
   </div>
 
-  <!-- Host Pitch Modal -->
+  <!-- Host Pitch Modal with "Host With a Friend" Support -->
   <div id="host-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('host-modal')">
     <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
         <div>
           <h3 class="font-bold text-base sm:text-lg font-heading">Pitch a Hosted Hangout</h3>
-          <p class="text-xs text-red-100">Propose an event to raise tuition assistance funds</p>
+          <p class="text-xs text-red-100">Propose an event or team up to co-host</p>
         </div>
         <button onclick="closeModal('host-modal')" class="text-white/80 hover:text-white p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -799,35 +706,30 @@
 
       <div class="p-2.5 bg-amber-50 border-b border-amber-200 flex flex-wrap items-center justify-between gap-2 text-xs text-amber-950 shrink-0">
         <span class="font-semibold flex items-center gap-1.5">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
-          <span>Brainstorming?</span>
+          <i data-lucide="users-2" class="w-3.5 h-3.5 text-amber-600"></i>
+          <span>Host with a friend! Pair up with another family to co-host.</span>
         </span>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="toggleHostInspoList()" class="px-2 py-1 rounded bg-white border border-amber-300 font-bold text-zinc-800 hover:bg-amber-100 transition flex items-center gap-1">
-            <span>Potential Events</span>
-            <i data-lucide="chevron-down" class="w-3 h-3" id="inspo-chevron"></i>
-          </button>
-          <button type="button" onclick="openIdeasGuideModal()" class="px-2.5 py-1 rounded bg-[#be1e2d] text-white font-bold hover:bg-[#9e1422] transition flex items-center gap-1 shadow-xs">
-            <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-300"></i>
-            <span>Need Ideas? Guide</span>
-          </button>
-        </div>
-      </div>
-
-      <div id="host-inspo-drawer" class="hidden bg-zinc-50 border-b border-zinc-200 p-4 max-h-52 overflow-y-auto custom-scrollbar shrink-0">
-        <div class="text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-2">Other Planned & Prospective Events:</div>
-        <div class="space-y-2 text-xs" id="host-inspo-list-items"></div>
+        <button type="button" onclick="openIdeasGuideModal()" class="px-2.5 py-1 rounded bg-[#be1e2d] text-white font-bold hover:bg-[#9e1422] transition flex items-center gap-1 shadow-xs">
+          <i data-lucide="lightbulb" class="w-3 h-3 text-amber-300"></i>
+          <span>Browse 65+ Ideas</span>
+        </button>
       </div>
 
       <form id="host-pitch-form" onsubmit="handleHostPitch(event)" class="p-5 sm:p-6 space-y-3.5 overflow-y-auto custom-scrollbar flex-1">
-        <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Your Name / Family (Host)</label>
-          <input type="text" id="pitch-host" required placeholder="e.g., The Miller Family" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Your Family / Host Name <span class="text-red-500">*</span></label>
+            <input type="text" id="pitch-host" required placeholder="e.g., The Miller Family" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Co-Host Family (Optional)</label>
+            <input type="text" id="pitch-cohost" placeholder="e.g., The Henderson Family" class="w-full px-3 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Hangout Title / Idea</label>
-          <input type="text" id="pitch-title" required placeholder="e.g., Backyard Cupcake Wars" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Hangout Title / Idea <span class="text-red-500">*</span></label>
+          <input type="text" id="pitch-title" required placeholder="e.g., Backyard Paella & Spanish Wine Night" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -870,16 +772,12 @@
 
         <div>
           <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Proposed Date & Location</label>
-          <input type="text" id="pitch-datetime" required placeholder="e.g., Friday Nov 20, 6:00 PM @ Host Home" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
+          <input type="text" id="pitch-datetime" required placeholder="e.g., Saturday Dec 12, 6:00 PM @ Host Home" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Description & What is Included</label>
-          <textarea id="pitch-desc" required rows="3" placeholder="Describe the hangout, what parents/kids should bring, and the fun planned!" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none"></textarea>
-        </div>
-
-        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-950 leading-relaxed">
-          <strong>Auto-Email Notification:</strong> Submitting will instantly compose an email to the HSH Hosted Hangout Chairs (<code class="bg-red-100 px-1 py-0.5 rounded text-[#be1e2d] font-bold">hangouts@hshla.org</code>) with your proposal details.
+          <textarea id="pitch-desc" required rows="3" placeholder="Describe the hangout, food/drink, and fun planned!" class="w-full px-3.5 py-2.5 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none"></textarea>
         </div>
 
         <button type="submit" class="w-full py-3 rounded-xl bg-[#be1e2d] hover:bg-[#d63031] text-white font-bold text-xs sm:text-sm shadow transition">
@@ -889,7 +787,7 @@
     </div>
   </div>
 
-  <!-- Ideas Guide Modal -->
+  <!-- Ideas Guide Modal with Feasibility Badges -->
   <div id="ideas-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('ideas-modal')">
     <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
@@ -914,37 +812,14 @@
         </div>
         
         <div class="flex items-center gap-2 w-full sm:w-auto">
-          <div class="relative flex-1 sm:flex-none">
-            <select id="idea-grade-select" onchange="filterIdeasGuide()" class="w-full sm:w-auto appearance-none text-xs py-2 pl-3 pr-8 rounded-lg border border-zinc-300 bg-white font-medium text-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
-              <option value="all">All Grades / Ages</option>
-              <option value="Preschool">Preschool / Early Childhood</option>
-              <option value="Kindergarten">Kindergarten</option>
-              <option value="1st Grade">1st Grade</option>
-              <option value="2nd Grade">2nd Grade</option>
-              <option value="3rd Grade">3rd Grade</option>
-              <option value="4th Grade">4th Grade</option>
-              <option value="5th Grade">5th Grade</option>
-              <option value="6th Grade">6th Grade</option>
-            </select>
-            <i data-lucide="filter" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-2.5 pointer-events-none"></i>
-          </div>
-
-          <div class="relative flex-1 sm:flex-none">
-            <select id="idea-category-select" onchange="filterIdeasGuide()" class="w-full sm:w-auto appearance-none text-xs py-2 pl-3 pr-8 rounded-lg border border-zinc-300 bg-white font-medium text-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
-              <option value="all">All Categories (65)</option>
-              <option value="Sports & Active">Sports & Active</option>
-              <option value="Food & Cooking">Food & Cooking</option>
-              <option value="Creative Workshop">Creative Workshop</option>
-              <option value="Music & Performance">Music & Performance</option>
-              <option value="Movies & Media">Movies & Media</option>
-              <option value="STEM & Discovery">STEM & Discovery</option>
-              <option value="Games & Adventure">Games & Adventure</option>
-              <option value="Animals & Nature">Animals & Nature</option>
-              <option value="Party & Social">Party & Social</option>
-              <option value="Special Access">Special Access</option>
-            </select>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-2.5 pointer-events-none"></i>
-          </div>
+          <select id="idea-category-select" onchange="filterIdeasGuide()" class="w-full sm:w-auto text-xs py-2 pl-3 pr-8 rounded-lg border border-zinc-300 bg-white font-medium text-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#be1e2d]">
+            <option value="all">All Categories (65)</option>
+            <option value="Sports & Active">Sports & Active</option>
+            <option value="Food & Cooking">Food & Cooking</option>
+            <option value="Creative Workshop">Creative Workshop</option>
+            <option value="Music & Performance">Music & Performance</option>
+            <option value="Party & Social">Party & Social</option>
+          </select>
         </div>
       </div>
 
@@ -952,10 +827,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="ideas-catalog-grid"></div>
       </div>
 
-      <div class="p-3.5 bg-white border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs text-zinc-600 shrink-0">
-        <span>💡 Click <strong>"Host This Idea"</strong> on any card to automatically pre-fill your proposal form!</span>
-        <button onclick="closeModal('ideas-modal')" class="w-full sm:w-auto px-4 py-1.5 sm:py-2 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-semibold transition">
-          Close Guide
+      <div class="p-3.5 bg-white border-t border-zinc-200 flex items-center justify-between text-xs text-zinc-600 shrink-0">
+        <span>💡 Click <strong>"Host This Idea"</strong> on any card to automatically pre-fill your proposal!</span>
+        <button onclick="closeModal('ideas-modal')" class="px-4 py-1.5 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-semibold transition">
+          Close
         </button>
       </div>
     </div>
@@ -990,7 +865,7 @@
     </div>
   </div>
 
-  <!-- Host Pipeline Tracker Modal -->
+  <!-- Tracker Modal -->
   <div id="tracker-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('tracker-modal')">
     <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[90vh]">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
@@ -1008,54 +883,19 @@
         </button>
       </div>
 
-      <div class="p-3.5 sm:p-4 bg-zinc-50 border-b border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-        <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3 top-2.5 pointer-events-none"></i>
-          <input type="text" id="tracker-search-input" oninput="filterTrackerList()" placeholder="Search host, concept, or date..." class="w-full pl-9 pr-3 py-1.5 sm:py-2 rounded-lg border border-zinc-300 text-xs sm:text-sm focus:ring-2 focus:ring-[#be1e2d] focus:outline-none bg-white">
-        </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <select id="tracker-status-select" onchange="filterTrackerList()" class="w-full sm:w-auto text-xs py-2 px-3 rounded-lg border border-zinc-300 bg-white font-medium text-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#be1e2d]">
-            <option value="all">All Statuses</option>
-            <option value="Go">Status: Go / Confirmed</option>
-            <option value="Waiting">Status: Waiting / In Discussion</option>
-            <option value="Reapproach">Past Hosts to Reapproach</option>
-          </select>
-          <a href="https://docs.google.com/spreadsheets/d/1dKpKqDrgI-B4fGDtJz_ZDWGnOLgsfBUkjg0DOsZzeA4/edit?gid=0#gid=0" target="_blank" rel="noopener" class="shrink-0 px-3 py-2 rounded-lg border border-zinc-300 bg-white text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 text-xs font-semibold flex items-center gap-1.5 transition" title="Open Google Sheet">
-            <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
-            <span class="hidden sm:inline">Google Doc</span>
-          </a>
-        </div>
-      </div>
-
       <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6 flex-1">
         <div>
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="font-bold text-sm sm:text-base text-zinc-900 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span>2026–27 Prospective Hosts & Active Pipeline</span>
-            </h4>
-            <span class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider" id="active-hosts-count">7 Concepts</span>
-          </div>
-
+          <h4 class="font-bold text-sm sm:text-base text-zinc-900 flex items-center gap-2 mb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>2026–27 Active Concepts & Prospects</span>
+          </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5" id="active-tracker-container"></div>
-        </div>
-
-        <div class="pt-4 border-t border-zinc-200">
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="font-bold text-sm sm:text-base text-zinc-900 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-              <span>Hosts & Concepts to Reapproach</span>
-            </h4>
-            <span class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">Ideas Bank</span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5" id="reapproach-tracker-container"></div>
         </div>
       </div>
 
-      <div class="p-3.5 bg-zinc-50 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs text-zinc-500 shrink-0">
-        <div>💡 Notes and contact points synced from the official HSH committee roster.</div>
-        <button onclick="closeModal('tracker-modal')" class="w-full sm:w-auto px-4 py-1.5 sm:py-2 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-semibold transition">
+      <div class="p-3.5 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between text-xs text-zinc-500 shrink-0">
+        <div>Notes synced from the committee roster.</div>
+        <button onclick="closeModal('tracker-modal')" class="px-4 py-1.5 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-semibold transition">
           Close Tracker
         </button>
       </div>
@@ -1071,7 +911,7 @@
       if (API_BASE_URL && API_BASE_URL.trim() !== '') {
         window.location.href = `${API_BASE_URL.replace(/\/$/, '')}/admin/`;
       } else {
-        alert("The backend Node server is not connected yet.\n\nSet API_BASE_URL to your Render service address to open the live admin dashboard.");
+        alert("The backend Node server is not connected yet.");
       }
     }
 
@@ -1100,6 +940,15 @@
           { name: "Elena Ross", grade: "Parents Only" }
         ]
       }
+    ];
+
+    let pastShowcaseItems = [
+      { id: "shelby", title: "Feel Good Jazz Class", host: "Hosted by Shelby Rabara Shum", price: "$50 / person", category: "Dance & Fitness", cover: "HOSTED_HANGOUT_SHELBY.jpeg", count: "2 Photos" },
+      { id: "karaoke", title: "Presidents' Karaoke Night", host: "Hosted by Christy, Michelle, Daisy, Alicia & Brianne", price: "$100 / person", category: "Parent Social", cover: "karoke%20HH.jpg", count: "Flyer" },
+      { id: "soundbath", title: "Sunset Sound Bath", host: "Hosted by Elizabeth Sbardellati", price: "$75 / person", category: "Wellness & Sound", cover: "HOSTED_HANGOUT_SOUND_BATH.jpg", count: "Flyer" },
+      { id: "iceskating", title: "Community Ice Skating", host: "Hosted by Jean, Brandee, Janet, Dawn & Julie", price: "$40 / person", category: "All-School Family", cover: "HOSTED_HANGOUT_ICE_SKATING.jpg", count: "4 Photos" },
+      { id: "ecedance", title: "Grown-Ups & Kiddos Dance Class", host: "Hosted by Caroline Keichian • Led by Savanna Stone", price: "$35 / family", category: "Early Childhood", cover: "HOSTED_HANGOUT_ECE_DANCE.jpg", count: "2 Photos" },
+      { id: "distillery", title: "Hollywood Distillery Tasting & Tour", host: "Hosted by Carrie Clifford, Kay Lee & Lauren Delp", price: "$65 / person", category: "Parent Social", cover: "HOSTED_HANGOUT_DISTLLERY.jpg", count: "2 Photos" }
     ];
 
     const pastGalleries = {
@@ -1164,95 +1013,16 @@
       { hosts: "Lauren Escobar Slater / Sam Napolitano & 2 other parents", concept: "Bob Baker Marionette Theater Puppet Show", status: "Go", date: "Upcoming", notes: "Checking available dates with Bob Baker troupe.", contact: "laurenmescobar@gmail.com", student: "Janet" },
       { hosts: "Alicia Quinonez, Daisy Hutton & Brianne Watson (Co-Pres/Governance)", concept: "Living Floral Centerpiece Arrangements (An Evening in Flowers)", status: "Go", date: "Nov 13, 2026", notes: "With Brooke Wetzel of The Plum Dahlia at Daisy Hutton's House.", contact: "HSH Co-Presidents", student: "Janet" },
       { hosts: "Eric Etebari", concept: "Volleyball Session with large gym access", status: "In Progress", date: "Nov 8, 15 or Dec 6", notes: "Pan Pacific Gym access with Coach Andres supporting.", contact: "ericetebari@hotmail.com • 310.871.4444", student: "Oliver" },
-      { hosts: "Noelle Valdivia & Carrie Tivador", concept: "Street Art with Chris", status: "Waiting", date: "Dec 5, 2026", notes: "Pinged on 10/16. Sent suggestions, waiting for final response.", contact: "noelle.valdivia@gmail.com • 818.468.6225", student: "Oliver" },
-      { hosts: "Andrea Phillips", concept: "Wine Tasting at their house", status: "Waiting", date: "TBD", notes: "Waiting for response.", contact: "714.270.3645", student: "Janet" },
-      { hosts: "Ren", concept: "Poker Night", status: "Planning", date: "TBD", notes: "Parent social games night concept.", contact: "HSH Community", student: "HSH" },
-      { hosts: "Lauren Escobar Slater / Susan Napolitano", concept: "Marbling Party", status: "Canceled", date: "10/7 or 10/8", notes: "Holding off for now due to hosting 3rd grade parents mixer.", contact: "shana.sherwood@gmail.com", student: "Janet" }
-    ];
-
-    const pastHostsIdeas = [
-      { host: "Ilise & Barb", concept: "Holiday Crafting" },
-      { host: "Aisha Francis", concept: "Sexy Dance Class" },
-      { host: "Carrie Clifford, Kay Lee, Lauren Delp", concept: "Hollywood Distillery Tour & Tasting" },
-      { host: "Jean Kwolek, Brandee Steger, Janet Tomiyama, Dawn Kennedy, Julie Moss", concept: "Community Ice Skating" },
-      { host: "Elizabeth Sbardellati", concept: "Rooftop Sound Bath" },
-      { host: "Andrea Phillips", concept: "Early Childhood (ECE) Family Fun" },
-      { host: "Caroline Keichian", concept: "Grown-Up & Kiddo Dance Class" },
-      { host: "Elizabeth Westlake", concept: "Backyard Adult Bingo & Game Night" },
-      { host: "Lucy Page", concept: "Apple Pie Baking Workshop" },
-      { host: "Farron Fowler", concept: "Parent Fitness Boot Camp" },
-      { host: "Lloys Frates", concept: "Books & Craft Cocktails" },
-      { host: "Shelby Rabara Shum", concept: "Feel Good Jazz Class" },
-      { host: "Past & Present Presidents (Christy, Michelle, Daisy, Alicia, Brianne)", concept: "Presidents' Karaoke Night" },
-      { host: "Sonya Boijiyan", concept: "Ceramics & Wine Night" }
+      { hosts: "Noelle Valdivia & Carrie Tivador", concept: "Street Art with Chris", status: "Waiting", date: "Dec 5, 2026", notes: "Pinged on 10/16. Sent suggestions, waiting for final response.", contact: "noelle.valdivia@gmail.com • 818.468.6225", student: "Oliver" }
     ];
 
     const completeIdeaGuide = [
-      { id: 1, title: "Roller Skating Party", ages: "5–13", minAge: 5, maxAge: 13, category: "Sports & Active", setting: "Off-site venue", desc: "Roller skating session! Moonlight Rollerway offers special school and nonprofit group pricing." },
-      { id: 2, title: "Private Karaoke Room Bash", ages: "5–10", minAge: 5, maxAge: 10, category: "Music & Performance", setting: "Off-site venue", desc: "Private karaoke gathering; The Venue accommodates up to 50 people in its XL room." },
-      { id: 3, title: "Foam Party Spectacular", ages: "5–10", minAge: 5, maxAge: 10, category: "Party & Social", setting: "School / large yard", desc: "Foam cannon, high-energy DJ, inflatables, and delicious snacks for an afternoon of pure joy." },
-      { id: 4, title: "Backyard Movie Premiere", ages: "5–10", minAge: 5, maxAge: 10, category: "Movies & Media", setting: "Backyard", desc: "Giant screen under the stars, gourmet popcorn bar, candy spread, cozy blankets, and a themed photo booth." },
-      { id: 5, title: "Pizza Making & Gelato Night", ages: "5–10", minAge: 5, maxAge: 10, category: "Food & Cooking", setting: "Home / restaurant", desc: "Dough tossing, build-your-own pizza stations, artisan toppings, and Italian gelato." },
-      { id: 6, title: "Mad Scientist Lab Night", ages: "5–9", minAge: 5, maxAge: 9, category: "STEM & Discovery", setting: "Home / school", desc: "Hands-on slime, bubbling dry ice, glowing experiments, test tubes, and real lab coats." },
-      { id: 7, title: "Puppy Play Party", ages: "5–9", minAge: 5, maxAge: 9, category: "Animals & Nature", setting: "Partner venue / yard", desc: "Supervised puppy cuddle & play session partnered with a local dog rescue or animal organization." },
-      { id: 8, title: "Reptile & Animal Night", ages: "5–10", minAge: 5, maxAge: 10, category: "Animals & Nature", setting: "Home / school", desc: "Snakes, giant lizards, tortoises, and an interactive licensed animal educator presentation." },
-      { id: 9, title: "Trampoline Park Takeover", ages: "5–11", minAge: 5, maxAge: 11, category: "Sports & Active", setting: "Off-site venue", desc: "Private or semi-private jump session with dodgeball, foam pits, and pizza." },
-      { id: 10, title: "Secret Spy Academy", ages: "6–10", minAge: 6, maxAge: 10, category: "Games & Adventure", setting: "Home / school", desc: "Laser maze obstacle course, invisible ink clues, code breaking, disguises, and a top-secret mission." },
-      { id: 11, title: "Cupcake Wars Championship", ages: "6–11", minAge: 6, maxAge: 11, category: "Food & Cooking", setting: "Home / kitchen", desc: "Teams decorate elaborate themed cupcakes with piping bags and sprinkles, followed by a parent judging panel." },
-      { id: 12, title: "Chocolate Factory Workshop", ages: "6–11", minAge: 6, maxAge: 11, category: "Food & Cooking", setting: "Kitchen / chocolatier", desc: "Make artisan truffles, chocolate bars, and fruit-dipped treats with an instructor or passionate host." },
-      { id: 13, title: "Nerf Battle Royale", ages: "6–11", minAge: 6, maxAge: 11, category: "Sports & Active", setting: "Gym / large yard", desc: "Inflatable bunkers, huge Nerf dart arsenal, safety glasses, team flags, and lively referees." },
-      { id: 14, title: "Water Wars & Slip-and-Slide", ages: "6–11", minAge: 6, maxAge: 11, category: "Sports & Active", setting: "Large yard", desc: "500+ water balloons, Super Soaker relays, a 50-foot slip-and-slide, and watermelon slices." },
-      { id: 15, title: "Taylor Swift / K-Pop Dance Studio", ages: "6–11", minAge: 6, maxAge: 11, category: "Music & Performance", setting: "Dance studio", desc: "Learn authentic pop music choreography from a professional dancer, ending with a show for parents!" },
-      { id: 16, title: "Hogwarts Magic School", ages: "6–10", minAge: 6, maxAge: 10, category: "Creative Workshop", setting: "Home / event room", desc: "A professional magician performs a show and teaches kids how to perform real sleight-of-hand tricks." },
-      { id: 17, title: "Circus & Aerial Silk School", ages: "6–11", minAge: 6, maxAge: 11, category: "Sports & Active", setting: "Circus studio", desc: "Aerial silks, juggling, hula hoops, and safe acrobatics taught by professional circus coaches." },
-      { id: 18, title: "Build-a-Terrarium Workshop", ages: "6–11", minAge: 6, maxAge: 11, category: "Creative Workshop", setting: "Home / garden space", desc: "Build a miniature self-contained living moss and succulent terrarium in glass vessels to take home." },
-      { id: 19, title: "Mini Golf After Dark", ages: "6–12", minAge: 6, maxAge: 12, category: "Sports & Active", setting: "Off-site venue", desc: "Private glow mini-golf tournament under blacklights with scorecards, trophies, and treats." },
-      { id: 20, title: "Parents vs. Kids Game Show", ages: "7–13", minAge: 7, maxAge: 13, category: "Games & Adventure", setting: "Home / school", desc: "Family Feud, Minute-to-Win-It, buzzers, physical challenges, and silly trivia face-offs." },
-      { id: 21, title: "Backyard Glamping Campout", ages: "7–11", minAge: 7, maxAge: 11, category: "Games & Adventure", setting: "Backyard", desc: "Tents, gourmet s'mores over a fire pit, flashlight tag, spooky-fun stories, and outdoor cinema." },
-      { id: 22, title: "Stop-Motion Movie Studio", ages: "7–12", minAge: 7, maxAge: 12, category: "Movies & Media", setting: "Home / studio", desc: "Teams sculpt clay and assemble LEGO scenes to direct, voice, and edit their own short stop-motion films." },
-      { id: 23, title: "Pottery Wheel Party", ages: "7–13", minAge: 7, maxAge: 13, category: "Creative Workshop", setting: "Pottery studio", desc: "Learn to throw clay on an electric potter's wheel and glaze a ceramic bowl or vase." },
-      { id: 24, title: "Custom Jewelry Design Studio", ages: "7–13", minAge: 7, maxAge: 13, category: "Creative Workshop", setting: "Home / studio", desc: "Create personalized beaded bracelets, metal-stamped charms, and friendship necklaces." },
-      { id: 25, title: "Night at the Zoo / Animal Encounter", ages: "7–12", minAge: 7, maxAge: 12, category: "Animals & Nature", setting: "Off-site venue", desc: "Private after-hours animal walk and educational encounter with a wildlife partner." },
-      { id: 26, title: "Bowling After Dark & Pizza", ages: "7–13", minAge: 7, maxAge: 13, category: "Sports & Active", setting: "Bowling alley", desc: "Glow cosmic bowling, arcade games, pizza boxes, and mini trophies." },
-      { id: 27, title: "Arcade Takeover", ages: "7–13", minAge: 7, maxAge: 13, category: "Games & Adventure", setting: "Arcade venue", desc: "Private or special-access arcade play with unlimited tokens, pinball, and air hockey." },
-      { id: 28, title: "Indoor Rock Climbing Challenge", ages: "7–13", minAge: 7, maxAge: 13, category: "Sports & Active", setting: "Climbing gym", desc: "Bouldering and top-rope climbing led by certified climbing coaches." },
-      { id: 29, title: "Amazing Race: HSH Edition", ages: "8–13", minAge: 8, maxAge: 13, category: "Games & Adventure", setting: "School / park", desc: "Teams race across campus cracking clues, mental puzzles, and obstacle challenges." },
-      { id: 30, title: "Glow-in-the-Dark Capture the Flag", ages: "8–13", minAge: 8, maxAge: 13, category: "Sports & Active", setting: "Field / large yard", desc: "LED field boundaries, illuminated team flags, glow sticks, face paint, and DJ beats." },
-      { id: 31, title: "Kids' Iron Chef Cook-Off", ages: "8–13", minAge: 8, maxAge: 13, category: "Food & Cooking", setting: "Kitchen / studio", desc: "Teams race the clock using surprise secret ingredients to impress a panel of parent judges." },
-      { id: 32, title: "Survivor: HSH Island", ages: "8–13", minAge: 8, maxAge: 13, category: "Games & Adventure", setting: "School / park", desc: "Tribes compete in balance beams, water relays, puzzle building, and immunity challenges." },
-      { id: 33, title: "Silent Disco Under the Stars", ages: "8–13", minAge: 8, maxAge: 13, category: "Party & Social", setting: "Home / yard / school", desc: "Multi-channel glowing wireless headphones, DJ channels, mocktails, and dance-offs." },
-      { id: 34, title: "Rock Star Recording Session", ages: "8–13", minAge: 8, maxAge: 13, category: "Music & Performance", setting: "Recording studio", desc: "Step inside a real Hollywood recording booth, lay down vocal tracks, and take home a mixed MP3." },
-      { id: 35, title: "Kids' Comedy & Improv Club", ages: "8–13", minAge: 8, maxAge: 13, category: "Music & Performance", setting: "Theater / studio", desc: "Learn improv comedy and sketch games with a professional comic, followed by a showcase." },
-      { id: 36, title: "Movie Stunt School", ages: "8–13", minAge: 8, maxAge: 13, category: "Movies & Media", setting: "Gym / stunt studio", desc: "Safe theatrical falls, Hollywood punch choreography, and wire work with a professional stunt coordinator." },
-      { id: 37, title: "Robotics Battle Arena", ages: "8–13", minAge: 8, maxAge: 13, category: "STEM & Discovery", setting: "STEM lab / school", desc: "Assemble and program robotic rovers to compete in an exciting obstacle and battle ring." },
-      { id: 38, title: "Rocket Building & Launch Club", ages: "8–13", minAge: 8, maxAge: 13, category: "STEM & Discovery", setting: "Field / park", desc: "Build solid-fuel or pneumatic model rockets, decorate fins, and launch them hundreds of feet high." },
-      { id: 39, title: "Sneaker Customization Lab", ages: "8–13", minAge: 8, maxAge: 13, category: "Creative Workshop", setting: "Home / art studio", desc: "Customize fresh white sneakers using Angelus paints, stencils, hydro-dipping, and custom laces." },
-      { id: 40, title: "Street Art & Mural Workshop", ages: "8–13", minAge: 8, maxAge: 13, category: "Creative Workshop", setting: "Outdoor art space", desc: "Learn stenciling, typography, and controlled aerosol spray techniques with a professional street artist." },
-      { id: 41, title: "Horseback Trail Adventure", ages: "8–13", minAge: 8, maxAge: 13, category: "Animals & Nature", setting: "Riding stable", desc: "Scenic trail ride through the hills followed by a picnic lunch at the stables." },
-      { id: 42, title: "Pacific Surf & Beach Clinic", ages: "8–13", minAge: 8, maxAge: 13, category: "Sports & Active", setting: "Beach", desc: "Private group surf lesson with wetsuits, softboards, and ocean lifeguards in Santa Monica/Malibu." },
-      { id: 43, title: "Pickleball Smash Tournament", ages: "8–13", minAge: 8, maxAge: 13, category: "Sports & Active", setting: "Pickleball courts", desc: "Round-robin tournament with certified instructors, fun rallies, hydration bar, and awards." },
-      { id: 44, title: "Dodgers / LAFC VIP Experience", ages: "8–13", minAge: 8, maxAge: 13, category: "Special Access", setting: "Stadium", desc: "Group tickets and behind-the-scenes stadium experience hosted by a sports-industry parent." },
-      { id: 45, title: "Kids' Casino & Game Night", ages: "9–13", minAge: 9, maxAge: 13, category: "Games & Adventure", setting: "Home / hall", desc: "Blackjack, roulette, and poker with funny play money, card dealers, mocktails, and prize redemption." },
-      { id: 46, title: "Movie Makeup & SFX Lab", ages: "9–13", minAge: 9, maxAge: 13, category: "Movies & Media", setting: "Studio / home", desc: "Learn cinematic special effects: fake bruises, latex scars, creature alien makeup, and stage blood." },
-      { id: 47, title: "Escape Room Takeover", ages: "9–13", minAge: 9, maxAge: 13, category: "Games & Adventure", setting: "Escape room venue", desc: "Private booking of multi-room escape challenges where classmates race to beat the clock." },
-      { id: 48, title: "Murder Mystery Costume Dinner", ages: "10–13", minAge: 10, maxAge: 13, category: "Games & Adventure", setting: "Host dining room", desc: "Scripted whodunnit mystery game where every kid gets a character dossier, props, and dinner." },
-      { id: 49, title: "Junior Chef Masterclass", ages: "5–13", minAge: 5, maxAge: 13, category: "Food & Cooking", setting: "Home kitchen", desc: "A chef parent hosts 8 kids for a hands-on culinary class teaching knife safety, pasta, or sushi." },
-      { id: 50, title: "Behind the Scenes: Movie Soundstage", ages: "5–10", minAge: 5, maxAge: 10, category: "Special Access", setting: "Soundstage", desc: "A film-industry parent takes kids behind the scenes of a real studio lot, prop room, or soundstage." },
-      { id: 51, title: "Design Your Dream House with an Architect", ages: "5–10", minAge: 5, maxAge: 10, category: "Creative Workshop", setting: "Home / studio", desc: "An architect parent hosts kids to draft blueprints and build 3D architectural scale models." },
-      { id: 52, title: "Songwriting & Recording with a Musician", ages: "5–10", minAge: 5, maxAge: 10, category: "Music & Performance", setting: "Home music studio", desc: "A musician parent guides kids through writing lyrics, composing melodies, and recording a group track." },
-      { id: 53, title: "Design Your Own Sneakers with a Stylist", ages: "5–9", minAge: 5, maxAge: 9, category: "Creative Workshop", setting: "Design studio", desc: "A fashion designer leads younger learners through designing wearable shoe art." },
-      { id: 54, title: "Animation & Storyboarding Workshop", ages: "5–9", minAge: 5, maxAge: 9, category: "Movies & Media", setting: "Art studio", desc: "An animator teaches character design, facial expressions, and comic strip storyboarding." },
-      { id: 55, title: "Junior Pilot Flight Experience", ages: "5–10", minAge: 5, maxAge: 10, category: "Special Access", setting: "Aviation hangar", desc: "A pilot parent introduces cockpit controls, aeronautics, flight planning, and sitting inside a plane." },
-      { id: 56, title: "Scientist for a Day Experiment Lab", ages: "5–11", minAge: 5, maxAge: 11, category: "STEM & Discovery", setting: "Lab / backyard", desc: "A scientist parent leads safe, jaw-dropping chemistry reactions and physics experiments." },
-      { id: 57, title: "Ultimate Pool Olympics", ages: "6–10", minAge: 6, maxAge: 10, category: "Sports & Active", setting: "Private pool", desc: "Pool relays, raft races, splash contests, music, popsicles, and medal ceremonies." },
-      { id: 58, title: "Middle School After Hours", ages: "9–13", minAge: 9, maxAge: 13, category: "Party & Social", setting: "School / large venue", desc: "Exclusive older-kid social with silent disco, food truck, photo wall, and mocktail bar." },
-      { id: 59, title: "Screen Fight & Stunt Workshop", ages: "5–10", minAge: 5, maxAge: 10, category: "Movies & Media", setting: "Gym / studio", desc: "Safe slapstick falls and superhero battle moves taught by an industry stunt coordinator." },
-      { id: 60, title: "Horror & Monster FX Studio", ages: "5–10", minAge: 5, maxAge: 10, category: "Movies & Media", setting: "Studio / home", desc: "Monster prosthetic design and makeup transformations with a Hollywood artist." },
-      { id: 61, title: "Escape Room Championship", ages: "5–10", minAge: 5, maxAge: 10, category: "Games & Adventure", setting: "Escape venue", desc: "Head-to-head escape room competition to see which grade or team breaks out first." },
-      { id: 62, title: "Iron Chef HSH: Junior Edition", ages: "5–9", minAge: 5, maxAge: 9, category: "Food & Cooking", setting: "Cooking studio", desc: "Fun beginner culinary competition featuring kid-friendly secret ingredients." },
-      { id: 63, title: "Studio Vocal Recording Night", ages: "5–9", minAge: 5, maxAge: 9, category: "Music & Performance", setting: "Sound booth", desc: "Young singers record a group pop anthem with professional mixing engineer parents." },
-      { id: 64, title: "Blacklight Neon Night & Dance", ages: "5–10", minAge: 5, maxAge: 10, category: "Party & Social", setting: "Venue / hall", desc: "UV blacklights, neon body paint, glowing crafts, dance beats, and illuminated photo booth." },
-      { id: 65, title: "Backyard Cinema Club", ages: "5–11", minAge: 5, maxAge: 11, category: "Movies & Media", setting: "Backyard", desc: "Outdoor projector, lounge seating, warm blankets, artisan pizza, and a family-favorite film." }
+      { id: 1, title: "Roller Skating Party", ages: "5–13", category: "Sports & Active", setting: "Off-site venue", badge: "Zero Prep", desc: "Private group roller skating session at Moonlight Rollerway with school rates." },
+      { id: 2, title: "Backyard Movie Premiere", ages: "5–10", category: "Movies & Media", setting: "Backyard", badge: "Low Cost", desc: "Giant outdoor screen under the stars with gourmet popcorn bar and cozy blankets." },
+      { id: 3, title: "Pizza Making & Gelato Night", ages: "5–10", category: "Food & Cooking", setting: "Kitchen / yard", badge: "High Popularity", desc: "Dough tossing, build-your-own pizza stations, artisan toppings, and Italian gelato." },
+      { id: 4, title: "Parents vs. Kids Game Show", ages: "7–13", category: "Party & Social", setting: "School Hall / yard", badge: "Campus Available", desc: "Family Feud, Minute-to-Win-It, buzzers, physical challenges, and funny trivia." },
+      { id: 5, title: "Sunset Sound Bath & Meditation", ages: "Adults", category: "Creative Workshop", setting: "Rooftop / Garden", badge: "Zero Prep", desc: "Intimate restorative Tibetan sound bath meditation with warm herbal tea." },
+      { id: 6, title: "Street Art & Mural Workshop", ages: "8–13", category: "Creative Workshop", setting: "Outdoor Art Space", badge: "Unique Skill", desc: "Learn typography, stencil art, and controlled spray paint art with an artist." }
     ];
 
     let currentCategory = 'all';
@@ -1267,19 +1037,18 @@
     let activePhotoIndex = 0;
     let activeBookingHangout = null;
     let activePricingTier = 'standard';
-    let currentBaseDonation = 150;
+    let lastBookedReservation = null;
 
-    // Fetch dynamic catalog from server if reachable
     async function initCatalogFromServer() {
       if (!API_BASE_URL) return;
       try {
         const res = await fetch(`${API_BASE_URL.replace(/\/$/, '')}/api/catalog`);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            hangouts = data;
-            renderCards();
-          }
+          if (data.events && Array.isArray(data.events)) hangouts = data.events;
+          if (data.pastShowcase && Array.isArray(data.pastShowcase)) pastShowcaseItems = data.pastShowcase;
+          renderCards();
+          renderPastShowcase();
         }
       } catch (err) {
         console.warn("Could not reach API server, continuing with client-side cache:", err);
@@ -1321,6 +1090,14 @@
           const spotsLeft = h.spotsRemaining !== undefined ? h.spotsRemaining : (h.totalSpots - spotsCount);
           const isFull = spotsLeft <= 0;
 
+          // Status Badge Pill Logic
+          let statusPill = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/90 text-white backdrop-blur-sm">Open</span>`;
+          if (isFull) {
+            statusPill = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-zinc-800 text-white backdrop-blur-sm">Sold Out</span>`;
+          } else if (spotsLeft <= 3) {
+            statusPill = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500 text-white backdrop-blur-sm animate-pulse">Only ${spotsLeft} Left!</span>`;
+          }
+
           const card = document.createElement('div');
           card.className = "bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col";
           const fallbackAttr = h.fallbackImage ? `onerror="this.onerror=null; this.src='${h.fallbackImage}';"` : '';
@@ -1337,6 +1114,7 @@
               <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none">
                 <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-zinc-900/85 text-white backdrop-blur-sm">${h.category}</span>
                 <span class="px-2.5 py-1 rounded-full text-xs font-bold ${h.grade === 'Parents Only' ? 'bg-[#9e1422]/90 text-white' : 'bg-zinc-800/85 text-zinc-200'} backdrop-blur-sm">${h.grade}</span>
+                ${statusPill}
               </div>
               <div class="absolute bottom-3 right-3 bg-white/95 px-3 py-1 rounded-full text-xs font-bold text-zinc-900 shadow pointer-events-none">
                 $${h.price} / person
@@ -1359,12 +1137,12 @@
                   <button onclick="viewAttendees(${h.id})" class="text-xs font-semibold text-zinc-600 hover:text-[#be1e2d] flex items-center gap-1.5 transition">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-[#be1e2d]"></i>
                     <span>${spotsCount} joined</span>
-                    <span class="text-zinc-400">(${spotsLeft} left)</span>
+                    <span class="text-zinc-400">(${spotsLeft > 0 ? spotsLeft : 0} left)</span>
                   </button>
                   <button onclick="viewAttendees(${h.id})" class="text-[11px] font-bold text-[#be1e2d] hover:underline">Who's going?</button>
                 </div>
-                <button onclick="openBooking(${h.id})" ${isFull ? 'disabled' : ''} class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition ${isFull ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed' : 'bg-[#be1e2d] hover:bg-[#d63031] text-white shadow-sm'}">
-                  ${isFull ? 'Hangout Full' : `Sign Up • $${h.price}`}
+                <button onclick="openBooking(${h.id})" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition ${isFull ? 'bg-amber-600 hover:bg-amber-700 text-white' : 'bg-[#be1e2d] hover:bg-[#d63031] text-white shadow-sm'}">
+                  ${isFull ? 'Join Waitlist' : `Sign Up • $${h.price}`}
                 </button>
               </div>
             </div>
@@ -1377,270 +1155,88 @@
       safeLucide();
     }
 
-    // Dynamic Payment Panel Logic
-    function togglePaymentPanels(method) {
-      const panelCard = document.getElementById('panel-card');
-      const panelP2P = document.getElementById('panel-p2p');
-      const panelStudent = document.getElementById('panel-student-account');
-      const panelCheck = document.getElementById('panel-check-cash');
+    function renderPastShowcase() {
+      const container = document.getElementById('past-showcase-grid');
+      if (!container) return;
+      container.innerHTML = '';
 
-      if (panelCard) panelCard.classList.toggle('hidden', method !== 'card');
-      if (panelP2P) panelP2P.classList.toggle('hidden', method !== 'p2p');
-      if (panelStudent) panelStudent.classList.toggle('hidden', method !== 'student_account');
-      if (panelCheck) panelCheck.classList.toggle('hidden', method !== 'check_cash');
+      pastShowcaseItems.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "polaroid-card rounded-xl border border-zinc-200 cursor-pointer group flex flex-col justify-between";
+        div.onclick = () => openShowcaseGallery(item.id);
 
-      updateP2PMemoPreview();
-      updateBookingTotal();
-      safeLucide();
-    }
-
-    function updateP2PMemoPreview() {
-      const memoEl = document.getElementById('p2p-memo-preview');
-      const name = document.getElementById('book-name').value.trim() || '[Your Name]';
-      const eventTitle = activeBookingHangout ? activeBookingHangout.title : 'Living Centerpieces';
-      if (memoEl) {
-        memoEl.textContent = `${eventTitle} - ${name}`;
-      }
-      const checkMemoTitle = document.getElementById('check-memo-title');
-      if (checkMemoTitle) {
-        checkMemoTitle.textContent = eventTitle;
-      }
-    }
-
-    function copyP2PHandle() {
-      const handle = "@HollywoodSchoolhouse-Hangouts";
-      navigator.clipboard.writeText(handle).then(() => {
-        const btnText = document.getElementById('copy-handle-btn-text');
-        if (btnText) {
-          btnText.textContent = "Copied!";
-          setTimeout(() => btnText.textContent = "Copy Handle", 2000);
-        }
-      });
-    }
-
-    function copyP2PMemo() {
-      const memoText = document.getElementById('p2p-memo-preview').textContent;
-      navigator.clipboard.writeText(memoText).then(() => {
-        const btnText = document.getElementById('copy-memo-btn-text');
-        if (btnText) {
-          btnText.textContent = "Copied Note!";
-          setTimeout(() => btnText.textContent = "Copy Note", 2000);
-        }
-      });
-    }
-
-    // Gallery Lightbox Viewer
-    function openShowcaseGallery(key) {
-      activeGalleryKey = key;
-      activePhotoIndex = 0;
-      const g = pastGalleries[key];
-      if (!g) return;
-
-      const titleEl = document.getElementById('gallery-title');
-      if (titleEl) titleEl.textContent = g.title;
-      renderActiveGalleryPhoto();
-      openModal('gallery-lightbox-modal');
-    }
-
-    function renderActiveGalleryPhoto() {
-      const g = pastGalleries[activeGalleryKey];
-      if (!g || !g.images || !g.images.length) return;
-
-      const photo = g.images[activePhotoIndex];
-      const mainImg = document.getElementById('gallery-main-img');
-      const counter = document.getElementById('gallery-counter');
-      if (mainImg) {
-        mainImg.src = photo.src;
-        mainImg.alt = photo.label;
-      }
-      if (counter) {
-        counter.textContent = `${photo.label} (${activePhotoIndex + 1} of ${g.images.length})`;
-      }
-
-      const thumbsStrip = document.getElementById('gallery-thumbs-strip');
-      const prevBtn = document.getElementById('gallery-prev-btn');
-      const nextBtn = document.getElementById('gallery-next-btn');
-
-      if (thumbsStrip) {
-        thumbsStrip.innerHTML = '';
-        if (g.images.length <= 1) {
-          thumbsStrip.classList.add('hidden');
-          if (prevBtn) prevBtn.classList.add('hidden');
-          if (nextBtn) nextBtn.classList.add('hidden');
-        } else {
-          thumbsStrip.classList.remove('hidden');
-          if (prevBtn) prevBtn.classList.remove('hidden');
-          if (nextBtn) nextBtn.classList.remove('hidden');
-
-          g.images.forEach((imgObj, idx) => {
-            const thumb = document.createElement('img');
-            thumb.src = imgObj.src;
-            thumb.className = `w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-md cursor-pointer transition border-2 ${
-              idx === activePhotoIndex ? 'border-[#be1e2d] scale-105 opacity-100' : 'border-transparent opacity-60 hover:opacity-90'
-            }`;
-            thumb.onclick = () => {
-              activePhotoIndex = idx;
-              renderActiveGalleryPhoto();
-            };
-            thumbsStrip.appendChild(thumb);
-          });
-        }
-      }
-      safeLucide();
-    }
-
-    function prevGalleryPhoto() {
-      const g = pastGalleries[activeGalleryKey];
-      if (!g || g.images.length <= 1) return;
-      activePhotoIndex = (activePhotoIndex - 1 + g.images.length) % g.images.length;
-      renderActiveGalleryPhoto();
-    }
-
-    function nextGalleryPhoto() {
-      const g = pastGalleries[activeGalleryKey];
-      if (!g || g.images.length <= 1) return;
-      activePhotoIndex = (activePhotoIndex + 1) % g.images.length;
-      renderActiveGalleryPhoto();
-    }
-
-    function openImagePreview(imgSrc, title) {
-      const modal = document.getElementById('image-preview-modal');
-      const img = document.getElementById('image-preview-img');
-      const titleEl = document.getElementById('image-preview-title');
-      if (!modal || !img) return;
-      img.src = imgSrc;
-      if (titleEl) titleEl.textContent = title || 'Event Image';
-      openModal('image-preview-modal');
-    }
-
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.add('hidden');
-    }
-
-    // Calendar Engine
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    function prevMonth() {
-      calMonth--;
-      if (calMonth < 0) { calMonth = 11; calYear--; }
-      syncCalendarHeader();
-      renderCalendar();
-    }
-
-    function nextMonth() {
-      calMonth++;
-      if (calMonth > 11) { calMonth = 0; calYear++; }
-      syncCalendarHeader();
-      renderCalendar();
-    }
-
-    function onSelectMonthDropdown(val) {
-      const [y, m] = val.split('-');
-      calYear = parseInt(y, 10);
-      calMonth = parseInt(m, 10) - 1;
-      syncCalendarHeader();
-      renderCalendar();
-    }
-
-    function jumpToCurrentMonth() {
-      const now = new Date();
-      calYear = now.getFullYear();
-      calMonth = now.getMonth();
-      syncCalendarHeader();
-      renderCalendar();
-    }
-
-    function syncCalendarHeader() {
-      const label = document.getElementById('calendar-month-label');
-      if (label) label.textContent = `${monthNames[calMonth]} ${calYear}`;
-      const selectMonth = document.getElementById('calendar-select-month');
-      const valStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}`;
-      if (selectMonth) selectMonth.value = valStr;
-    }
-
-    function renderCalendar() {
-      try {
-        const grid = document.getElementById('calendar-days-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        syncCalendarHeader();
-
-        const firstDay = new Date(calYear, calMonth, 1).getDay();
-        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-        const realToday = new Date();
-        const isCurrentMonthView = (realToday.getFullYear() === calYear && realToday.getMonth() === calMonth);
-        const realTodayDate = realToday.getDate();
-
-        for (let i = 0; i < firstDay; i++) {
-          const blank = document.createElement('div');
-          blank.className = "min-h-[95px] sm:min-h-[105px] bg-zinc-50/70 p-2 text-zinc-300 text-xs";
-          grid.appendChild(blank);
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          const dayHangouts = hangouts.filter(h => h.date === dateStr);
-          const daySchool = schoolEvents.filter(s => s.date === dateStr);
-          const isToday = (isCurrentMonthView && day === realTodayDate);
-
-          const cell = document.createElement('div');
-          cell.className = `min-h-[95px] sm:min-h-[105px] p-2 flex flex-col justify-between transition border-t border-zinc-100 ${
-            isToday ? 'bg-red-50/60 ring-2 ring-[#be1e2d] ring-inset relative' : 'bg-white hover:bg-zinc-50'
-          }`;
-          
-          let eventsHtml = '';
-          dayHangouts.forEach(h => {
-            eventsHtml += `
-              <div onclick="openBooking(${h.id})" class="cursor-pointer text-[10px] bg-red-100/90 border border-red-300 text-red-950 px-1.5 py-1 rounded font-semibold truncate hover:bg-red-200 transition mb-1 shadow-xs" title="${h.title}">
-                🎉 ${h.title}
-              </div>
-            `;
-          });
-
-          daySchool.forEach(s => {
-            eventsHtml += `
-              <div class="text-[10px] bg-blue-50 border border-blue-200 text-blue-900 px-1.5 py-1 rounded font-medium truncate mb-1" title="${s.title}">
-                🏫 ${s.title}
-              </div>
-            `;
-          });
-
-          cell.innerHTML = `
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold ${isToday ? 'w-5 h-5 rounded-full bg-[#be1e2d] text-white flex items-center justify-center font-black' : 'text-zinc-700'}">
-                  ${day}
-                </span>
-                ${isToday ? `<span class="text-[8px] font-black uppercase text-[#be1e2d] tracking-wider bg-red-100 px-1 rounded">Today</span>` : ''}
-              </div>
-              <div class="mt-1">${eventsHtml}</div>
+        div.innerHTML = `
+          <div class="relative aspect-[4/3] bg-zinc-100 rounded-lg overflow-hidden mb-2.5">
+            <img src="${item.cover}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80';" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-3 py-1 rounded-full bg-white text-zinc-950 font-bold text-xs shadow flex items-center gap-1">
+                <i data-lucide="images" class="w-3.5 h-3.5 text-[#be1e2d]"></i> View Photos
+              </span>
             </div>
-          `;
-          grid.appendChild(cell);
-        }
-      } catch (err) {
-        console.error("Error in renderCalendar:", err);
-      }
+            <span class="absolute top-2 left-2 bg-black/75 text-white text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full backdrop-blur-xs">${item.category}</span>
+          </div>
+          <div class="px-1">
+            <h4 class="font-bold text-zinc-900 text-sm leading-snug font-heading">${item.title}</h4>
+            <p class="text-xs text-zinc-500 mt-0.5">${item.host}</p>
+            <div class="mt-2 pt-2 border-t border-zinc-100 flex items-center justify-between text-xs font-semibold">
+              <span class="text-[#be1e2d]">${item.price}</span>
+              <span class="text-zinc-400 text-[11px] flex items-center gap-1">
+                <i data-lucide="image" class="w-3 h-3"></i> ${item.count}
+              </span>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
       safeLucide();
     }
 
-    // Booking Flow
+    // PROGRESSIVE BOOKING MULTI-STEP LOGIC
     function openBooking(hangoutId) {
       activeBookingHangout = hangouts.find(h => h.id === hangoutId);
       if (!activeBookingHangout) return;
 
       document.getElementById('booking-event-id').value = activeBookingHangout.id;
       document.getElementById('booking-event-title').textContent = activeBookingHangout.title;
-      document.getElementById('booking-event-price').textContent = `$${activeBookingHangout.price} suggested / spot`;
+
+      // Smart spot capacity enforcement in dropdown
+      const spotsCount = activeBookingHangout.spotsTaken !== undefined ? activeBookingHangout.spotsTaken : (activeBookingHangout.attendees ? activeBookingHangout.attendees.length : 4);
+      const spotsRemaining = Math.max(1, activeBookingHangout.totalSpots - spotsCount);
+      const spotsSelect = document.getElementById('book-spots');
+      spotsSelect.innerHTML = '';
+      
+      const maxSelectable = Math.min(4, spotsRemaining);
+      for (let i = 1; i <= maxSelectable; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${i} spot${i > 1 ? 's' : ''}`;
+        spotsSelect.appendChild(opt);
+      }
+
       setPricingTier('standard');
       togglePaymentPanels('card');
+      goToStep1();
       openModal('booking-modal');
+    }
+
+    function goToStep1() {
+      document.getElementById('booking-step-1').classList.remove('hidden');
+      document.getElementById('booking-step-2').classList.add('hidden');
+      document.getElementById('step-badge-1').classList.remove('hidden');
+      document.getElementById('step-badge-2').classList.add('hidden');
+    }
+
+    function goToStep2() {
+      const name = document.getElementById('book-name').value.trim();
+      const email = document.getElementById('book-email').value.trim();
+      if (!name) { alert("Please enter your name."); document.getElementById('book-name').focus(); return; }
+      if (!email || !email.includes('@')) { alert("Please enter a valid email address."); document.getElementById('book-email').focus(); return; }
+
+      document.getElementById('booking-step-1').classList.add('hidden');
+      document.getElementById('booking-step-2').classList.remove('hidden');
+      document.getElementById('step-badge-1').classList.add('hidden');
+      document.getElementById('step-badge-2').classList.remove('hidden');
+      updateBookingTotal();
     }
 
     function setPricingTier(tier) {
@@ -1648,7 +1244,6 @@
       const stdBtn = document.getElementById('tier-standard-btn');
       const custBtn = document.getElementById('tier-custom-btn');
       const customWrap = document.getElementById('custom-donation-wrap');
-      const custAmountInput = document.getElementById('custom-donation-amount');
       const stdLabel = document.getElementById('tier-standard-label');
 
       if (activeBookingHangout && stdLabel) {
@@ -1664,10 +1259,9 @@
         if (custBtn) custBtn.className = "py-2 px-3 rounded-lg border border-[#be1e2d] bg-red-50 text-[#be1e2d] font-bold text-xs flex items-center justify-center gap-1.5 transition";
         if (customWrap) {
           customWrap.classList.remove('hidden');
-          if (!custAmountInput.value && activeBookingHangout) {
-            custAmountInput.value = activeBookingHangout.price;
-          }
-          custAmountInput.focus();
+          const custInput = document.getElementById('custom-donation-amount');
+          if (!custInput.value && activeBookingHangout) custInput.value = activeBookingHangout.price;
+          custInput.focus();
         }
       }
       updateBookingTotal();
@@ -1676,447 +1270,206 @@
 
     function updateBookingTotal() {
       if (!activeBookingHangout) return;
-      const spots = parseInt(document.getElementById('book-spots').value, 10);
-      let baseTotal = 0;
+      const spots = parseInt(document.getElementById('book-spots').value, 10) || 1;
+      let baseTotal = (activePricingTier === 'custom') 
+        ? (parseFloat(document.getElementById('custom-donation-amount').value) || 0)
+        : (spots * activeBookingHangout.price);
 
-      if (activePricingTier === 'custom') {
-        const customVal = parseFloat(document.getElementById('custom-donation-amount').value);
-        baseTotal = isNaN(customVal) || customVal < 0 ? 0 : customVal;
-      } else {
-        baseTotal = spots * activeBookingHangout.price;
-      }
-
-      currentBaseDonation = baseTotal;
-
-      // Processing fee calculation (2.9%)
       const feeCheckbox = document.getElementById('cover-processing-fee');
       const feeLabel = document.getElementById('fee-amount-label');
-      const payMethodChecked = document.querySelector('input[name="pay-method"]:checked');
-      const isCard = payMethodChecked ? payMethodChecked.value === 'card' : true;
+      const payMethod = document.querySelector('input[name="pay-method"]:checked')?.value || 'card';
 
       const fee = Math.round(baseTotal * 0.029 * 100) / 100;
       if (feeLabel) feeLabel.textContent = `+$${fee.toFixed(2)}`;
 
       let finalTotal = baseTotal;
-      if (isCard && feeCheckbox && feeCheckbox.checked) {
+      if (payMethod === 'card' && feeCheckbox && feeCheckbox.checked) {
         finalTotal += fee;
       }
 
-      const totalDisplay = document.getElementById('booking-total-display');
-      if (totalDisplay) totalDisplay.textContent = `$${finalTotal.toLocaleString(undefined, { minimumFractionDigits: finalTotal % 1 !== 0 ? 2 : 0 })}`;
+      document.getElementById('booking-total-display').textContent = `$${finalTotal.toLocaleString(undefined, { minimumFractionDigits: finalTotal % 1 !== 0 ? 2 : 0 })}`;
+    }
+
+    function togglePaymentPanels(method) {
+      document.getElementById('panel-card')?.classList.toggle('hidden', method !== 'card');
+      document.getElementById('panel-p2p')?.classList.toggle('hidden', method !== 'p2p');
+      document.getElementById('panel-student-account')?.classList.toggle('hidden', method !== 'student_account');
+      document.getElementById('panel-check-cash')?.classList.toggle('hidden', method !== 'check_cash');
+      updateP2PMemoPreview();
+      updateBookingTotal();
+      safeLucide();
+    }
+
+    function updateP2PMemoPreview() {
+      const memoEl = document.getElementById('p2p-memo-preview');
+      const name = document.getElementById('book-name').value.trim() || '[Your Name]';
+      const eventTitle = activeBookingHangout ? activeBookingHangout.title : 'Living Centerpieces';
+      if (memoEl) memoEl.textContent = `${eventTitle} - ${name}`;
+    }
+
+    function copyP2PHandle() {
+      navigator.clipboard.writeText("@HollywoodSchoolhouse-Hangouts").then(() => {
+        const el = document.getElementById('copy-handle-btn-text');
+        if (el) { el.textContent = "Copied!"; setTimeout(() => el.textContent = "Copy Handle", 2000); }
+      });
+    }
+
+    function copyP2PMemo() {
+      const memo = document.getElementById('p2p-memo-preview').textContent;
+      navigator.clipboard.writeText(memo).then(() => {
+        const el = document.getElementById('copy-memo-btn-text');
+        if (el) { el.textContent = "Copied Note!"; setTimeout(() => el.textContent = "Copy Note", 2000); }
+      });
     }
 
     async function handleBookingSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('book-name').value.trim();
+      const email = document.getElementById('book-email').value.trim();
       const grade = document.getElementById('book-grade').value;
       const spots = parseInt(document.getElementById('book-spots').value, 10);
       const payMethod = document.querySelector('input[name="pay-method"]:checked').value;
       let notes = document.getElementById('book-notes').value.trim();
 
-      if (!activeBookingHangout || !name) return;
-
-      // Validate required legal name for FACTS student billing
       if (payMethod === 'student_account') {
-        const studentName = document.getElementById('billing-student-name').value.trim();
-        if (!studentName) {
-          alert("Please enter your child's legal name for FACTS student billing.");
+        const sName = document.getElementById('billing-student-name').value.trim();
+        if (!sName) {
+          alert("Please enter child's legal name for FACTS student billing.");
           document.getElementById('billing-student-name').focus();
           return;
         }
-        notes = `[FACTS Student: ${studentName}] ${notes}`.trim();
+        notes = `[FACTS Student: ${sName}] ${notes}`.trim();
       }
 
       const totalDisplay = document.getElementById('booking-total-display').textContent.replace('$', '').replace(/,/g, '');
       const finalDonation = parseFloat(totalDisplay) || (spots * activeBookingHangout.price);
 
-      // Submit to live Node database if available
+      lastBookedReservation = {
+        title: activeBookingHangout.title,
+        date: activeBookingHangout.date,
+        displayDate: activeBookingHangout.displayDate,
+        location: activeBookingHangout.location,
+        spots: spots,
+        amount: finalDonation
+      };
+
       if (API_BASE_URL) {
         try {
-          const res = await fetch(`${API_BASE_URL.replace(/\/$/, '')}/api/signup`, {
+          await fetch(`${API_BASE_URL.replace(/\/$/, '')}/api/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               eventId: activeBookingHangout.id,
-              name: name,
-              grade: grade,
-              spots: spots,
+              name, email, grade, spots,
               paid: finalDonation,
               method: payMethod,
-              notes: notes
+              notes
             })
           });
-          if (res.ok) {
-            initCatalogFromServer();
-          }
+          initCatalogFromServer();
         } catch (err) {
-          console.warn("Could not reach API server on signup, falling back locally:", err);
+          console.warn("API server submission error, using local fallback:", err);
         }
-      } else {
-        if (!activeBookingHangout.attendees) activeBookingHangout.attendees = [];
-        activeBookingHangout.attendees.push({
-          id: Date.now(),
-          name: name,
-          grade: grade,
-          quantity: spots,
-          paid: finalDonation,
-          method: payMethod,
-          notes: notes,
-          checkedIn: false
-        });
-        renderCards();
       }
 
       closeModal('booking-modal');
-
-      const confirmationMessages = {
-        'card': `🎉 Thank you, ${name}! Your spots for "${activeBookingHangout.title}" are confirmed with your donation of $${finalDonation}.`,
-        'p2p': `🎉 Thank you, ${name}! You're registered for "${activeBookingHangout.title}".\n\nPlease send your donation of $${finalDonation} to @HollywoodSchoolhouse-Hangouts on Venmo, Zelle, or PayPal with memo: "${activeBookingHangout.title} - ${name}".`,
-        'student_account': `🎉 Thank you, ${name}! Your spots for "${activeBookingHangout.title}" are reserved. $${finalDonation} will be billed to your HSH student account.`,
-        'check_cash': `🎉 Thank you, ${name}! Your spots for "${activeBookingHangout.title}" are reserved. Please drop off payment of $${finalDonation} to the School Front Desk within 3 days.`
-      };
-
-      alert(confirmationMessages[payMethod] || confirmationMessages['card']);
       e.target.reset();
+
+      // Show dedicated in-page receipt & calendar modal
+      document.getElementById('confirm-modal-event').textContent = lastBookedReservation.title;
+      document.getElementById('confirm-modal-date').textContent = lastBookedReservation.displayDate;
+      document.getElementById('confirm-modal-loc').textContent = lastBookedReservation.location;
+      document.getElementById('confirm-modal-body').textContent = `Thank you, ${name}! Your contribution of $${finalDonation} supports the Tuition Assistance Fund.`;
+      openModal('confirmation-modal');
     }
 
-    function viewAttendees(hangoutId) {
-      const h = hangouts.find(item => item.id === hangoutId);
-      if (!h) return;
+    // AUTOMATIC .ICS CALENDAR INVITATION GENERATION
+    function downloadCalendarICS() {
+      if (!lastBookedReservation) return;
+      const icsData = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Hollywood Schoolhouse//Hosted Hangouts//EN",
+        "BEGIN:VEVENT",
+        `SUMMARY:HSH Hangout: ${lastBookedReservation.title}`,
+        `DESCRIPTION:Hosted Hangout in support of Hollywood Schoolhouse Tuition Assistance. Amount: $${lastBookedReservation.amount}`,
+        `LOCATION:${lastBookedReservation.location}`,
+        `DTSTART:${lastBookedReservation.date.replace(/-/g, '')}T180000`,
+        `DTEND:${lastBookedReservation.date.replace(/-/g, '')}T210000`,
+        "STATUS:CONFIRMED",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\\r\\n");
 
-      const spotsCount = h.spotsTaken !== undefined ? h.spotsTaken : (h.attendees ? h.attendees.length : 4);
-      document.getElementById('modal-attendees-title').textContent = h.title;
-      document.getElementById('modal-attendees-sub').textContent = `Hosted by ${h.host} • ${spotsCount} Signed Up (${h.totalSpots - spotsCount} spots remaining)`;
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', `${lastBookedReservation.title.replace(/[^a-zA-Z0-9]/g, '_')}.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
-      const listContainer = document.getElementById('modal-attendees-list');
-      listContainer.innerHTML = '';
+    function claimIdeaFromWishlist(ideaTitle, category) {
+      openHostModal();
+      document.getElementById('pitch-title').value = ideaTitle;
+      const catSelect = document.getElementById('pitch-cat');
+      if (catSelect) catSelect.value = category;
+      document.getElementById('pitch-host').focus();
+    }
 
-      if (!h.attendees || h.attendees.length === 0) {
-        listContainer.innerHTML = `<p class="text-sm text-zinc-500 italic text-center py-4">No one has registered yet. Be the first to join!</p>`;
-      } else {
-        h.attendees.forEach(a => {
-          const row = document.createElement('div');
-          row.className = "flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-zinc-50 border border-zinc-200";
-          row.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#be1e2d]/10 text-[#be1e2d] font-bold flex items-center justify-center text-xs">${a.name.charAt(0)}</div>
-              <div>
-                <div class="font-bold text-xs sm:text-sm text-zinc-900">${a.name}</div>
-                <div class="text-[10px] sm:text-[11px] text-zinc-500">Attendee</div>
-              </div>
+    function renderIdeasGuideGrid() {
+      const grid = document.getElementById('ideas-catalog-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      completeIdeaGuide.forEach(idea => {
+        const div = document.createElement('div');
+        div.className = "p-3.5 rounded-xl border border-zinc-200 bg-white shadow-xs hover:border-[#be1e2d]/50 transition flex flex-col justify-between";
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-1 mb-1.5">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-700">${idea.category}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">${idea.badge}</span>
             </div>
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-zinc-200 text-zinc-700">${a.grade}</span>
-          `;
-          listContainer.appendChild(row);
-        });
-      }
-      openModal('attendees-modal');
-      safeLucide();
-    }
-
-    function setCategoryFilter(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-pill').forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#be1e2d] text-white transition whitespace-nowrap shadow-sm";
-        } else {
-          btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap";
-        }
+            <h5 class="text-sm font-bold text-zinc-900 leading-snug font-heading">${idea.title}</h5>
+            <p class="text-xs text-zinc-600 mt-1">${idea.desc}</p>
+          </div>
+          <button onclick="claimIdeaFromWishlist('${idea.title.replace(/'/g, "\\'")}', '${idea.category}')" class="mt-3 w-full py-1.5 rounded-lg bg-zinc-900 hover:bg-[#be1e2d] text-white font-bold text-xs transition flex items-center justify-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Host This Concept
+          </button>
+        `;
+        grid.appendChild(div);
       });
-      renderCards();
-    }
-
-    function handleBrowseFilter(value) {
-      if (value === 'view-calendar') {
-        toggleCalendarView(true);
-      } else {
-        toggleCalendarView(false);
-        if (value === 'parents-only') {
-          currentGrade = 'Parents Only';
-          document.getElementById('grade-filter-select').value = 'Parents Only';
-          currentSort = 'default';
-        } else if (value === 'sort-date') {
-          currentSort = 'date';
-        } else if (value === 'sort-cost') {
-          currentSort = 'cost';
-        } else {
-          currentGrade = 'all';
-          currentSort = 'default';
-          document.getElementById('grade-filter-select').value = 'all';
-        }
-        renderCards();
-      }
-    }
-
-    function handleGradeFilter(grade) {
-      currentGrade = grade;
-      toggleCalendarView(false);
-      renderCards();
-    }
-
-    function toggleCalendarView(showCalendar) {
-      const cardsEl = document.getElementById('cards-container');
-      const pillsEl = document.getElementById('category-pills-bar');
-      const calEl = document.getElementById('calendar-container');
-      const cardsBtn = document.getElementById('view-cards-btn');
-      const calBtn = document.getElementById('view-cal-btn');
-
-      if (showCalendar) {
-        if (cardsEl) cardsEl.classList.add('hidden');
-        if (pillsEl) pillsEl.classList.add('hidden');
-        if (calEl) calEl.classList.remove('hidden');
-        if (calBtn) calBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition";
-        if (cardsBtn) cardsBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition";
-        if (calEl) calEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        if (cardsEl) cardsEl.classList.remove('hidden');
-        if (pillsEl) pillsEl.classList.remove('hidden');
-        if (calEl) calEl.classList.add('hidden');
-        if (cardsBtn) cardsBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition";
-        if (calBtn) calBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition";
-      }
       safeLucide();
     }
+
+    // Modal Helpers
+    function openModal(id) { document.getElementById(id)?.classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
 
     function openHostModal() { openModal('host-modal'); }
     function openCheatSheetModal() { openModal('cheatsheet-modal'); }
     function openTrackerModal() { openModal('tracker-modal'); renderTrackerList(); }
     function openIdeasGuideModal() { openModal('ideas-modal'); renderIdeasGuideGrid(); }
 
-    function populateHostInspoDrawer() {
-      const container = document.getElementById('host-inspo-list-items');
+    function renderTrackerList() {
+      const container = document.getElementById('active-tracker-container');
       if (!container) return;
       container.innerHTML = '';
       prospectiveHosts.forEach(item => {
-        const row = document.createElement('div');
-        row.className = "flex items-start justify-between py-1.5 border-b border-zinc-200/60 gap-3";
-        row.innerHTML = `
-          <div>
-            <span class="font-bold text-zinc-900">${item.concept}</span>
-            <span class="text-zinc-500 block sm:inline sm:ml-2">— Hosted by ${item.hosts}</span>
-          </div>
-          <span class="text-[10px] font-semibold text-[#be1e2d] bg-red-50 border border-red-200 px-1.5 py-0.5 rounded whitespace-nowrap">${item.status}</span>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    function toggleHostInspoList() {
-      const drawer = document.getElementById('host-inspo-drawer');
-      const chevron = document.getElementById('inspo-chevron');
-      if (!drawer) return;
-      if (drawer.classList.contains('hidden')) {
-        drawer.classList.remove('hidden');
-        if (chevron) chevron.classList.add('rotate-180');
-      } else {
-        drawer.classList.add('hidden');
-        if (chevron) chevron.classList.remove('rotate-180');
-      }
-    }
-
-    function handleHostPitch(e) {
-      e.preventDefault();
-      const host = document.getElementById('pitch-host').value.trim();
-      const title = document.getElementById('pitch-title').value.trim();
-      const cat = document.getElementById('pitch-cat').value;
-      const grade = document.getElementById('pitch-grade').value;
-      const cost = parseInt(document.getElementById('pitch-cost').value, 10);
-      const spots = parseInt(document.getElementById('pitch-spots').value, 10);
-      const datetime = document.getElementById('pitch-datetime').value.trim();
-      const desc = document.getElementById('pitch-desc').value.trim();
-
-      const newHangout = {
-        id: Date.now(),
-        title: title,
-        host: host,
-        category: cat,
-        grade: grade,
-        status: "Open",
-        date: "2026-12-19",
-        displayDate: datetime,
-        location: "Host Residence / Campus",
-        price: cost,
-        totalSpots: spots,
-        image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80",
-        description: desc,
-        attendees: []
-      };
-
-      hangouts.unshift(newHangout);
-      closeModal('host-modal');
-      e.target.reset();
-
-      renderCards();
-      safeLucide();
-    }
-
-    function filterTrackerList() {
-      const q = document.getElementById('tracker-search-input').value.toLowerCase().trim();
-      const statusFilter = document.getElementById('tracker-status-select').value;
-      renderTrackerList(q, statusFilter);
-    }
-
-    function renderTrackerList(searchQuery = '', statusFilter = 'all') {
-      const activeContainer = document.getElementById('active-tracker-container');
-      const pastContainer = document.getElementById('reapproach-tracker-container');
-      if (!activeContainer || !pastContainer) return;
-
-      activeContainer.innerHTML = '';
-      pastContainer.innerHTML = '';
-
-      const filteredActive = prospectiveHosts.filter(item => {
-        const matchesQuery = !searchQuery || 
-          item.hosts.toLowerCase().includes(searchQuery) ||
-          item.concept.toLowerCase().includes(searchQuery) ||
-          item.date.toLowerCase().includes(searchQuery) ||
-          item.notes.toLowerCase().includes(searchQuery);
-
-        let matchesStatus = true;
-        if (statusFilter === 'Go') matchesStatus = item.status === 'Go';
-        else if (statusFilter === 'Waiting') matchesStatus = (item.status === 'Waiting' || item.status === 'In Progress' || item.status === 'Planning');
-        else if (statusFilter === 'Reapproach') matchesStatus = false;
-
-        return matchesQuery && matchesStatus;
-      });
-
-      const countEl = document.getElementById('active-hosts-count');
-      if (countEl) countEl.textContent = `${filteredActive.length} Concepts`;
-
-      filteredActive.forEach(item => {
-        let badgeColor = "bg-amber-100 text-amber-900 border-amber-300";
-        if (item.status === "Go") badgeColor = "bg-emerald-100 text-emerald-900 border-emerald-300";
-        if (item.status === "Canceled") badgeColor = "bg-zinc-200 text-zinc-600 border-zinc-300";
-
         const card = document.createElement('div');
-        card.className = "p-3.5 sm:p-4 rounded-xl border border-zinc-200 bg-white shadow-xs hover:border-zinc-300 transition flex flex-col justify-between";
+        card.className = "p-3.5 rounded-xl border border-zinc-200 bg-white shadow-xs";
         card.innerHTML = `
-          <div>
-            <div class="flex items-start justify-between gap-2 mb-1.5">
-              <span class="text-xs font-bold text-[#be1e2d] uppercase tracking-wide">${item.concept}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor} whitespace-nowrap">${item.status}</span>
-            </div>
-            <h5 class="text-sm font-bold text-zinc-900 leading-snug">${item.hosts}</h5>
-            <div class="flex items-center gap-2 text-xs text-zinc-500 mt-1">
-              <i data-lucide="calendar" class="w-3.5 h-3.5 text-zinc-400"></i>
-              <span class="font-medium text-zinc-700">${item.date}</span>
-              <span>• HSH Child: ${item.student}</span>
-            </div>
-            <p class="text-xs text-zinc-600 mt-2 bg-zinc-50 p-2 rounded-lg border border-zinc-150 leading-relaxed">${item.notes}</p>
+          <div class="flex items-start justify-between gap-2 mb-1">
+            <span class="text-xs font-bold text-[#be1e2d] uppercase">${item.concept}</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">${item.status}</span>
           </div>
-          <div class="mt-3 pt-2 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
-            <span class="truncate max-w-[200px]" title="${item.contact}"><i data-lucide="mail" class="w-3 h-3 inline mr-1 text-zinc-400"></i>${item.contact}</span>
-          </div>
+          <div class="text-sm font-bold text-zinc-900">${item.hosts}</div>
+          <p class="text-xs text-zinc-500 mt-1">${item.date} • Child: ${item.student}</p>
         `;
-        activeContainer.appendChild(card);
-      });
-
-      if (statusFilter === 'all' || statusFilter === 'Reapproach') {
-        const filteredPast = pastHostsIdeas.filter(item => {
-          if (!searchQuery) return true;
-          return item.host.toLowerCase().includes(searchQuery) || item.concept.toLowerCase().includes(searchQuery);
-        });
-
-        filteredPast.forEach(item => {
-          const chip = document.createElement('div');
-          chip.className = "p-3 rounded-lg border border-zinc-200 bg-zinc-50/70 hover:bg-white transition flex flex-col justify-between";
-          chip.innerHTML = `
-            <div class="font-bold text-xs text-zinc-900">${item.concept}</div>
-            <div class="text-[11px] text-zinc-500 mt-1 flex items-center justify-between">
-              <span class="truncate">${item.host}</span>
-              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 shrink-0">Reapproach</span>
-            </div>
-          `;
-          pastContainer.appendChild(chip);
-        });
-      }
-      safeLucide();
-    }
-
-    function filterIdeasGuide() {
-      const q = document.getElementById('idea-search-input').value.toLowerCase().trim();
-      const cat = document.getElementById('idea-category-select').value;
-      const grade = document.getElementById('idea-grade-select').value;
-      renderIdeasGuideGrid(q, cat, grade);
-    }
-
-    function ideaMatchesGrade(idea, grade) {
-      if (!grade || grade === 'all') return true;
-      const gradeAgeMap = {
-        'Preschool': { min: 3, max: 5 },
-        'Kindergarten': { min: 5, max: 6 },
-        '1st Grade': { min: 6, max: 7 },
-        '2nd Grade': { min: 7, max: 8 },
-        '3rd Grade': { min: 8, max: 9 },
-        '4th Grade': { min: 9, max: 10 },
-        '5th Grade': { min: 10, max: 11 },
-        '6th Grade': { min: 11, max: 12 }
-      };
-      const target = gradeAgeMap[grade];
-      if (!target) return true;
-      return !(target.max < idea.minAge || target.min > idea.maxAge);
-    }
-
-    function renderIdeasGuideGrid(query = '', category = 'all', grade = 'all') {
-      const grid = document.getElementById('ideas-catalog-grid');
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      const filtered = completeIdeaGuide.filter(idea => {
-        const matchesQuery = !query || 
-          idea.title.toLowerCase().includes(query) ||
-          idea.desc.toLowerCase().includes(query) ||
-          idea.setting.toLowerCase().includes(query) ||
-          idea.category.toLowerCase().includes(query);
-
-        const matchesCat = (category === 'all' || idea.category === category);
-        const matchesGrd = ideaMatchesGrade(idea, grade);
-        return matchesQuery && matchesCat && matchesGrd;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-12 text-center text-xs text-zinc-500 italic">No hangout ideas found matching your search. Try adjusting your filter.</div>`;
-        return;
-      }
-
-      filtered.forEach(idea => {
-        const card = document.createElement('div');
-        card.className = "p-3.5 rounded-xl border border-zinc-200 bg-white shadow-xs hover:border-[#be1e2d]/50 hover:shadow-sm transition flex flex-col justify-between";
-        card.innerHTML = `
-          <div>
-            <div class="flex items-start justify-between gap-1.5 mb-1.5">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-700 uppercase tracking-wide">${idea.category}</span>
-              <span class="text-[10px] font-bold text-[#be1e2d] bg-red-50 px-2 py-0.5 rounded-full">Ages ${idea.ages}</span>
-            </div>
-            <h5 class="text-sm font-bold text-zinc-900 leading-snug">${idea.title}</h5>
-            <p class="text-xs text-zinc-600 mt-1 leading-relaxed">${idea.desc}</p>
-            <div class="text-[11px] text-zinc-400 mt-2 flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3 text-zinc-400"></i>
-              <span>${idea.setting}</span>
-            </div>
-          </div>
-          <div class="mt-3 pt-2.5 border-t border-zinc-100">
-            <button onclick="selectIdeaToPitch('${idea.title.replace(/'/g, "\\'")}', '${idea.category}')" class="w-full py-1.5 rounded-lg bg-zinc-900 hover:bg-[#be1e2d] text-white font-bold text-xs transition flex items-center justify-center gap-1.5">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-              <span>Host This Idea</span>
-            </button>
-          </div>
-        `;
-        grid.appendChild(card);
+        container.appendChild(card);
       });
       safeLucide();
-    }
-
-    function selectIdeaToPitch(title, category) {
-      closeModal('ideas-modal');
-      openHostModal();
-      document.getElementById('pitch-title').value = title;
-      const catSelect = document.getElementById('pitch-cat');
-      if (category.includes('Cooking') || category.includes('Food')) catSelect.value = 'Food & Drink';
-      else if (category.includes('Sports') || category.includes('Active')) catSelect.value = 'Fitness & Sports';
-      else if (category.includes('Creative') || category.includes('Workshop') || category.includes('Media')) catSelect.value = 'Creative Arts';
-      else if (category.includes('Social') || category.includes('Party')) catSelect.value = 'Parent Socials';
-      else catSelect.value = 'Kids Activities';
-      document.getElementById('pitch-title').focus();
     }
 
     function safeLucide() {
@@ -2125,12 +1478,9 @@
       }
     }
 
-    // Initialize all components
     function initAll() {
       renderCards();
-      renderCalendar();
-      renderTrackerList();
-      populateHostInspoDrawer();
+      renderPastShowcase();
       renderIdeasGuideGrid();
       safeLucide();
       initCatalogFromServer();
