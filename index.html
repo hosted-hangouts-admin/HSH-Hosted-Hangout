@@ -2,7 +2,8 @@
 <html lang="en" class="overflow-x-hidden">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Enabled mobile pinch-to-zoom up to 5x -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Hosted Hangouts | Hollywood Schoolhouse</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +46,6 @@
       background-color: rgba(18, 18, 18, 0.88);
       backdrop-filter: blur(6px);
     }
-    /* Scrapbook polaroid effect for past showcase */
     .polaroid-card {
       background: #ffffff;
       padding: 10px 10px 18px 10px;
@@ -70,7 +70,7 @@
     <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-3">
       
       <!-- School Branding (Left Side) -->
-      <a href="#" class="flex items-center gap-1.5 sm:gap-3 group text-decoration-none min-w-0 shrink">
+      <a href="#" onclick="toggleCalendarView(false); return false;" class="flex items-center gap-1.5 sm:gap-3 group text-decoration-none min-w-0 shrink">
         <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-[#be1e2d] flex items-center justify-center font-brand font-black text-lg sm:text-2xl group-hover:scale-105 transition-transform shadow-sm shrink-0">
           h
         </div>
@@ -102,7 +102,7 @@
           <span>Tracker</span>
         </button>
 
-        <button onclick="toggleCalendarView(true)" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white/90 hover:text-white hover:bg-white/10 transition shrink-0">
+        <button id="nav-calendar-btn" onclick="toggleCalendarView(true)" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white/90 hover:text-white hover:bg-white/10 transition shrink-0">
           <i data-lucide="calendar" class="w-3.5 h-3.5 text-white"></i>
           <span>Calendar</span>
         </button>
@@ -164,7 +164,7 @@
     </div>
   </section>
 
-  <!-- Curated Community Wishlist Strip -->
+  <!-- Cleaned Community Wishlist Strip (Without Paella/Glow Buttons) -->
   <section class="bg-amber-50/80 border-b border-amber-200/80 py-4 px-3.5 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-2.5">
@@ -172,18 +172,13 @@
           <i data-lucide="sparkles" class="w-4 h-4"></i>
         </span>
         <div class="text-xs sm:text-sm text-amber-950">
-          <strong class="font-bold">Looking for a Host:</strong> Have a yard or kitchen? Pair up with a friend to bring one of these highly-requested hangouts to life!
+          <strong class="font-bold">Looking for Hosts:</strong> Have a yard, patio, or kitchen? Pair up with another family to co-host an unforgettable evening!
         </div>
       </div>
-      <div class="flex items-center gap-2 flex-wrap shrink-0">
-        <button onclick="claimIdeaFromWishlist('Backyard Paella & Sangria Mixer', 'Food & Drink')" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-950 hover:bg-amber-100 font-bold text-xs transition">
-          🥘 Paella Night
-        </button>
-        <button onclick="claimIdeaFromWishlist('Family Glow Capture the Flag', 'Fitness & Sports')" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-950 hover:bg-amber-100 font-bold text-xs transition">
-          🔦 Glow Flag Relay
-        </button>
-        <button onclick="openIdeasGuideModal()" class="px-3 py-1.5 rounded-lg bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-xs transition">
-          Browse 65+ Ideas
+      <div class="shrink-0">
+        <button onclick="openIdeasGuideModal()" class="px-4 py-2 rounded-lg bg-[#be1e2d] hover:bg-[#9e1422] text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5">
+          <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-300"></i>
+          <span>Browse 65+ Ideas</span>
         </button>
       </div>
     </div>
@@ -251,7 +246,6 @@
 
     <!-- Grid Container for Upcoming Cards -->
     <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pt-2">
-      <!-- Fallback card guarantees zero-delay rendering -->
       <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
         <div class="relative h-52 bg-zinc-100 overflow-hidden cursor-pointer group/img" onclick="openImagePreview('Living%20Centerpieces%20HH%20Inviteb.jpeg', 'Living Centerpieces: An Evening in Flowers')" title="Click to view full image">
           <img src="Living%20Centerpieces%20HH%20Inviteb.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80';" alt="Living Centerpieces" class="w-full h-full object-cover group-hover/img:scale-105 transition duration-300">
@@ -297,7 +291,7 @@
       </div>
     </div>
 
-    <!-- Calendar View -->
+    <!-- Full Interactive Calendar View -->
     <div id="calendar-container" class="hidden space-y-5 pt-4">
       <div class="bg-red-50 border border-red-200 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-red-950">
         <div class="flex items-center gap-2.5">
@@ -332,7 +326,7 @@
           <div class="relative inline-block text-left">
             <select id="calendar-select-month" onchange="onSelectMonthDropdown(this.value)" class="appearance-none bg-zinc-50 border border-zinc-300 text-zinc-800 text-[11px] sm:text-xs font-semibold py-1.5 sm:py-2 pl-2.5 pr-7 rounded-lg shadow-sm hover:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#be1e2d] cursor-pointer">
               <option value="2026-10">October 2026</option>
-              <option value="2026-11" selected>November 2026 (Current)</option>
+              <option value="2026-11" selected>November 2026</option>
               <option value="2026-12">December 2026</option>
               <option value="2027-01">January 2027</option>
               <option value="2027-02">February 2027</option>
@@ -369,7 +363,7 @@
       </div>
     </div>
 
-    <!-- Past Hangouts Showcase: Distinct Scrapbook/Polaroid Visual Layout -->
+    <!-- Past Hangouts Showcase: Polaroid Style -->
     <section class="mt-16 pt-10 border-t border-zinc-200">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6">
         <div>
@@ -434,7 +428,6 @@
   <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('booking-modal')">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden">
       
-      <!-- Modal Header with Progress Breadcrumb -->
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between">
         <div>
           <div class="flex items-center gap-2 text-xs text-red-100 font-semibold mb-0.5">
@@ -451,7 +444,7 @@
       <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="p-5 sm:p-6 space-y-4 max-h-[85vh] overflow-y-auto custom-scrollbar">
         <input type="hidden" id="booking-event-id">
 
-        <!-- STEP 1 CONTAINER: Contact & Quantity -->
+        <!-- STEP 1 CONTAINER -->
         <div id="booking-step-1" class="space-y-3.5">
           <div>
             <label class="block text-xs font-bold text-zinc-700 uppercase mb-1">Your Full Name <span class="text-red-500">*</span></label>
@@ -490,9 +483,8 @@
           </button>
         </div>
 
-        <!-- STEP 2 CONTAINER: Contribution, Payment & Confirmation -->
+        <!-- STEP 2 CONTAINER -->
         <div id="booking-step-2" class="hidden space-y-4">
-          <!-- Pricing Tier Selector -->
           <div>
             <div class="flex items-center justify-between mb-1.5">
               <label class="block text-xs font-bold text-zinc-700 uppercase">Contribution Amount</label>
@@ -522,7 +514,6 @@
             </div>
           </div>
 
-          <!-- Payment Options -->
           <div>
             <label class="block text-xs font-bold text-zinc-700 uppercase mb-1.5">Choose Payment Method</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -559,7 +550,7 @@
               </label>
             </div>
 
-            <!-- Dynamic Credit Card Fee Coverage Panel -->
+            <!-- Card 2.9% Fee Panel -->
             <div id="panel-card" class="mt-3 p-3 bg-zinc-50 border border-zinc-200 rounded-xl flex items-center justify-between text-xs">
               <label class="flex items-center gap-2 cursor-pointer select-none">
                 <input type="checkbox" id="cover-processing-fee" onchange="updateBookingTotal()" class="rounded text-[#be1e2d] focus:ring-[#be1e2d]">
@@ -568,7 +559,7 @@
               <span class="font-bold text-zinc-900 ml-2 whitespace-nowrap" id="fee-amount-label">+$4.35</span>
             </div>
 
-            <!-- Dynamic P2P Instructions: Live QR Code & Venmo Deep Link -->
+            <!-- P2P Live QR & Handle Panel -->
             <div id="panel-p2p" class="hidden mt-3 p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-3 text-xs">
               <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3.5">
                 <div class="bg-white p-2 rounded-lg border border-blue-200 shadow-xs shrink-0 text-center">
@@ -606,14 +597,14 @@
               </div>
             </div>
 
-            <!-- Dynamic FACTS Student Legal Name Panel -->
+            <!-- Student Legal Name Panel -->
             <div id="panel-student-account" class="hidden mt-3 p-3.5 bg-purple-50/70 border border-purple-200 rounded-xl space-y-2 text-xs">
               <label class="block font-bold text-purple-950">Child's Full Legal Name (for FACTS Billing): <span class="text-red-500">*</span></label>
               <input type="text" id="billing-student-name" placeholder="e.g., Maya Lin" class="w-full px-3 py-2 rounded-lg border border-purple-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-purple-500">
               <p class="text-[10px] text-purple-800">Your donation will be added to your family's next monthly school billing invoice.</p>
             </div>
 
-            <!-- Dynamic Check/Cash Instructions -->
+            <!-- Check/Cash Panel -->
             <div id="panel-check-cash" class="hidden mt-3 p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1 text-xs text-amber-950">
               <p class="font-bold">Front Desk Instructions:</p>
               <p class="text-[11px] leading-relaxed">Make checks payable to <strong>Hollywood Schoolhouse</strong> (Memo: <em>Hosted Hangouts</em>) or bring cash in a labeled envelope to the Front Desk within 3 school days.</p>
@@ -691,7 +682,7 @@
     </div>
   </div>
 
-  <!-- Host Pitch Modal with "Host With a Friend" Support -->
+  <!-- Host Pitch Modal -->
   <div id="host-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('host-modal')">
     <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
@@ -787,7 +778,7 @@
     </div>
   </div>
 
-  <!-- Ideas Guide Modal with Feasibility Badges -->
+  <!-- Ideas Guide Modal -->
   <div id="ideas-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('ideas-modal')">
     <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
       <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
@@ -836,30 +827,42 @@
     </div>
   </div>
 
-  <!-- Cheat Sheet Modal -->
-  <div id="cheatsheet-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('cheatsheet-modal')">
-    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh]">
-      <div class="px-5 py-4 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-2">
+  <!-- ENHANCED QUESTIONS & CHEAT SHEET MODAL (With Zoom Controls & High Readability) -->
+  <div id="cheatsheet-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 modal-backdrop hidden" onclick="if(event.target === this) closeModal('cheatsheet-modal')">
+    <div class="bg-white w-full max-w-5xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[96vh]">
+      <div class="px-5 py-3.5 bg-[#be1e2d] text-white flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
           <i data-lucide="help-circle" class="w-5 h-5 text-white"></i>
           <div>
             <h3 class="font-bold text-base sm:text-lg font-heading leading-tight">Hosted Hangouts Questions & Cheat Sheet</h3>
-            <p class="text-xs text-red-100">Everything you need to know about hosting and attending</p>
+            <p class="text-[11px] text-red-100">Everything you need to know about hosting, attending, and fundraising</p>
           </div>
         </div>
-        <button onclick="closeModal('cheatsheet-modal')" class="text-white/80 hover:text-white p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+
+        <div class="flex items-center gap-2">
+          <!-- Zoom Controls for Desktop & Mobile -->
+          <div class="inline-flex rounded-lg bg-black/25 p-0.5 border border-white/20 text-white items-center">
+            <button type="button" onclick="zoomCheatSheet(-0.25)" class="px-2 py-1 hover:bg-white/20 rounded font-bold text-xs" title="Zoom Out">−</button>
+            <span id="cheatsheet-zoom-val" class="px-2 text-[11px] font-mono font-bold">100%</span>
+            <button type="button" onclick="zoomCheatSheet(0.25)" class="px-2 py-1 hover:bg-white/20 rounded font-bold text-xs" title="Zoom In">+</button>
+            <button type="button" onclick="resetCheatSheetZoom()" class="px-2 py-1 hover:bg-white/20 rounded text-[10px] font-bold border-l border-white/20" title="Reset Zoom">Reset</button>
+          </div>
+
+          <button onclick="closeModal('cheatsheet-modal')" class="text-white/80 hover:text-white p-1 rounded-md hover:bg-white/10 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
       </div>
       
-      <div class="p-3 sm:p-6 overflow-y-auto custom-scrollbar flex items-center justify-center bg-zinc-900/95 flex-1">
-        <img src="HH%20cheat%20sheet.jpg" onerror="this.onerror=null; this.src='HH cheat sheet.jpg';" alt="Hosted Hangouts Cheat Sheet" class="w-full h-auto max-h-[75vh] object-contain rounded-lg shadow-lg">
+      <!-- Scrollable Container with Pan & Zoom support -->
+      <div class="p-2 sm:p-4 overflow-auto custom-scrollbar flex items-start justify-center bg-zinc-900 flex-1 min-h-[400px]">
+        <img id="cheatsheet-img" src="HH%20cheat%20sheet.jpg" onerror="this.onerror=null; this.src='HH cheat sheet.jpg';" alt="Hosted Hangouts Cheat Sheet" ondblclick="zoomCheatSheet(0.5)" class="max-w-none w-full transition-transform duration-200 origin-top rounded-lg shadow-2xl cursor-zoom-in" style="transform: scale(1.0);">
       </div>
 
-      <div class="p-3.5 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between text-xs text-zinc-600 shrink-0">
-        <span>Still have a question? Email <a href="mailto:hangouts@hshla.org" class="font-bold text-[#be1e2d] underline">hangouts@hshla.org</a></span>
+      <div class="p-3 bg-zinc-50 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-600 shrink-0">
+        <span class="text-[11px]">💡 Tip: Use the <strong>+ / − buttons</strong> above, or <strong>pinch with two fingers / double-tap</strong> on mobile to zoom in on small print.</span>
         <button onclick="closeModal('cheatsheet-modal')" class="px-4 py-1.5 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-semibold transition">
-          Close
+          Close Window
         </button>
       </div>
     </div>
@@ -1038,6 +1041,7 @@
     let activeBookingHangout = null;
     let activePricingTier = 'standard';
     let lastBookedReservation = null;
+    let currentCheatSheetZoom = 1.0;
 
     async function initCatalogFromServer() {
       if (!API_BASE_URL) return;
@@ -1049,6 +1053,7 @@
           if (data.pastShowcase && Array.isArray(data.pastShowcase)) pastShowcaseItems = data.pastShowcase;
           renderCards();
           renderPastShowcase();
+          renderCalendar();
         }
       } catch (err) {
         console.warn("Could not reach API server, continuing with client-side cache:", err);
@@ -1090,7 +1095,6 @@
           const spotsLeft = h.spotsRemaining !== undefined ? h.spotsRemaining : (h.totalSpots - spotsCount);
           const isFull = spotsLeft <= 0;
 
-          // Status Badge Pill Logic
           let statusPill = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/90 text-white backdrop-blur-sm">Open</span>`;
           if (isFull) {
             statusPill = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-zinc-800 text-white backdrop-blur-sm">Sold Out</span>`;
@@ -1191,7 +1195,157 @@
       safeLucide();
     }
 
-    // PROGRESSIVE BOOKING MULTI-STEP LOGIC
+    // 2. CALENDAR ENGINE & INTERACTIVE BUTTONS
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function toggleCalendarView(showCalendar) {
+      const cardsEl = document.getElementById('cards-container');
+      const pillsEl = document.getElementById('category-pills-bar');
+      const calEl = document.getElementById('calendar-container');
+      const cardsBtn = document.getElementById('view-cards-btn');
+      const calBtn = document.getElementById('view-cal-btn');
+
+      if (showCalendar) {
+        if (cardsEl) cardsEl.classList.add('hidden');
+        if (pillsEl) pillsEl.classList.add('hidden');
+        if (calEl) calEl.classList.remove('hidden');
+        if (calBtn) calBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition";
+        if (cardsBtn) cardsBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition";
+        renderCalendar();
+        if (calEl) calEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        if (cardsEl) cardsEl.classList.remove('hidden');
+        if (pillsEl) pillsEl.classList.remove('hidden');
+        if (calEl) calEl.classList.add('hidden');
+        if (cardsBtn) cardsBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-semibold bg-[#be1e2d] text-white flex items-center justify-center gap-1.5 transition";
+        if (calBtn) calBtn.className = "flex-1 sm:flex-none px-3.5 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-950 flex items-center justify-center gap-1.5 transition";
+      }
+      safeLucide();
+    }
+
+    function prevMonth() {
+      calMonth--;
+      if (calMonth < 0) { calMonth = 11; calYear--; }
+      syncCalendarHeader();
+      renderCalendar();
+    }
+
+    function nextMonth() {
+      calMonth++;
+      if (calMonth > 11) { calMonth = 0; calYear++; }
+      syncCalendarHeader();
+      renderCalendar();
+    }
+
+    function onSelectMonthDropdown(val) {
+      const [y, m] = val.split('-');
+      calYear = parseInt(y, 10);
+      calMonth = parseInt(m, 10) - 1;
+      syncCalendarHeader();
+      renderCalendar();
+    }
+
+    function jumpToCurrentMonth() {
+      const now = new Date();
+      calYear = now.getFullYear();
+      calMonth = now.getMonth();
+      syncCalendarHeader();
+      renderCalendar();
+    }
+
+    function syncCalendarHeader() {
+      const label = document.getElementById('calendar-month-label');
+      if (label) label.textContent = `${monthNames[calMonth]} ${calYear}`;
+      const selectMonth = document.getElementById('calendar-select-month');
+      const valStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}`;
+      if (selectMonth) selectMonth.value = valStr;
+    }
+
+    function renderCalendar() {
+      try {
+        const grid = document.getElementById('calendar-days-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        syncCalendarHeader();
+
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        const realToday = new Date();
+        const isCurrentMonthView = (realToday.getFullYear() === calYear && realToday.getMonth() === calMonth);
+        const realTodayDate = realToday.getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+          const blank = document.createElement('div');
+          blank.className = "min-h-[95px] sm:min-h-[105px] bg-zinc-50/70 p-2 text-zinc-300 text-xs";
+          grid.appendChild(blank);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const dayHangouts = hangouts.filter(h => h.date === dateStr);
+          const daySchool = schoolEvents.filter(s => s.date === dateStr);
+          const isToday = (isCurrentMonthView && day === realTodayDate);
+
+          const cell = document.createElement('div');
+          cell.className = `min-h-[95px] sm:min-h-[105px] p-2 flex flex-col justify-between transition border-t border-zinc-100 ${
+            isToday ? 'bg-red-50/60 ring-2 ring-[#be1e2d] ring-inset relative' : 'bg-white hover:bg-zinc-50'
+          }`;
+          
+          let eventsHtml = '';
+          dayHangouts.forEach(h => {
+            eventsHtml += `
+              <div onclick="openBooking(${h.id})" class="cursor-pointer text-[10px] bg-red-100/90 border border-red-300 text-red-950 px-1.5 py-1 rounded font-semibold truncate hover:bg-red-200 transition mb-1 shadow-xs" title="${h.title}">
+                🎉 ${h.title}
+              </div>
+            `;
+          });
+
+          daySchool.forEach(s => {
+            eventsHtml += `
+              <div class="text-[10px] bg-blue-50 border border-blue-200 text-blue-900 px-1.5 py-1 rounded font-medium truncate mb-1" title="${s.title}">
+                🏫 ${s.title}
+              </div>
+            `;
+          });
+
+          cell.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold ${isToday ? 'w-5 h-5 rounded-full bg-[#be1e2d] text-white flex items-center justify-center font-black' : 'text-zinc-700'}">
+                  ${day}
+                </span>
+                ${isToday ? `<span class="text-[8px] font-black uppercase text-[#be1e2d] tracking-wider bg-red-100 px-1 rounded">Today</span>` : ''}
+              </div>
+              <div class="mt-1">${eventsHtml}</div>
+            </div>
+          `;
+          grid.appendChild(cell);
+        }
+      } catch (err) {
+        console.error("Error in renderCalendar:", err);
+      }
+      safeLucide();
+    }
+
+    // 3. QUESTIONS MODAL ZOOM CONTROLS
+    function zoomCheatSheet(delta) {
+      currentCheatSheetZoom = Math.min(3.0, Math.max(0.75, currentCheatSheetZoom + delta));
+      applyCheatSheetZoom();
+    }
+
+    function resetCheatSheetZoom() {
+      currentCheatSheetZoom = 1.0;
+      applyCheatSheetZoom();
+    }
+
+    function applyCheatSheetZoom() {
+      const img = document.getElementById('cheatsheet-img');
+      const zoomVal = document.getElementById('cheatsheet-zoom-val');
+      if (img) img.style.transform = `scale(${currentCheatSheetZoom})`;
+      if (zoomVal) zoomVal.textContent = `${Math.round(currentCheatSheetZoom * 100)}%`;
+    }
+
+    // 4. PROGRESSIVE BOOKING MULTI-STEP LOGIC
     function openBooking(hangoutId) {
       activeBookingHangout = hangouts.find(h => h.id === hangoutId);
       if (!activeBookingHangout) return;
@@ -1199,7 +1353,6 @@
       document.getElementById('booking-event-id').value = activeBookingHangout.id;
       document.getElementById('booking-event-title').textContent = activeBookingHangout.title;
 
-      // Smart spot capacity enforcement in dropdown
       const spotsCount = activeBookingHangout.spotsTaken !== undefined ? activeBookingHangout.spotsTaken : (activeBookingHangout.attendees ? activeBookingHangout.attendees.length : 4);
       const spotsRemaining = Math.max(1, activeBookingHangout.totalSpots - spotsCount);
       const spotsSelect = document.getElementById('book-spots');
@@ -1375,7 +1528,6 @@
       closeModal('booking-modal');
       e.target.reset();
 
-      // Show dedicated in-page receipt & calendar modal
       document.getElementById('confirm-modal-event').textContent = lastBookedReservation.title;
       document.getElementById('confirm-modal-date').textContent = lastBookedReservation.displayDate;
       document.getElementById('confirm-modal-loc').textContent = lastBookedReservation.location;
@@ -1383,7 +1535,6 @@
       openModal('confirmation-modal');
     }
 
-    // AUTOMATIC .ICS CALENDAR INVITATION GENERATION
     function downloadCalendarICS() {
       if (!lastBookedReservation) return;
       const icsData = [
@@ -1410,14 +1561,6 @@
       document.body.removeChild(link);
     }
 
-    function claimIdeaFromWishlist(ideaTitle, category) {
-      openHostModal();
-      document.getElementById('pitch-title').value = ideaTitle;
-      const catSelect = document.getElementById('pitch-cat');
-      if (catSelect) catSelect.value = category;
-      document.getElementById('pitch-host').focus();
-    }
-
     function renderIdeasGuideGrid() {
       const grid = document.getElementById('ideas-catalog-grid');
       if (!grid) return;
@@ -1434,7 +1577,7 @@
             <h5 class="text-sm font-bold text-zinc-900 leading-snug font-heading">${idea.title}</h5>
             <p class="text-xs text-zinc-600 mt-1">${idea.desc}</p>
           </div>
-          <button onclick="claimIdeaFromWishlist('${idea.title.replace(/'/g, "\\'")}', '${idea.category}')" class="mt-3 w-full py-1.5 rounded-lg bg-zinc-900 hover:bg-[#be1e2d] text-white font-bold text-xs transition flex items-center justify-center gap-1">
+          <button onclick="claimIdeaFromGuide('${idea.title.replace(/'/g, "\\'")}', '${idea.category}')" class="mt-3 w-full py-1.5 rounded-lg bg-zinc-900 hover:bg-[#be1e2d] text-white font-bold text-xs transition flex items-center justify-center gap-1">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i> Host This Concept
           </button>
         `;
@@ -1443,14 +1586,222 @@
       safeLucide();
     }
 
+    function claimIdeaFromGuide(ideaTitle, category) {
+      closeModal('ideas-modal');
+      openHostModal();
+      document.getElementById('pitch-title').value = ideaTitle;
+      const catSelect = document.getElementById('pitch-cat');
+      if (catSelect) catSelect.value = category;
+      document.getElementById('pitch-host').focus();
+    }
+
     // Modal Helpers
     function openModal(id) { document.getElementById(id)?.classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
 
     function openHostModal() { openModal('host-modal'); }
-    function openCheatSheetModal() { openModal('cheatsheet-modal'); }
+    function openCheatSheetModal() { 
+      resetCheatSheetZoom();
+      openModal('cheatsheet-modal'); 
+    }
     function openTrackerModal() { openModal('tracker-modal'); renderTrackerList(); }
     function openIdeasGuideModal() { openModal('ideas-modal'); renderIdeasGuideGrid(); }
+
+    function viewAttendees(hangoutId) {
+      const h = hangouts.find(item => item.id === hangoutId);
+      if (!h) return;
+
+      const spotsCount = h.spotsTaken !== undefined ? h.spotsTaken : (h.attendees ? h.attendees.length : 4);
+      document.getElementById('modal-attendees-title').textContent = h.title;
+      document.getElementById('modal-attendees-sub').textContent = `Hosted by ${h.host} • ${spotsCount} Signed Up (${h.totalSpots - spotsCount} spots remaining)`;
+
+      const listContainer = document.getElementById('modal-attendees-list');
+      listContainer.innerHTML = '';
+
+      if (!h.attendees || h.attendees.length === 0) {
+        listContainer.innerHTML = `<p class="text-sm text-zinc-500 italic text-center py-4">No one has registered yet. Be the first to join!</p>`;
+      } else {
+        h.attendees.forEach(a => {
+          const row = document.createElement('div');
+          row.className = "flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-zinc-50 border border-zinc-200";
+          row.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#be1e2d]/10 text-[#be1e2d] font-bold flex items-center justify-center text-xs">${a.name.charAt(0)}</div>
+              <div>
+                <div class="font-bold text-xs sm:text-sm text-zinc-900">${a.name}</div>
+                <div class="text-[10px] sm:text-[11px] text-zinc-500">Attendee</div>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-zinc-200 text-zinc-700">${a.grade}</span>
+          `;
+          listContainer.appendChild(row);
+        });
+      }
+      openModal('attendees-modal');
+      safeLucide();
+    }
+
+    function setCategoryFilter(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#be1e2d] text-white transition whitespace-nowrap shadow-sm";
+        } else {
+          btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-400 transition whitespace-nowrap";
+        }
+      });
+      renderCards();
+    }
+
+    function handleBrowseFilter(value) {
+      if (value === 'view-calendar') {
+        toggleCalendarView(true);
+      } else {
+        toggleCalendarView(false);
+        if (value === 'parents-only') {
+          currentGrade = 'Parents Only';
+          document.getElementById('grade-filter-select').value = 'Parents Only';
+          currentSort = 'default';
+        } else if (value === 'sort-date') {
+          currentSort = 'date';
+        } else if (value === 'sort-cost') {
+          currentSort = 'cost';
+        } else {
+          currentGrade = 'all';
+          currentSort = 'default';
+          document.getElementById('grade-filter-select').value = 'all';
+        }
+        renderCards();
+      }
+    }
+
+    function handleGradeFilter(grade) {
+      currentGrade = grade;
+      toggleCalendarView(false);
+      renderCards();
+    }
+
+    function handleHostPitch(e) {
+      e.preventDefault();
+      const host = document.getElementById('pitch-host').value.trim();
+      const cohost = document.getElementById('pitch-cohost')?.value.trim();
+      const title = document.getElementById('pitch-title').value.trim();
+      const cat = document.getElementById('pitch-cat').value;
+      const grade = document.getElementById('pitch-grade').value;
+      const cost = parseInt(document.getElementById('pitch-cost').value, 10);
+      const spots = parseInt(document.getElementById('pitch-spots').value, 10);
+      const datetime = document.getElementById('pitch-datetime').value.trim();
+      const desc = document.getElementById('pitch-desc').value.trim();
+
+      const combinedHost = cohost ? `${host} & ${cohost}` : host;
+
+      const newHangout = {
+        id: Date.now(),
+        title: title,
+        host: combinedHost,
+        category: cat,
+        grade: grade,
+        status: "Open",
+        date: "2026-12-19",
+        displayDate: datetime,
+        location: "Host Residence / Campus",
+        price: cost,
+        totalSpots: spots,
+        image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80",
+        description: desc,
+        attendees: []
+      };
+
+      hangouts.unshift(newHangout);
+      closeModal('host-modal');
+      e.target.reset();
+
+      renderCards();
+      safeLucide();
+    }
+
+    function openShowcaseGallery(key) {
+      activeGalleryKey = key;
+      activePhotoIndex = 0;
+      const g = pastGalleries[key];
+      if (!g) return;
+
+      const titleEl = document.getElementById('gallery-title');
+      if (titleEl) titleEl.textContent = g.title;
+      renderActiveGalleryPhoto();
+      openModal('gallery-lightbox-modal');
+    }
+
+    function renderActiveGalleryPhoto() {
+      const g = pastGalleries[activeGalleryKey];
+      if (!g || !g.images || !g.images.length) return;
+
+      const photo = g.images[activePhotoIndex];
+      const mainImg = document.getElementById('gallery-main-img');
+      const counter = document.getElementById('gallery-counter');
+      if (mainImg) {
+        mainImg.src = photo.src;
+        mainImg.alt = photo.label;
+      }
+      if (counter) {
+        counter.textContent = `${photo.label} (${activePhotoIndex + 1} of ${g.images.length})`;
+      }
+
+      const thumbsStrip = document.getElementById('gallery-thumbs-strip');
+      const prevBtn = document.getElementById('gallery-prev-btn');
+      const nextBtn = document.getElementById('gallery-next-btn');
+
+      if (thumbsStrip) {
+        thumbsStrip.innerHTML = '';
+        if (g.images.length <= 1) {
+          thumbsStrip.classList.add('hidden');
+          if (prevBtn) prevBtn.classList.add('hidden');
+          if (nextBtn) nextBtn.classList.add('hidden');
+        } else {
+          thumbsStrip.classList.remove('hidden');
+          if (prevBtn) prevBtn.classList.remove('hidden');
+          if (nextBtn) nextBtn.classList.remove('hidden');
+
+          g.images.forEach((imgObj, idx) => {
+            const thumb = document.createElement('img');
+            thumb.src = imgObj.src;
+            thumb.className = `w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-md cursor-pointer transition border-2 ${
+              idx === activePhotoIndex ? 'border-[#be1e2d] scale-105 opacity-100' : 'border-transparent opacity-60 hover:opacity-90'
+            }`;
+            thumb.onclick = () => {
+              activePhotoIndex = idx;
+              renderActiveGalleryPhoto();
+            };
+            thumbsStrip.appendChild(thumb);
+          });
+        }
+      }
+      safeLucide();
+    }
+
+    function prevGalleryPhoto() {
+      const g = pastGalleries[activeGalleryKey];
+      if (!g || g.images.length <= 1) return;
+      activePhotoIndex = (activePhotoIndex - 1 + g.images.length) % g.images.length;
+      renderActiveGalleryPhoto();
+    }
+
+    function nextGalleryPhoto() {
+      const g = pastGalleries[activeGalleryKey];
+      if (!g || g.images.length <= 1) return;
+      activePhotoIndex = (activePhotoIndex + 1) % g.images.length;
+      renderActiveGalleryPhoto();
+    }
+
+    function openImagePreview(imgSrc, title) {
+      const modal = document.getElementById('image-preview-modal');
+      const img = document.getElementById('image-preview-img');
+      const titleEl = document.getElementById('image-preview-title');
+      if (!modal || !img) return;
+      img.src = imgSrc;
+      if (titleEl) titleEl.textContent = title || 'Event Image';
+      openModal('image-preview-modal');
+    }
 
     function renderTrackerList() {
       const container = document.getElementById('active-tracker-container');
@@ -1481,6 +1832,7 @@
     function initAll() {
       renderCards();
       renderPastShowcase();
+      renderCalendar();
       renderIdeasGuideGrid();
       safeLucide();
       initCatalogFromServer();
